@@ -19,7 +19,7 @@
 
 		//get row length,  rowCount=2(first time have default one row, 3, 4,...)
 		var rowCount = table.rows.length
-		var row = table.insertRow(rowCount); //***copy row
+		var row = table.insertRow(rowCount); //*get rows
 
 		
 		//Cell 1  = serial number 
@@ -28,11 +28,11 @@
 		
 		//Cell 2  
 		var cell2 = row.insertCell(1);		
-			var colCount = table.rows[1].cells.length;//every second row of table=rows[1], colCount=6
+			var colCount = table.rows[1].cells.length;//every second row from * =rows[1], colCount=6
 			for(var i=1; i<colCount; i++) //start from second column
 			{							
-			    var newcell	= row.insertCell(i); //***copy a column from second row
-				newcell.innerHTML = table.rows[1].cells[i].innerHTML; //SET = GET (a copied column from second row)
+			    var newcell	= row.insertCell(i); //**get a column from second row
+				newcell.innerHTML = table.rows[1].cells[i].innerHTML; //SET = GET (**)
 			}
 	}
 	</SCRIPT>
@@ -69,11 +69,14 @@
 					     </td>
 					     
 						<td>
-								<select id="mySelect">
-									<c:forEach items="${itemList}" var="itemList">
-										<option value="${itemList.categoryModel.categoryName}" id="categoryName">${itemList.categoryModel.categoryName}</option>
+								<select id="mySelect">							
+									<c:forEach items="${categoryList}" var="categoryList">
+										<option value="${categoryList.categoryId}">${categoryList.categoryName} </option>
 									</c:forEach>
-								</select>							
+							    </select>
+							 <%--  <c:forEach items="${itemList}" var="itemList">
+								<option value="${itemList.categoryModel.categoryName}" id="categoryName">${itemList.categoryModel.categoryName}</option>
+							</c:forEach> --%>												
 						</td>
 						
 						<td>
