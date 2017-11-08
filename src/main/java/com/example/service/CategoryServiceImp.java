@@ -3,6 +3,7 @@ package com.example.service;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,14 @@ public class CategoryServiceImp implements CategoryService {
 	public ArrayList<Category> findAllCategory() {
 		ArrayList<Category> categoryList = repository.findAllCategory();
 		return categoryList;
+	}
+
+
+
+	@Override
+	public String findCategoryName(Integer id) {
+		String catName = repository.findCategoryName(id);
+		return catName;
 	}
 
 
