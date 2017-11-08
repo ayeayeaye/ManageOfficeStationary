@@ -35,12 +35,21 @@
 				newcell.innerHTML = table.rows[1].cells[i].innerHTML; //SET = GET (**)
 			}
 			
-		    var x = document.getElementById("mySelect").selectedIndex;
-		    var y = document.getElementById("mySelect").options;
+		    var x = document.getElementById("myCatSelect").selectedIndex;
+		    var y = document.getElementById("myCatSelect").options;
 		    var seleIndex = y[x].index;
 		    var seleText = y[x].text;
-		    alert("Index: " + seleIndex + " is " + seleText);
+		    //alert("Index: " + seleIndex + " is " + seleText);
+		    
+			var length = document.getElementById('myItemSelect').length;
+			var array = [];			
+			for (var i = 0; i < length  ; i++) {
+			
+					var t= document.getElementById('myItemSelect').options[i].text ;
+					array.push(t);
+			}
 		    	   
+			alert(array[1]);
 			
 /* 		var cell2 = row.insertCell(1); 	
 		var length = document.getElementById('mySelect').length;
@@ -123,7 +132,7 @@
 					
 <%-- 						<form:form  method="POST" action="${pageContext.request.contextPath}/staff/create/request.html" commandName="category">																		
  								<select id="mySelect" name="selectCategory" onchange="this.form.submit()">	
- 	--%>						<select id="mySelect" name="selectCategory" onclick="oneCatItemFunction()">													
+ 	--%>						<select id="myCatSelect" name="selectCategory" onclick="oneCatItemFunction()">													
 									<c:forEach items="${categoryList}" var="categoryList">
 										<option value="${categoryList.categoryId}">${categoryList.categoryName} </option>
 									</c:forEach>							
@@ -137,7 +146,7 @@
 						</td>
 						
 						<td>
-								<select size="5">
+								<select size="5" id="myItemSelect">
 									<c:forEach items="${itemList}" var="itemList">
 										<option value="${itemList.categoryModel.categoryName}" id="itemName">${itemList.itemName}</option>
 									</c:forEach>
