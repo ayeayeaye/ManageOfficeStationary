@@ -28,28 +28,20 @@
 		
 		//Cell 2  
   		var cell2 = row.insertCell(1);		
-			var colCount = table.rows[1].cells.length;//every second row from * =rows[1], colCount=6
+/* 			var colCount = table.rows[1].cells.length;//every second row from * =rows[1], colCount=6			
 			for(var i=1; i<colCount; i++) //start from second column
 			{							
 			    var newcell	= row.insertCell(i); //**get a column from second row
 				newcell.innerHTML = table.rows[1].cells[i].innerHTML; //SET = GET (**)
-			}
-			
-		    var x = document.getElementById("myCatSelect").selectedIndex;
-		    var y = document.getElementById("myCatSelect").options;
-		    var seleIndex = y[x].index;
-		    var seleText = y[x].text;
-		    //alert("Index: " + seleIndex + " is " + seleText);
-		    
-			var length = document.getElementById('myItemSelect').length;
-			var array = [];			
-			for (var i = 0; i < length  ; i++) {
-			
-					var t= document.getElementById('myItemSelect').options[i].text ;
-					array.push(t);
-			}
-		    	   
-			alert(array[1]);
+			} */
+			//
+		  var selectItem=document.getElementById("myItemSelect") 
+		  var length = document.getElementById("myItemSelect").length;
+			for (var i = 0; i < length  ; i++)
+			{
+			  var s = s + selectItem.options[i].text;
+			  cell2.innerHTML = s;
+			}	
 			
 /* 		var cell2 = row.insertCell(1); 	
 		var length = document.getElementById('mySelect').length;
@@ -91,8 +83,26 @@
 
 	}
 	
-	function oneCatItemFunction() {
+	function oneCatItemFunction(selectID) {
+	    var x = document.getElementById("myCatSelect").selectedIndex;
+	    var y = document.getElementById("myCatSelect").options;
+	    var seleCatIndex = y[x].index;
+	    var seleCatText = y[x].text;
+	   alert(seleCatText);
+	    	
+	    var length = document.getElementById("myItemSelect").length;
+		var selectItem=document.getElementById("myItemSelect") 
+		//alert(selectItem.options[0].value +"---"+selectItem.options[1].value+"---"+selectItem.options[2].value);
 		
+		for (var j = 0; j < length  ; j++)
+		{
+			if(seleCatText != selectItem.options[j].value  )
+			{
+				selectItem.remove(j); 
+				//alert(i+"-->"+"No");				 
+			}
+			
+		}
 	}
 	</SCRIPT>
 	
@@ -104,10 +114,7 @@
 
 
 	<c:if test="${fn:length(itemList) gt 0}">
-		<div class="table-responsive">
-					
-					
-								
+		<div class="table-responsive">							
 			<table class="table table-hover " id="dataTable">
 				<thead>
 					<tr class="listHeading">
@@ -118,8 +125,7 @@
 						<th>Unit</th>
 					</tr>
 				</thead>
-				<tbody>
-		
+				<tbody>	
 						<tr class="listBody">
 
 						  <td>1
@@ -128,48 +134,40 @@
 							     </c:forEach> --%> 						
 					     </td>
 					     
-						<td>
-					
+						<td>				
 <%-- 						<form:form  method="POST" action="${pageContext.request.contextPath}/staff/create/request.html" commandName="category">																		
  								<select id="mySelect" name="selectCategory" onchange="this.form.submit()">	
- 	--%>						<select id="myCatSelect" name="selectCategory" onclick="oneCatItemFunction()">													
-									<c:forEach items="${categoryList}" var="categoryList">
-										<option value="${categoryList.categoryId}">${categoryList.categoryName} </option>
+ 	--%>						<select id="myCatSelect" name="selectCategory" onchange="oneCatItemFunction('dataSelect')">													
+									<option>Select--- </option>
+									<c:forEach items="${categoryList}" var="categoryList">								
+										<option value="${categoryList.categoryId}">${categoryList.categoryId} </option>
 									</c:forEach>							
 							    </select>				
-<%-- 						</form:form> --%>
-						
+<%-- 						</form:form> --%>						
 					   <%--  <c:forEach items="${itemList}" var="itemList">
 								<option value="${itemList.categoryModel.categoryName}" id="categoryName">${itemList.categoryModel.categoryName}</option>
-							</c:forEach> --%>		
-																
+							</c:forEach> --%>																	
 						</td>
 						
 						<td>
 								<select size="5" id="myItemSelect">
 									<c:forEach items="${itemList}" var="itemList">
-										<option value="${itemList.categoryModel.categoryName}" id="itemName">${itemList.itemName}</option>
+										<option value="${itemList.category}" id="itemName">${itemList.category}-${itemList.itemName}</option>
 									</c:forEach>
 								</select>
 						</td>
 						
-						<td> 
-									<INPUT TYPE="TEXT" NAME="text1"><br/>
-						</td>
+						<td> <INPUT TYPE="TEXT" NAME="text1"><br/></td>
 						
 						<td>
-								<select>
-									<c:forEach items="${itemList}" var="itemList">
-										<option value="${itemList.unit}" >${itemList.unit}</option>
-									</c:forEach>
-								</select>
+							<select>
+								<c:forEach items="${itemList}" var="itemList">
+									<option value="${itemList.unit}" >${itemList.unit}</option>
+								</c:forEach>
+							</select>
 						</td>
 						
-						<td>
-						 	<INPUT type="button" value="Remove"  />
-						</td>
-					
-						<td>${categorya}</td>
+						<td><INPUT type="button" value="Remove"  /></td>
 						
 						</tr>				
 				</tbody>
