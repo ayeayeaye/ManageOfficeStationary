@@ -17,8 +17,8 @@ import javax.persistence.Table;
 public class Department {
 
 	@Id
-	@Column(name = "department_id")
-	private int departmentId;
+	@Column(name = "department_code")
+	private String departmentCode;
 	
 	@Column(name = "department_name")
 	private String departmentName;
@@ -37,10 +37,10 @@ public class Department {
 	
 
 
-	public Department(int departmentId, String departmentName, String contactNumber, String departmentHead,
+	public Department(String departmentId, String departmentName, String contactNumber, String departmentHead,
 			String representative, int collectionpointId) {
 		super();
-		this.departmentId = departmentId;
+		this.departmentCode = departmentId;
 		this.departmentName = departmentName;
 		this.contactNumber = contactNumber;
 		this.departmentHead = departmentHead;
@@ -54,12 +54,12 @@ public class Department {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getDepartmentId() {
-		return departmentId;
+	public String getdepartmentCode() {
+		return departmentCode;
 	}
 
-	public void setDepartmentId(int departmentId) {
-		this.departmentId = departmentId;
+	public void setDepartmentCode(String departmentCode) {
+		this.departmentCode = departmentCode;
 	}
 
 	public String getDepartmentName() {
@@ -106,7 +106,7 @@ public class Department {
 
 	@Override
 	public String toString() {
-		return "Department [departmentId=" + departmentId + ", departmentName=" + departmentName + ", contactNumber="
+		return "Department [departmentCode=" + departmentCode + ", departmentName=" + departmentName + ", contactNumber="
 				+ contactNumber + ", departmentHead=" + departmentHead + ", representative=" + representative
 				+ ", collectionpointId=" + collectionpointId + "]";
 	}

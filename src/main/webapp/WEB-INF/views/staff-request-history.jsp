@@ -20,7 +20,7 @@
   
   <tr> 
   	<td>${counter.count}</td>
-    <td>${deptReqList.deptReqId}</td>
+    <td>${deptReqList.department}-${deptReqList.requestId}</td>
     <td>${deptReqList.employee} </td>
     <td>${deptReqList.deptStatus}</td>   
     <td>${deptReqList.reqDate}</td>

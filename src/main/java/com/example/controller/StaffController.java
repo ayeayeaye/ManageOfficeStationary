@@ -44,6 +44,7 @@ public class StaffController {
 	@Autowired
 	DepartmentService dService;
 	
+	//Read
 	@RequestMapping(value="/test")
 	public ModelAndView test(HttpSession session)
 	{
@@ -55,7 +56,7 @@ public class StaffController {
 		
 	}
 	
-	
+	//Create
 	@RequestMapping(value="/create/request")
 	public ModelAndView createNewRequest(HttpSession session, HttpServletRequest request)
 	{
@@ -71,12 +72,13 @@ public class StaffController {
 		
 	}
 	
+	//Read
 	@RequestMapping(value="/request/history")
 	public ModelAndView requestHistory(HttpSession session)
 	{
 		ModelAndView moView = new ModelAndView("staff-request-history");	
 		//int id = 11111; //example department code
-		ArrayList<Requests>  deptReqList= rService.findADeptRequest(22222);	
+		ArrayList<Requests>  deptReqList= rService.findADeptRequest("ENG");	
 		moView.addObject("deptReqList",deptReqList);
 	
 		return moView;

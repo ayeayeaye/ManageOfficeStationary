@@ -16,10 +16,10 @@ public class Requests {
 	@Id
 	@Column(name = "request_id")
 	private int requestId;
-	@Column(name = "dept_req_id")
-	private int deptReqId;
+	@Column(name = "drep_code")
+	private int drepCode;
 	@Column(name = "department")
-	private int department;
+	private String department;
 	@Column(name = "employee")
 	private int employee;
 	@Column(name = "dept_status")
@@ -41,11 +41,11 @@ public class Requests {
 	@JoinColumn(name="employee", insertable=false, updatable=false)//own column name
 	private Employee employeeModel;
 
-	public Requests(int requestId, int deptReqId, int department, int employee, String deptStatus, String storeStatus,
+	public Requests(int requestId, int drepCode, String department, int employee, String deptStatus, String storeStatus,
 			Date reqDate, Date approveDate, Date disburseDate, Department departmentModel, Employee employeeModel) {
 		super();
 		this.requestId = requestId;
-		this.deptReqId = deptReqId;
+		this.drepCode = drepCode;
 		this.department = department;
 		this.employee = employee;
 		this.deptStatus = deptStatus;
@@ -70,19 +70,19 @@ public class Requests {
 		this.requestId = requestId;
 	}
 
-	public int getDeptReqId() {
-		return deptReqId;
+	public int getDrepCode() {
+		return drepCode;
 	}
 
-	public void setDeptReqId(int deptReqId) {
-		this.deptReqId = deptReqId;
+	public void setDrepCode(int drepCode) {
+		this.drepCode = drepCode;
 	}
 
-	public int getDepartment() {
+	public String getDepartment() {
 		return department;
 	}
 
-	public void setDepartment(int department) {
+	public void setDepartment(String department) {
 		this.department = department;
 	}
 
@@ -152,10 +152,11 @@ public class Requests {
 
 	@Override
 	public String toString() {
-		return "Requests [requestId=" + requestId + ", deptReqId=" + deptReqId + ", department=" + department
+		return "Requests [requestId=" + requestId + ", drepCode=" + drepCode + ", department=" + department
 				+ ", employee=" + employee + ", deptStatus=" + deptStatus + ", storeStatus=" + storeStatus
 				+ ", reqDate=" + reqDate + ", approveDate=" + approveDate + ", disburseDate=" + disburseDate
 				+ ", departmentModel=" + departmentModel + ", employeeModel=" + employeeModel + "]";
 	}
+
 	
 }

@@ -8,6 +8,10 @@ public interface RequestService {
 
 	ArrayList<Requests> findStoreRequest();
 
-	ArrayList<Requests> findADeptRequest(Integer id);
+	ArrayList<Requests> findADeptRequest(String id);
+
+	Requests getRequestByReqId(Integer aRqId);
+
+	void changeRequest(Requests disbReq);
 
 }

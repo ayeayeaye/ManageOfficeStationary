@@ -14,6 +14,9 @@ public interface RequestRepository extends JpaRepository<Requests, String> {
 	ArrayList<Requests> findStoreRequest();
 	
 	@Query("SELECT e FROM Requests e where e.department = :id")
-	ArrayList<Requests> findADeptRequest(@Param("id") Integer id);
+	ArrayList<Requests> findADeptRequest(@Param("id") String id);
+	
+	@Query("SELECT e FROM Requests e where e.requestId = :aRqId")
+	Requests findRequestByReqId(@Param("aRqId") Integer aRqId);
 	
 }
