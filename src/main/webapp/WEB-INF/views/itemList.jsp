@@ -13,13 +13,13 @@
 
 
 	<c:if test="${fn:length(itemList) gt 0}">
-		<div class="table-responsive">
+		<div >
 		
-				<a href="${pageContext.request.contextPath}/staff/create/request.html"class="btn btn-success">Create</a>
+				<a href="${pageContext.request.contextPath}/staff/create/request.html"class="btn btn-success">Create New Request</a>
 								
-			<table class="table table-hover ">
+			<table class="table table-striped">
 				<thead>
-					<tr class="listHeading">
+					<tr>
 						<th>Id</th>
 						<th>Name</th>
 						<th>Category</th>
@@ -28,8 +28,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="item" items="${itemList}">
-						<tr class="listHeading">
-
+						<tr>
 							<td>${item.itemId}</td>
 							<td>${item.itemName}</td>
 							<td>${item.category}</td>

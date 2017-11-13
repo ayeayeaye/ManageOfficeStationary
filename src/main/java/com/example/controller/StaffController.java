@@ -23,10 +23,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.model.Category;
 import com.example.model.Department;
 import com.example.model.Item;
+import com.example.model.RequestDetail;
 import com.example.model.Requests;
 import com.example.service.CategoryService;
 import com.example.service.DepartmentService;
 import com.example.service.ItemService;
+import com.example.service.RequestDetailService;
 import com.example.service.RequestService;
 
 
@@ -43,6 +45,8 @@ public class StaffController {
 	RequestService rService;
 	@Autowired
 	DepartmentService dService;
+	@Autowired
+	RequestDetailService rdService;
 	
 	//Read
 	@RequestMapping(value="/test")
@@ -81,8 +85,19 @@ public class StaffController {
 		ArrayList<Requests>  deptReqList= rService.findADeptRequest("ENG");	
 		moView.addObject("deptReqList",deptReqList);
 	
-		return moView;
-		
+		return moView;		
+	}
+	
+	//Read
+	@RequestMapping(value="/request/detail/{reqId}")
+	public ModelAndView requestDetail(HttpSession session, @PathVariable Integer reqId)
+	{
+		ModelAndView moView = new ModelAndView("staff-request-detail");	
+		ArrayList<RequestDetail> reqDetList = rdService.findReqDetailByReqId(reqId);	
+		moView.addObject("reqDetList", reqDetList);		
+		Requests aReq =rService.findARequestByReqId(reqId);
+		moView.addObject("aReq", aReq);
+		return moView;	
 	}
 
 }

@@ -3,7 +3,7 @@
 <div class="panel panel-default">
 
 <div class="panel-heading" >
-<h3>Store Request History - All Department </h3>
+<h3>Store Request Pending - All Department </h3>
 </div>
 
 <div class="panel-body">
@@ -13,21 +13,18 @@
     <th>No</th>
     <th>Request ID</th>
     <th>Department</th>
-    <!-- <th>Employee</th> -->
     <th>Pending Date </th>
-    <th>Disbursed Date</th>
-    <th>Details</th>
+    <th>Detail</th>
   </tr>
   </thead>
-  <c:forEach items="${reqList}" var="reqList" varStatus="counter">	
+  <c:forEach items="${storeReqPendList}" var="reqList" varStatus="counter">	
   
   <tr> 
   	<td>${counter.count}</td>
   	<td>${reqList.department}-${reqList.drepCode}</td>
     <td>${reqList.departmentModel.departmentName}</td>
-    <%-- <td>${reqList.employeeModel.employeeName}</td> --%>
+   <%--  <td>	${reqList.employeeModel.employeeName} </td> --%>
     <td>${reqList.approveDate}</td>   
-    <td>${reqList.disburseDate}</td>
     <td><a href="${pageContext.request.contextPath}/store/request/detail/${reqList.requestId}.html" class="btn btn btn-primary">Detail</a></td>
    
   </tr>

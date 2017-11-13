@@ -17,9 +17,15 @@ public class RequestServiceImp implements RequestService {
 	private RequestRepository repository;
 	
 	@Override
-	public ArrayList<Requests> findStoreRequest() {
-		ArrayList<Requests> storeReqList =  repository.findStoreRequest();
-		return storeReqList;
+	public ArrayList<Requests> findStoreRequestPending() {
+		ArrayList<Requests> storeReqPendList =  repository.findStoreRequestPending();
+		return storeReqPendList;
+	}
+	
+	@Override
+	public ArrayList<Requests> findStoreRequestDisburse() {
+		ArrayList<Requests> storeReqDList =  repository.findStoreRequestDisburse();
+		return storeReqDList;
 	}
 
 	@Override
@@ -29,8 +35,8 @@ public class RequestServiceImp implements RequestService {
 	}
 
 	@Override
-	public Requests getRequestByReqId(Integer aRqId) {
-		Requests disbReq = repository.findRequestByReqId(aRqId);
+	public Requests findARequestByReqId(Integer aRqId) {
+		Requests disbReq = repository.findARequestByReqId(aRqId);
 		return disbReq;
 	}
 
@@ -38,6 +44,8 @@ public class RequestServiceImp implements RequestService {
 	public void changeRequest(Requests disbReq) {
 		repository.saveAndFlush(disbReq);		
 	}
+
+
 
 
 

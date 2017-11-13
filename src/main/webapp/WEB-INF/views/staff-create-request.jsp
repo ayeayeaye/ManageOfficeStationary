@@ -28,20 +28,14 @@
 		
 		//Cell 2  
   		var cell2 = row.insertCell(1);		
-/* 			var colCount = table.rows[1].cells.length;//every second row from * =rows[1], colCount=6			
+			var colCount = table.rows[1].cells.length;//every second row from * =rows[1], colCount=6			
 			for(var i=1; i<colCount; i++) //start from second column
 			{							
 			    var newcell	= row.insertCell(i); //**get a column from second row
 				newcell.innerHTML = table.rows[1].cells[i].innerHTML; //SET = GET (**)
-			} */
-			//
-		  var selectItem=document.getElementById("myItemSelect") 
-		  var length = document.getElementById("myItemSelect").length;
-			for (var i = 0; i < length  ; i++)
-			{
-			  var s = s + selectItem.options[i].text;
-			  cell2.innerHTML = s;
-			}	
+			} 
+			
+	
 			
 /* 		var cell2 = row.insertCell(1); 	
 		var length = document.getElementById('mySelect').length;
@@ -110,6 +104,9 @@
 
 
 <body>
+
+<div class='container'>
+
 	<h3>Request Item</h3>
 
 
@@ -174,11 +171,27 @@
 			</table>
 			
 			<!--   <INPUT type="button" value="Add Row" onclick="addRow('dataTable')" />  -->
-			<INPUT type="button" value="Add Row" onclick="addRow('dataTable')"/> 
-			
-			<a href ="${pageContext.request.contextPath}/staff/created.html" class="btn btn-success"> Submit </a>
+			<INPUT type="button" value="Add Row" onclick="addRow('dataTable')"  class="btn btn-success"/> <br /><br />
+		
 		</div>
 	</c:if>
+			
+	<div class='col-xs-5'>
+		<div class="row">
+			<div class="panel panel-info">
+				<div class="panel-heading">Reason To Request</div>	
+				<div class="panel-body">		
+					<textarea class="form-control" rows="4" ></textarea>	
+				</div>				
+			</div>
+		</div>
+
+		<div><a href ="${pageContext.request.contextPath}/staff/created.html" class="btn btn-success"> Submit </a></div>
+		<br>
+		<div><input type="button" value="Back" class="btn btn-primary" onclick="history.back()"/></div>
+	</div>
+
+</div>
 
 </body>
 </html>

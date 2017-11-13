@@ -6,12 +6,17 @@ import com.example.model.Requests;
 
 public interface RequestService {
 
-	ArrayList<Requests> findStoreRequest();
+	ArrayList<Requests> findStoreRequestPending();
+	
+	ArrayList<Requests> findStoreRequestDisburse();
 
 	ArrayList<Requests> findADeptRequest(String id);
 
-	Requests getRequestByReqId(Integer aRqId);
+	Requests findARequestByReqId(Integer aRqId);
 
 	void changeRequest(Requests disbReq);
+
+	
+
 
 }

@@ -36,13 +36,29 @@ public class StoreController {
 	@Autowired
 	RequestDetailService rdService;
 	
+	//
+	@RequestMapping(value="/dashboard")
+	public ModelAndView viewDashboard()
+	{
+		ModelAndView moView = new ModelAndView("store-dashboard");
+		
+		
+		ArrayList<Requests>  storeReqPendList= rService.findStoreRequestPending();		
+		moView.addObject("storeReqPendList",storeReqPendList);
+		
+		ArrayList<Requests>  storeReqDisbList= rService.findStoreRequestDisburse();		
+		moView.addObject("storeReqDisbList",storeReqDisbList);
+
+		
+		return moView;	
+	}
 	
 	//Read
 	@RequestMapping(value="/request/history")
 	public ModelAndView requestHistory(HttpSession session)
 	{
 		ModelAndView moView = new ModelAndView("store-request-history");	
-		ArrayList<Requests>  reqList= rService.findStoreRequest();		
+		ArrayList<Requests>  reqList= rService.findStoreRequestDisburse();		
 		moView.addObject("reqList",reqList);
 	
 		return moView;
@@ -56,7 +72,9 @@ public class StoreController {
 		ModelAndView moView = new ModelAndView("store-request-detail");	
 		ArrayList<RequestDetail> reqDetList = rdService.findReqDetailByReqId(reqId);	
 		moView.addObject("reqDetList", reqDetList);
-		moView.addObject("aRqId", reqId);
+		
+		Requests aReq =rService.findARequestByReqId(reqId);
+		moView.addObject("aReq", aReq);
 		return moView;	
 	}
 
@@ -68,7 +86,7 @@ public class StoreController {
 		/*ModelAndView moView = new ModelAndView("text");*/
 		
 		//1-get request_id(always one)
-		Requests disbReq = rService.getRequestByReqId(aRqId);
+		Requests disbReq = rService.findARequestByReqId(aRqId);
 		
 		//2-Set StoreStatus, DeptStatus, DisbursedDate of Request Table
 		disbReq.setStoreStatus("Disbursed");
@@ -101,4 +119,16 @@ public class StoreController {
 		return moView;	
 	}
 	
+	
+	//Read
+	@RequestMapping(value="/request/pending")
+	public ModelAndView requestPending(HttpSession session)
+	{
+		ModelAndView moView = new ModelAndView("store-request-pending");	
+		ArrayList<Requests>  storeReqPendList= rService.findStoreRequestPending();		
+		moView.addObject("storeReqPendList",storeReqPendList);
+	
+		return moView;
+		
+	}
 }
