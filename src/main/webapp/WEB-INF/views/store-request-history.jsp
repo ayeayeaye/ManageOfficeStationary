@@ -16,6 +16,7 @@
     <!-- <th>Employee</th> -->
     <th>Pending Date </th>
     <th>Disbursed Date</th>
+    <th>Status</th>
     <th>Details</th>
   </tr>
   </thead>
@@ -27,12 +28,13 @@
     <td>${reqList.departmentModel.departmentName}</td>
     <%-- <td>${reqList.employeeModel.employeeName}</td> --%>
     <td>${reqList.approveDate}</td>   
-    <td>${reqList.disburseDate}</td>
+    <td>${reqList.disburseDate}</td> 
+    <td>${reqList.storeStatus}</td>
     <td><a href="${pageContext.request.contextPath}/store/request/detail/${reqList.requestId}.html" class="btn btn btn-primary">Detail</a></td>
    
   </tr>
   </c:forEach>
-
 </table>
+<input type="button" value="Back" class="btn btn-primary" onclick="history.back()"/>
 </div>
 </div>

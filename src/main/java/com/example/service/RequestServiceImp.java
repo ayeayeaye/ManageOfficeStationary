@@ -23,8 +23,8 @@ public class RequestServiceImp implements RequestService {
 	}
 	
 	@Override
-	public ArrayList<Requests> findStoreRequestDisburse() {
-		ArrayList<Requests> storeReqDList =  repository.findStoreRequestDisburse();
+	public ArrayList<Requests> findStoreAllReques() {
+		ArrayList<Requests> storeReqDList =  repository.findStoreAllRequest();
 		return storeReqDList;
 	}
 
@@ -44,6 +44,14 @@ public class RequestServiceImp implements RequestService {
 	public void changeRequest(Requests disbReq) {
 		repository.saveAndFlush(disbReq);		
 	}
+
+	@Override
+	public ArrayList<Requests> findTodayRequests() {
+		ArrayList<Requests> todayReqList =  repository.findTodayRequests();
+		return todayReqList;
+	}
+
+
 
 
 

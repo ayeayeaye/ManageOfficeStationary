@@ -2,7 +2,7 @@
 <link href="../css/styles.css" rel="STYLESHEET" type="text/css">
 
 <div class="container-fluid">
-<h1>Welcome - Store </h1>
+<h1>Welcome - Staff </h1>
 </div>
 
 <div class="container">
@@ -16,7 +16,7 @@
 		  <div class="panel panel-default">
 		      <div class="panel-heading">
 				<div class="panel-title">
-					Pending Request
+					Last Three Requests
 				</div>
 			 </div>
 		      <div class="panel-body">
@@ -31,7 +31,7 @@
 				  </tr>
 		  		</thead>
 				 <tbody>
-				  <c:forEach items="${storeReqPendList}" var="reqPList" varStatus="counter">		  
+				  <c:forEach items="${last3Req}" var="reqPList" varStatus="counter">		  
 					  <tr> 
 					  	<td>${counter.count}</td>
 					  	<td>${reqPList.department}-${reqPList.drepCode}</td>
@@ -45,7 +45,7 @@
 		      </div>
 		      <div class="panel-footer">
 			      <span>
-			      	<a href="${pageContext.request.contextPath}/store/request/history.html" class="btn btn-primary">All Request History</a>
+			      	<a href="${pageContext.request.contextPath}/staff/request/history.html" class="btn btn-primary">All Request History</a>
 			      </span>
 			      <span>
 			      	<a href="${pageContext.request.contextPath}/store/request/today/history.html" class="btn btn-primary">Today Request History</a>

@@ -36,19 +36,17 @@ public class StoreController {
 	@Autowired
 	RequestDetailService rdService;
 	
-	//
+	//Read
 	@RequestMapping(value="/dashboard")
 	public ModelAndView viewDashboard()
 	{
 		ModelAndView moView = new ModelAndView("store-dashboard");
-		
-		
+				
 		ArrayList<Requests>  storeReqPendList= rService.findStoreRequestPending();		
 		moView.addObject("storeReqPendList",storeReqPendList);
 		
-		ArrayList<Requests>  storeReqDisbList= rService.findStoreRequestDisburse();		
+		ArrayList<Requests>  storeReqDisbList= rService.findStoreAllReques();		
 		moView.addObject("storeReqDisbList",storeReqDisbList);
-
 		
 		return moView;	
 	}
@@ -58,7 +56,7 @@ public class StoreController {
 	public ModelAndView requestHistory(HttpSession session)
 	{
 		ModelAndView moView = new ModelAndView("store-request-history");	
-		ArrayList<Requests>  reqList= rService.findStoreRequestDisburse();		
+		ArrayList<Requests>  reqList= rService.findStoreAllReques();		
 		moView.addObject("reqList",reqList);
 	
 		return moView;
@@ -127,6 +125,19 @@ public class StoreController {
 		ModelAndView moView = new ModelAndView("store-request-pending");	
 		ArrayList<Requests>  storeReqPendList= rService.findStoreRequestPending();		
 		moView.addObject("storeReqPendList",storeReqPendList);
+	
+		return moView;		
+	}
+
+	//Read
+	@RequestMapping(value="/request/today/history")
+	public ModelAndView requestTodayHistory(HttpSession session)
+	{
+		ModelAndView moView = new ModelAndView("store-request-today-history");	
+
+		
+		ArrayList<Requests>  todayReqList= rService.findTodayRequests();		
+		moView.addObject("todayReqList",todayReqList);
 	
 		return moView;
 		

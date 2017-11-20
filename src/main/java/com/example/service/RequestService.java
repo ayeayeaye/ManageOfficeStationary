@@ -8,15 +8,15 @@ public interface RequestService {
 
 	ArrayList<Requests> findStoreRequestPending();
 	
-	ArrayList<Requests> findStoreRequestDisburse();
+	ArrayList<Requests> findStoreAllReques();
 
 	ArrayList<Requests> findADeptRequest(String id);
 
 	Requests findARequestByReqId(Integer aRqId);
 
 	void changeRequest(Requests disbReq);
-
 	
+	ArrayList<Requests> findTodayRequests();
 
 
 }

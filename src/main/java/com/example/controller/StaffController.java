@@ -2,6 +2,7 @@ package com.example.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
+import java.sql.Array;
 import java.util.ArrayList;import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,6 +48,8 @@ public class StaffController {
 	DepartmentService dService;
 	@Autowired
 	RequestDetailService rdService;
+	@Autowired
+	DepartmentService deptService;
 	
 	//Read
 	@RequestMapping(value="/test")
@@ -58,6 +61,29 @@ public class StaffController {
 		moView.addObject("itemList",itemList);
 		return moView;
 		
+	}
+	
+	//Read
+	@RequestMapping(value="/dashboard")
+	public ModelAndView viewDashboard()
+	{
+		ModelAndView moView = new ModelAndView("staff-dashboard");
+		/*Eg	*/	
+		String deptCode = "SCI";
+		ArrayList<Requests> aDeptReqList=rService.findADeptRequest(deptCode);	
+		
+		//Get latest 3 rows
+		Requests[] last3Req = new Requests[3];
+		int count=0;		
+		for (int i =  aDeptReqList.size()-1; i >= aDeptReqList.size()-3 ; i--)
+		{
+			last3Req[count] = aDeptReqList.get(i);
+			count++;
+		}
+	
+		moView.addObject("last3Req",last3Req);
+				
+		return moView;	
 	}
 	
 	//Create
@@ -82,7 +108,7 @@ public class StaffController {
 	{
 		ModelAndView moView = new ModelAndView("staff-request-history");	
 		//int id = 11111; //example department code
-		ArrayList<Requests>  deptReqList= rService.findADeptRequest("ENG");	
+		ArrayList<Requests>  deptReqList= rService.findADeptRequest("SCI");	
 		moView.addObject("deptReqList",deptReqList);
 	
 		return moView;		

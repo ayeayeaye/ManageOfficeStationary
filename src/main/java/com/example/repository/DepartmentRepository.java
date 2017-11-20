@@ -14,5 +14,6 @@ public interface DepartmentRepository extends JpaRepository<Department, String> 
 /*	@Query("SELECT d FROM Department d where d.departmentId = :id ")
 	Department findreqToStoreDept(@Param("id") Integer id);
 */
+
 	
 }

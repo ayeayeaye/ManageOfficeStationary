@@ -1,5 +1,7 @@
 package com.example.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="request")
@@ -26,10 +30,15 @@ public class Requests {
 	private String deptStatus;
 	@Column(name = "store_status")
 	private String storeStatus;
+
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "req_date")
 	private Date reqDate;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "approve_date")
 	private Date approveDate;
+
 	@Column(name = "disburse_date")
 	private Date disburseDate;
 	
@@ -41,6 +50,8 @@ public class Requests {
 	@JoinColumn(name="employee", insertable=false, updatable=false)//own column name
 	private Employee employeeModel;
 
+
+	
 	public Requests(int requestId, int drepCode, String department, int employee, String deptStatus, String storeStatus,
 			Date reqDate, Date approveDate, Date disburseDate, Department departmentModel, Employee employeeModel) {
 		super();

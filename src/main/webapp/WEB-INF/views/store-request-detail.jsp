@@ -63,7 +63,7 @@
 </table>
 
 	    <c:choose>
-	    	<c:when test="${storeStatus == 'pending' }">
+	    	<c:when test="${storeStatus == 'Pending' }">
 	    		<input type="submit" value="Disburse" class="btn btn-primary" />
 	    	</c:when>
 	    	<c:otherwise>       		
