@@ -37,7 +37,6 @@ import com.example.service.RequestService;
 @RequestMapping(value = "/staff")
 public class StaffController {
 
-	
 	@Autowired
 	ItemService iService;
 	@Autowired
@@ -107,9 +106,12 @@ public class StaffController {
 	public ModelAndView requestHistory(HttpSession session)
 	{
 		ModelAndView moView = new ModelAndView("staff-request-history");	
-		//int id = 11111; //example department code
+		/*example login department*/
 		ArrayList<Requests>  deptReqList= rService.findADeptRequest("SCI");	
 		moView.addObject("deptReqList",deptReqList);
+		/*example login department's staff*/
+		Integer loginEmpId = 10050 ; 
+		moView.addObject("loginEmpId",loginEmpId);
 	
 		return moView;		
 	}

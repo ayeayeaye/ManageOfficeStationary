@@ -5,13 +5,15 @@
 <h1>Welcome - Staff </h1>
 </div>
 
+ <div><a href="${pageContext.request.contextPath}/staff/create/request.html" class="btn btn-success" >Make New Request</a></div><br>
+
 <div class="container">
 
     <div class="row">
     
     <!-- Div 1 -->
         <div class="col-lg-9" style="background-color:yellow;">
-		 
+	 
 		  <!-- Panel -->
 		  <div class="panel panel-default">
 		      <div class="panel-heading">
@@ -26,7 +28,7 @@
 				    <th>No</th>
 				    <th>RequestID</th>
 				    <th>Department</th>
-				    <th>PendingDate </th>
+				    <th>Status</th>
 				    <th>Detail</th>
 				  </tr>
 		  		</thead>
@@ -35,9 +37,9 @@
 					  <tr> 
 					  	<td>${counter.count}</td>
 					  	<td>${reqPList.department}-${reqPList.drepCode}</td>
-					    <td>${reqPList.departmentModel.departmentName}</td>
-					    <td>${reqPList.approveDate}</td>   
-					    <td><a href="${pageContext.request.contextPath}/store/request/detail/${reqPList.requestId}.html" class="btn btn btn-primary">Detail</a></td>	   
+					    <td>${reqPList.departmentModel.departmentName}</td>  
+					    <td>${reqPList.deptStatus}</td>
+					    <td><a href="${pageContext.request.contextPath}/staff/request/detail/${reqPList.requestId}.html" class="btn btn btn-primary">Detail</a></td>	   
 					  </tr>
 				  </c:forEach>	
 				 </tbody>
@@ -48,7 +50,7 @@
 			      	<a href="${pageContext.request.contextPath}/staff/request/history.html" class="btn btn-primary">All Request History</a>
 			      </span>
 			      <span>
-			      	<a href="${pageContext.request.contextPath}/store/request/today/history.html" class="btn btn-primary">Today Request History</a>
+			      	<a href="${pageContext.request.contextPath}/staff/request/today/history.html" class="btn btn-primary">Today Request History</a>
 			      </span>
 		      </div>
 	      </div>

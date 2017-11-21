@@ -10,8 +10,7 @@
     <div class="row">
     
     <!-- Div 1 -->
-        <div class="col-lg-9" style="background-color:yellow;">
-		 
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="background-color:yellow;">
 		  <!-- Panel -->
 		  <div class="panel panel-default">
 		      <div class="panel-heading">
@@ -45,10 +44,10 @@
 		      </div>
 		      <div class="panel-footer">
 			      <span>
-			      	<a href="${pageContext.request.contextPath}/store/request/history.html" class="btn btn-primary">All Request History</a>
+			      	<a href="${pageContext.request.contextPath}/store/request/history.html" class="btn btn-info">All Request History</a>
 			      </span>
 			      <span>
-			      	<a href="${pageContext.request.contextPath}/store/request/today/history.html" class="btn btn-primary">Today Request History</a>
+			      	<a href="${pageContext.request.contextPath}/store/request/today/history.html" class="btn btn-info">Today Request History</a>
 			      </span>
 		      </div>
 	      </div>
@@ -58,28 +57,39 @@
      <!-- Div 1 -->
  
      <!--Div 2  -->
-        <div class="col-lg-3" style="background-color:pink;">
+        <div class="col-lg-3 col-md-3 col-sm-3 " style="background-color:pink;">
 			<!-- Panel 2 -->
 		  <div class="panel panel-default">
 		      <div class="panel-heading">
 		      	<div class="panel-title">
-			          Collection Point Information
+			          Current Collection Point Info
 		     	 </div>
 		      </div>		      
 	      
 		      <div class="panel-body">
 				<table class="table">
-				  <thead>
-					  <tr >
-					    <th>CollectionPoint</th>
-					    <th>Department</th>
+				  <c:forEach items="${allCollectPointLsit}" var="cp"  >
+				  <c:forEach items="${cp.departModelList}" var="depL" varStatus="depCountForACollectP">	
+					  <tr> 					  					  	
+					  	<c:choose>					  					  	
+            		  	<c:when test="${depCountForACollectP.count == 1 }" >
+	            		  	<td>${cp.collectPointName}</td>       		  	
+            		  	</c:when>
+					  	<c:otherwise>
+					  		<td></td>
+					  	</c:otherwise>
+					    </c:choose>	
+					    				        
+					    <td>${depL.departmentName}</td>					    	   
 					  </tr>
-				  </thead>	
-					  <tr> 
-					  	<td>-</td>
-					    <td>-</td>
-					  </tr>
+		   					    
+					</c:forEach>	  
+				  </c:forEach>
 				</table>
+			 </div>
+			 
+			 <div class="panel-footer">
+			 <a href="${pageContext.request.contextPath}/store/collectP" class="btn btn-info"> View All Collection Points</a>
 			 </div>
 	      </div>
 	       <!--Panel 2  -->
@@ -87,33 +97,32 @@
     <!--Div 2  --> 
                
     <!--Div 3  -->
-        <div class="col-lg-3" style="background-color:pink;">
+
+        <div class="col-lg-3 col-md-3 col-sm-3  pull-right" style="background-color:blue;">
 			<!-- Panel 3 -->
 		  <div class="panel panel-default">
 		      <div class="panel-heading">
 		      	<h4 class="panel-title">
-			        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+			        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
 			          Department Information
 			        </a>
 		     	 </h4>
 		      </div>
-		      <div id="collapseThree" class="panel-collapse collapse">
+		      <div id="collapseOne" class="panel-collapse collapse">
 		      
 	      
 		      <div class="panel-body">
 				<table class="table">
 				  <thead>
 					  <tr >
-					    <th>No</th>
 					    <th>Department</th>
 					    <th>Phone</th>
 					  </tr>
 				  </thead>
-				  <c:forEach items="${storeReqDisbList}" var="reqDList" varStatus="counter">	
+				  <c:forEach items="${deptList}" var="dept" varStatus="counter">	
 					  <tr> 
-					  	<td>${counter.count}</td>
-					    <td>${reqDList.departmentModel.departmentName}</td>
-					    <td></td>
+					    <td>${dept.departmentName}</td>
+					    <td>+65 ${dept.contactNumber}</td>
 					  </tr>
 				  </c:forEach>
 				</table>

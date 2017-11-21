@@ -23,6 +23,12 @@ public class DepartmentServiceImp implements DepartmentService {
 	@Resource
 	private DepartmentRepository repository;
 
+	@Override
+	public ArrayList<Department> getAllDept() {
+		ArrayList<Department> deptList = (ArrayList<Department>) repository.findAll();
+		return deptList;
+	}
+
 /*	@Override
 	public Department findreqToStoreDept(Integer id) {
 		Department  reqToStoreDept=  repository.findreqToStoreDept(id);

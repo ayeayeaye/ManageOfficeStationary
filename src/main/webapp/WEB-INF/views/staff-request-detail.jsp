@@ -2,7 +2,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 
-<h3>Store Request Details </h3>
+<h3>Staff Request Details </h3>
 
 
 <form:form action="${pageContext.request.contextPath}/store/request/detail/${aReq.requestId}" method="POST"  modelAttribute="requestDetail">
@@ -46,17 +46,17 @@
    </c:forEach>
 </table>
 
-<%-- <c:set var = "departtStatus"  value = "${rd.requestModel.deptStatus}"/>
+<c:set var = "storeStatus"  value = "${rd.requestModel.storeStatus}"/>
 <c:set var = "rId"  value = "${rd.requestId}"/>
-		<c:choose>
-	    	<c:when test="${departtStatus == 'Request' }">
-				<a href="${pageContext.request.contextPath}/staff/request/approve/${rId.requestId}.html" class="btn btn-success">Approve</a>
-				<a href="${pageContext.request.contextPath}/staff/request/reject/${rId.requestId}.html" class="btn btn-success">Reject</a>
-	   		 </c:when>
-	    	<c:otherwise>
+	<c:choose>
+	    <c:when test="${storeStatus == 'Request' }">
+			<a href="${pageContext.request.contextPath}/staff/request/approve/${rId.requestId}.html" class="btn btn-success">Approve</a>
+			<a href="${pageContext.request.contextPath}/staff/request/reject/${rId.requestId}.html" class="btn btn-success">Reject</a>
+	   	</c:when>
+	    <c:otherwise>
 				
-	    	</c:otherwise>
-		</c:choose>  --%>
+	    </c:otherwise>
+	</c:choose>  
 
 			
 		<br><br>

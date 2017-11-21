@@ -23,7 +23,8 @@ Receive Qty =
 	${a},
 </c:forEach>
 
-
+<h1>Test 3</h1>
+Name = ${collectPName}
 
 </body>
 

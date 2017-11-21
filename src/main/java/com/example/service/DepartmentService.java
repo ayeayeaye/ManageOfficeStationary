@@ -9,5 +9,7 @@ import com.example.model.Requests;
 
 public interface DepartmentService {
 
+	ArrayList<Department> getAllDept();
+
 	/*Department findreqToStoreDept(Integer id);*/
 }

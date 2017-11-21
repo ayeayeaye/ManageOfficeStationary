@@ -23,12 +23,12 @@ public class Employee {
 	@Column(name = "employee_name")
 	private String employeeName;
 	@Column(name = "department")
-	private int department;
+	private String department;
 	@Column(name = "designation")
 	private String designation;
 	
 
-	public Employee(int employeeId, String employeeName, int departmentId, String designation ) {
+	public Employee(int employeeId, String employeeName, String departmentId, String designation ) {
 		super();
 		this.employeeId = employeeId;
 		this.employeeName = employeeName;
@@ -57,11 +57,11 @@ public class Employee {
 		this.employeeName = employeeName;
 	}
 
-	public int getDepartmentId() {
+	public String getDepartmentId() {
 		return department;
 	}
 
-	public void setDepartmentId(int departmentId) {
+	public void setDepartmentId(String departmentId) {
 		this.department = departmentId;
 	}
 

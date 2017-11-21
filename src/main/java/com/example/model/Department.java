@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,29 +34,31 @@ public class Department {
 	@Column(name = "representative")
 	private String representative;
 	
-	@Column(name = "collectionpoint_id")
-	private int collectionpointId;
+	@Column(name = "collectionpoint")
+	private int collectionpoint;
 	
-
-
-	public Department(String departmentId, String departmentName, String contactNumber, String departmentHead,
-			String representative, int collectionpointId) {
-		super();
-		this.departmentCode = departmentId;
-		this.departmentName = departmentName;
-		this.contactNumber = contactNumber;
-		this.departmentHead = departmentHead;
-		this.representative = representative;
-		this.collectionpointId = collectionpointId;
-
-	}
+	@ManyToOne
+	@JoinColumn(name="collectionpoint", insertable=false, updatable=false)
+	private CollectionPoint collectPointModel;
 
 	public Department() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getdepartmentCode() {
+	public Department(String departmentCode, String departmentName, String contactNumber, String departmentHead,
+			String representative, int collectionpoint, CollectionPoint collectPointModel) {
+		super();
+		this.departmentCode = departmentCode;
+		this.departmentName = departmentName;
+		this.contactNumber = contactNumber;
+		this.departmentHead = departmentHead;
+		this.representative = representative;
+		this.collectionpoint = collectionpoint;
+		this.collectPointModel = collectPointModel;
+	}
+
+	public String getDepartmentCode() {
 		return departmentCode;
 	}
 
@@ -94,24 +98,31 @@ public class Department {
 		this.representative = representative;
 	}
 
-	public int getCollectionpointId() {
-		return collectionpointId;
+	public int getCollectionpoint() {
+		return collectionpoint;
 	}
 
-	public void setCollectionpointId(int collectionpointId) {
-		this.collectionpointId = collectionpointId;
+	public void setCollectionpoint(int collectionpoint) {
+		this.collectionpoint = collectionpoint;
 	}
 
+	public CollectionPoint getCollectPointModel() {
+		return collectPointModel;
+	}
 
+	public void setCollectPointModel(CollectionPoint collectPointModel) {
+		this.collectPointModel = collectPointModel;
+	}
 
 	@Override
 	public String toString() {
-		return "Department [departmentCode=" + departmentCode + ", departmentName=" + departmentName + ", contactNumber="
-				+ contactNumber + ", departmentHead=" + departmentHead + ", representative=" + representative
-				+ ", collectionpointId=" + collectionpointId + "]";
+		return "Department [departmentCode=" + departmentCode + ", departmentName=" + departmentName
+				+ ", contactNumber=" + contactNumber + ", departmentHead=" + departmentHead + ", representative="
+				+ representative + ", collectionpoint=" + collectionpoint + ", collectPointModel=" + collectPointModel
+				+ "]";
 	}
 
-
+	
 	
 	
 }

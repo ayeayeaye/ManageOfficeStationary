@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.ArrayList;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
@@ -7,14 +9,23 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.model.CollectionPoint;
+import com.example.model.Department;
 import com.example.model.RequestDetail;
 import com.example.model.Requests;
+import com.example.repository.CollectPointRepository;
 import com.example.service.CategoryService;
+import com.example.service.CollectPointService;
 import com.example.service.DepartmentService;
 import com.example.service.ItemService;
 import com.example.service.RequestDetailService;
@@ -35,6 +46,8 @@ public class StoreController {
 	DepartmentService dService;
 	@Autowired
 	RequestDetailService rdService;
+	@Autowired
+	CollectPointService cpService;
 	
 	//Read
 	@RequestMapping(value="/dashboard")
@@ -45,8 +58,14 @@ public class StoreController {
 		ArrayList<Requests>  storeReqPendList= rService.findStoreRequestPending();		
 		moView.addObject("storeReqPendList",storeReqPendList);
 		
-		ArrayList<Requests>  storeReqDisbList= rService.findStoreAllReques();		
-		moView.addObject("storeReqDisbList",storeReqDisbList);
+		ArrayList<Requests>  storeALlReqList= rService.findStoreAllReques();		
+		moView.addObject("storeALlReqList",storeALlReqList);
+		
+		ArrayList<Department> deptList = dService.getAllDept();
+		moView.addObject("deptList", deptList);
+		
+		ArrayList<CollectionPoint> allCollectPointLsit = cpService.getAllCollectPoint();
+		moView.addObject("allCollectPointLsit",allCollectPointLsit);
 		
 		return moView;	
 	}
@@ -134,7 +153,6 @@ public class StoreController {
 	public ModelAndView requestTodayHistory(HttpSession session)
 	{
 		ModelAndView moView = new ModelAndView("store-request-today-history");	
-
 		
 		ArrayList<Requests>  todayReqList= rService.findTodayRequests();		
 		moView.addObject("todayReqList",todayReqList);
@@ -142,4 +160,28 @@ public class StoreController {
 		return moView;
 		
 	}
+
+	//Read
+	@RequestMapping(value="/collectP")
+	public ModelAndView viewAllCollectP()
+	{
+		ModelAndView moView = new ModelAndView("collect-point");
+		
+		ArrayList<CollectionPoint> allCollectPointLsit = cpService.getAllCollectPoint();
+		moView.addObject("allCollectPointLsit",allCollectPointLsit);
+		
+		return moView;	
+	}
+	
+/*	//Create
+	@RequestMapping(value="/collectP", method=RequestMethod.POST)
+	public ModelAndView addNewCollectP(@ModelAttribute("cpName")String cpName,BindingResult result,Model model, HttpServletRequest request)
+	{
+		ModelAndView moView = new ModelAndView("redirect:/store/collectP");
+		collectionPoint.setCollectPointName(collectPointName);
+		String collectPName = collectionPoint.getCollectPointName();
+		String s = request.getParameter(cpName);
+		moView.addObject("collectPName",s+"aaa");		
+		return moView;
+	}*/
 }
