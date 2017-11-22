@@ -10,7 +10,7 @@
     <div class="row">
     
     <!-- Div 1 -->
-        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="background-color:yellow;">
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" >
 		  <!-- Panel -->
 		  <div class="panel panel-default">
 		      <div class="panel-heading">
@@ -57,12 +57,12 @@
      <!-- Div 1 -->
  
      <!--Div 2  -->
-        <div class="col-lg-3 col-md-3 col-sm-3 " style="background-color:pink;">
+        <div class="col-lg-3 col-md-3 col-sm-3 ">
 			<!-- Panel 2 -->
 		  <div class="panel panel-default">
 		      <div class="panel-heading">
 		      	<div class="panel-title">
-			          Current Collection Point Info
+			          Active Collection Point 
 		     	 </div>
 		      </div>		      
 	      
@@ -98,7 +98,7 @@
                
     <!--Div 3  -->
 
-        <div class="col-lg-3 col-md-3 col-sm-3  pull-right" style="background-color:blue;">
+        <div class="col-lg-3 col-md-3 col-sm-3  pull-right">
 			<!-- Panel 3 -->
 		  <div class="panel panel-default">
 		      <div class="panel-heading">

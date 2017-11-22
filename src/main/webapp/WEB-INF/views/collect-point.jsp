@@ -1,79 +1,67 @@
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-${collectPName}---
 
 <div class="container">
+<div class="row">
 
-
-<!-- panel 1 -->
-<div class="col-lg-6" >
-	
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h4>Collection Point</h4>
-		</div>
-		<div class="panel-body">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>Collection Point</th>
-						<th>Delete</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${allCollectPointLsit}" var="cp">
+	<div class="col-lg-7">
+		<div class="panel panel-default">
+		<div class="panel panel-heading"><h4>All Collection Point</h4></div>
+		<div class="panel panel-body">
+				<table class="table table-striped">
+					<thead>
 						<tr>
-							<td>${cp.collectPointId}</td>
-							<td>${cp.collectPointName}</td>
-							<td><button class="btn btn-danger">Delete</button></td>
+							<th>No</th>
+							<th>Collection Point</th>
+							<th>Delete</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<c:forEach items="${allCollectPointLsit}" var="collectP" varStatus="counter"> <tr>
+						<tr>
+							<td>${collectP.collectPointId}</td>
+							<td>${collectP.collectPointName}</td>
+							<td><a href="${pageContext.request.contextPath}/store/collectP/delete/${collectP.collectPointId}" class="btn btn-danger">Delete</a></td>
+						</tr>
+						</c:forEach>	
+					</tbody>
+				</table>
+		</div>	
 		</div>
 	</div>
-	
-	<input type="button" value="Back" class="btn btn-primary" onclick="history.back()"/>
-	
-</div>
-<!-- panel 1 -->
 
-<!-- panel 2 -->
-<%-- <form action="${pageContext.request.contextPath}/store/collectP.html" method="post" > --%>
-<div class="col-lg-5  pull-right" >
 	
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h4>Add New Collection Point</h4>
-		</div>
-		<div class="panel-body">
+
+	<div class="col-lg-4 pull-right" >
+		<!-- panel 2 -->
+		<div class="panel panel-default">
+		<div class="panel panel-heading"><h4>Create New Collection Point</h4></div>
+		<div class="panel panel-body">
 		
-			<table class="table">
-				<tbody>
-						<tr>
-							<td>Collection Point Name</td>
-							<td><input type="text" name="cpName"></td>
-						</tr>						
-						<tr>
-							<td>Reason</td>
-							<td><textarea  rows="4" name="cpReason"></textarea></td>
-						</tr>
-						<tr>
-							<td><input type="submit" value="Create" class="btn btn-primary"></td>
-							<td></td>
-						</tr>
-				</tbody>
-			</table>
-		
+			<form:form action="${pageContext.request.contextPath}/store/collectP/Created" method="POST"  >			
+					<table class="table">
+							<tbody>
+								<!-- to protect auto-increment after delete CP -->
+
+								<tr>
+									<td>Name</td>
+									<td><form:input path="collectPointName" /></td>
+								</tr>
+								<tr>
+									<td><input type="submit" value="Create"/></td>
+									<td></td>
+								</tr>		
+							</tbody>
+					</table>		
+			</form:form> 
 		</div>
-	</div>
-	
-</div>
-<%-- </form> --%>
+		</div>
 <!-- panel 2 -->
-
-
+</div>
 
 </div>
+</div>
+

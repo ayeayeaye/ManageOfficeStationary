@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,6 +31,7 @@ import com.example.service.DepartmentService;
 import com.example.service.ItemService;
 import com.example.service.RequestDetailService;
 import com.example.service.RequestService;
+;
 
 
 @Controller
@@ -162,26 +164,40 @@ public class StoreController {
 	}
 
 	//Read
-	@RequestMapping(value="/collectP")
-	public ModelAndView viewAllCollectP()
+	@RequestMapping(value="/collectP", method=RequestMethod.GET)
+	public ModelAndView viewAllCollectP(HttpSession session)
 	{
 		ModelAndView moView = new ModelAndView("collect-point");
 		
 		ArrayList<CollectionPoint> allCollectPointLsit = cpService.getAllCollectPoint();
 		moView.addObject("allCollectPointLsit",allCollectPointLsit);
 		
+		moView.addObject("command", new CollectionPoint());
+		
 		return moView;	
 	}
 	
-/*	//Create
-	@RequestMapping(value="/collectP", method=RequestMethod.POST)
-	public ModelAndView addNewCollectP(@ModelAttribute("cpName")String cpName,BindingResult result,Model model, HttpServletRequest request)
+
+	//Create
+	@RequestMapping(value="/collectP/Created", method=RequestMethod.POST)
+	public ModelAndView addNewCollectPoint( @ModelAttribute("collectpoint") CollectionPoint cpFromView )
 	{
 		ModelAndView moView = new ModelAndView("redirect:/store/collectP");
-		collectionPoint.setCollectPointName(collectPointName);
-		String collectPName = collectionPoint.getCollectPointName();
-		String s = request.getParameter(cpName);
-		moView.addObject("collectPName",s+"aaa");		
+		
+		CollectionPoint cp = new CollectionPoint();
+		cp.setCollectPointName(cpFromView.getCollectPointName());
+		cpService.createNewCP(cp);
+		
+		moView.addObject("collectPName",cpFromView.getCollectPointName());		
 		return moView;
-	}*/
+	}
+	
+	@RequestMapping(value="/collectP/delete/{cpId}")
+	public ModelAndView deleteCollectPoint(@PathVariable Integer cpId)
+	{
+		ModelAndView moView = new ModelAndView("text1");
+		moView.addObject("cpId", cpId);
+		return moView;
+	}
+
 }

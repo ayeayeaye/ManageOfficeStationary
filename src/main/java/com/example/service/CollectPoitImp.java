@@ -21,4 +21,11 @@ public class CollectPoitImp implements CollectPointService {
 		return allCollectPoint;
 	}
 
+	@Override
+	public void createNewCP(CollectionPoint cp) {
+		repository.saveAndFlush(cp);
+	}
+
+
+
 }
