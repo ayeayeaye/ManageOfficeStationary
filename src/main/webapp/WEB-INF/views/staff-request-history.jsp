@@ -50,12 +50,12 @@
 	    <td>${deptReqList.reqDate}</td>
 	    <td>${deptReqList.approveDate}</td>
 	    <td>${deptReqList.disburseDate}</td>
-	    <td><a href="${pageContext.request.contextPath}/staff/request/detail/${deptReqList.requestId}.html" class="btn btn-primary">Detail</a></td>
+	    <td><a href="${pageContext.request.contextPath}/staff/request/detail/${deptReqList.requestId}.html" class="btn btn-primary"  >Detail</a></td>
 	  	
 	  	<!-- Staff can "Update" & "Cancel" their own request + can "U/C" before "Approve"or"Reject" -->
 	  	<c:choose>
 	  		<c:when test="${loginEmpId == deptReqList.employee and deptReqList.deptStatus == 'Request' }">
-			  	<td><a href="${pageContext.request.contextPath}/staff/request/detail/${deptReqList.requestId}" class="btn btn-warning">Update</a></td>
+			  	<td><a href="${pageContext.request.contextPath}/staff/request/update/${deptReqList.requestId}" class="btn btn-warning">Update</a></td>
 			  	<td><a class="btn btn-danger">Cancel</a></td>
 	 		</c:when>
 	 		<c:otherwise>

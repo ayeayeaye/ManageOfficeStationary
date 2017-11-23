@@ -7,6 +7,8 @@
 <c:set var = "sta"  value = "${aReq.deptStatus}"/>
 <c:set var = "rId"  value = "${rd.requestId}"/>
 
+<c:set value="${msg}" var="btnClick" ></c:set>
+
 <form:form action="${pageContext.request.contextPath}/staff/request/edit/${aReq.requestId}" method="POST" modelAttribute="aReq">
 
 <dl class="row">
@@ -42,7 +44,7 @@
 
 <!-- Only Update -->		    
 		    <c:choose>
-			    <c:when test="${sta == 'Request' }">
+			    <c:when test="${btnClick == 'updateB'}">
 			    	<input type="text" value="${rd.reqQuantity}"/>
 			   	</c:when>
 			    <c:otherwise>
@@ -61,8 +63,11 @@
 	   </c:forEach>
 	</table>
 
-<!-- Only Update -->	
-	<form:button value="Update" class="btn btn-warning" >Update</form:button>
+<!-- Only Update -->
+	
+	<c:if test="${btnClick == 'updateB'}">
+		<form:button value="Update" class="btn btn-warning" >Update</form:button>
+	</c:if>
 	
  </form:form>
 

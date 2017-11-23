@@ -121,19 +121,29 @@ public class StaffController {
 	public ModelAndView requestDetail(HttpSession session, @PathVariable Integer reqId)
 	{
 		ModelAndView moView = new ModelAndView("staff-request-detail");	
+		
 		ArrayList<RequestDetail> reqDetList = rdService.findReqDetailByReqId(reqId);	
-		moView.addObject("reqDetList", reqDetList);		
+		moView.addObject("reqDetList", reqDetList);	
+		
 		Requests aReq =rService.findARequestByReqId(reqId);
 		moView.addObject("aReq", aReq);
+		
 		return moView;	
 	}
 
-	
-	@RequestMapping(value = "/request/edit/{rId}")
-	public ModelAndView editRequestDetail(@PathVariable Integer rId )
+	@RequestMapping(value = "/request/update/{rId}")
+	public ModelAndView editRequestDetail(@PathVariable Integer rId , HttpSession session)
 	{
-		ModelAndView moView = new ModelAndView("text");
-		moView.addObject("reqEditId", rId);
+		ModelAndView moView = new ModelAndView("staff-request-detail");
+		
+		ArrayList<RequestDetail> reqDetList = rdService.findReqDetailByReqId(rId);	
+		moView.addObject("reqDetList", reqDetList);		
+		Requests aReq =rService.findARequestByReqId(rId);
+		moView.addObject("aReq", aReq);
+		
+		
+		moView.addObject("msg", "updateB");
+		
 		return moView;
 	}
 }
