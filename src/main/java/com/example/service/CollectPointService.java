@@ -9,4 +9,10 @@ public interface CollectPointService {
 	ArrayList<CollectionPoint> getAllCollectPoint();
 
 	void createNewCP(CollectionPoint cp);
+	
+	CollectionPoint findaCPById(Integer cpId);
+
+	void deleteCPbyId(CollectionPoint aCP);
+
+	
 }

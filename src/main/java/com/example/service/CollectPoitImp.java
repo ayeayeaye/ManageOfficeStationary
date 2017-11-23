@@ -27,5 +27,16 @@ public class CollectPoitImp implements CollectPointService {
 	}
 
 
+	@Override
+	public CollectionPoint findaCPById(Integer cpId) {
+		CollectionPoint aCP = repository.findCPbyId(cpId);
+		return aCP;
+	}
 
+	@Override
+	public void deleteCPbyId(CollectionPoint aCP) {		
+		repository.delete(aCP);
+	}
+
+	
 }

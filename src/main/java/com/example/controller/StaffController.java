@@ -128,4 +128,12 @@ public class StaffController {
 		return moView;	
 	}
 
+	
+	@RequestMapping(value = "/request/edit/{rId}")
+	public ModelAndView editRequestDetail(@PathVariable Integer rId )
+	{
+		ModelAndView moView = new ModelAndView("text");
+		moView.addObject("reqEditId", rId);
+		return moView;
+	}
 }

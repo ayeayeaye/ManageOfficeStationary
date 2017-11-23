@@ -22,7 +22,7 @@
 					<tbody>
 						<c:forEach items="${allCollectPointLsit}" var="collectP" varStatus="counter"> <tr>
 						<tr>
-							<td>${collectP.collectPointId}</td>
+							<td>${counter.count}</td>
 							<td>${collectP.collectPointName}</td>
 							<td><a href="${pageContext.request.contextPath}/store/collectP/delete/${collectP.collectPointId}" class="btn btn-danger">Delete</a></td>
 						</tr>
@@ -45,7 +45,7 @@
 					<table class="table">
 							<tbody>
 								<!-- to protect auto-increment after delete CP -->
-
+								
 								<tr>
 									<td>Name</td>
 									<td><form:input path="collectPointName" /></td>
@@ -65,3 +65,4 @@
 </div>
 </div>
 
+<a href="${pageContext.request.contextPath}/store/dashboard" >Back</a>

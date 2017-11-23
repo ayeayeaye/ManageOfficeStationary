@@ -26,6 +26,11 @@ Receive Qty =
 <h1>Test 3</h1>
 Name = ${collectPName}
 
+<h1>Test 4</h1>
+CP = ${aCP}
+
+<h1>Test 4</h1>
+${reqEditId}
 </body>
 
 </html>

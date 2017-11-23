@@ -4,8 +4,10 @@
 
 <h3>Staff Request Details </h3>
 
+<c:set var = "sta"  value = "${aReq.deptStatus}"/>
+<c:set var = "rId"  value = "${rd.requestId}"/>
 
-<form:form action="${pageContext.request.contextPath}/store/request/detail/${aReq.requestId}" method="POST"  modelAttribute="requestDetail">
+<form:form action="${pageContext.request.contextPath}/staff/request/edit/${aReq.requestId}" method="POST" modelAttribute="aReq">
 
 <dl class="row">
   <dt class="col-sm-3">Request Id</dt>
@@ -19,49 +21,67 @@
 </dl>
 
 
-<table class="table table-hover ">
-<thead>
-  <tr class="bg-info">
-    <th>No</th>
-    <th>Item Name</th>
-     <th>Request Quantity</th>
-     <th>ReceiveQuantity</th>
-     <th>Unit</th>
-  </tr>
-</thead>
-  
-  <c:forEach items="${reqDetList}" var="rd" varStatus="counter">  
-  <tbody>
-    
-	  	<tr> 
-	    <td>${counter.count}</td>
-	    <td>${rd.itemModel.itemName}</td>
-	    <td>${rd.reqQuantity}</td>
-		<td>${rd.receiveQuantity}</td>
-	    <td>${rd.itemModel.unit}</td>	  
-	    </tr>
-	  	  
-  </tbody>
+	<table class="table table-hover ">
+	<thead>
+	  <tr class="bg-info">
+	    <th>No</th>
+	    <th>Item Name</th>
+	     <th>Request Quantity</th>
+	     <th>ReceiveQuantity</th>
+	     <th>Unit</th>
+	  </tr>
+	</thead>
+	  
+	  <c:forEach items="${reqDetList}" var="rd" varStatus="counter">  
+	  <tbody>
+	    
+		  	<tr> 
+		    <td>${counter.count}</td>
+		    <td>${rd.itemModel.itemName}</td>
+		    <td>
 
-   </c:forEach>
-</table>
+<!-- Only Update -->		    
+		    <c:choose>
+			    <c:when test="${sta == 'Request' }">
+			    	<input type="text" value="${rd.reqQuantity}"/>
+			   	</c:when>
+			    <c:otherwise>
+					${rd.reqQuantity}	
+			    </c:otherwise>
+			</c:choose>
+	    
+		    
+		    </td>
+			<td>${rd.receiveQuantity}</td>
+		    <td>${rd.itemModel.unit}</td>	  
+		    </tr>
+		  	  
+	  </tbody>
+	
+	   </c:forEach>
+	</table>
 
-<c:set var = "storeStatus"  value = "${rd.requestModel.storeStatus}"/>
-<c:set var = "rId"  value = "${rd.requestId}"/>
+<!-- Only Update -->	
+	<form:button value="Update" class="btn btn-warning" >Update</form:button>
+	
+ </form:form>
+
+<%-- <h5>For manager</h5>
 	<c:choose>
-	    <c:when test="${storeStatus == 'Request' }">
+	    <c:when test="${sta == 'Request' }">
 			<a href="${pageContext.request.contextPath}/staff/request/approve/${rId.requestId}.html" class="btn btn-success">Approve</a>
 			<a href="${pageContext.request.contextPath}/staff/request/reject/${rId.requestId}.html" class="btn btn-success">Reject</a>
 	   	</c:when>
 	    <c:otherwise>
 				
 	    </c:otherwise>
-	</c:choose>  
+	</c:choose>  --%> 
 
 			
 		<br><br>
-	    	<input type="button" value="Back" class="btn btn-primary" onclick="history.back()"/>
+		
+		<br><br>
+	    <input type="button" value="Back" class="btn btn-primary" onclick="history.back()"/>
 	    	
 
- </form:form>
 

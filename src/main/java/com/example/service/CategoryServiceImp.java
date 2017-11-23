@@ -28,8 +28,6 @@ public class CategoryServiceImp implements CategoryService {
 		return categoryList;
 	}
 
-
-
 	@Override
 	public String findCategoryName(Integer id) {
 		String catName = repository.findCategoryName(id);
