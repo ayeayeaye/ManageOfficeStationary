@@ -29,8 +29,12 @@ Name = ${collectPName}
 <h1>Test 4</h1>
 CP = ${aCP}
 
-<h1>Test 4</h1>
+<h1>Test 5</h1>
 ${reqEditId}
+
+<h1>Test 6 - cancel</h1>
+${rqId}
+
 </body>
 
 </html>

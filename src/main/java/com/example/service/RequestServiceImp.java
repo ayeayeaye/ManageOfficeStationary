@@ -51,6 +51,11 @@ public class RequestServiceImp implements RequestService {
 		return todayReqList;
 	}
 
+	@Override
+	public void deleteRequest(Requests request) {
+		repository.delete(request);	
+	}
+
 
 
 

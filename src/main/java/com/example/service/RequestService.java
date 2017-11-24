@@ -18,5 +18,7 @@ public interface RequestService {
 	
 	ArrayList<Requests> findTodayRequests();
 
+	void deleteRequest(Requests request);
+
 
 }

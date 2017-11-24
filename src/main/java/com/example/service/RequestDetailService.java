@@ -12,4 +12,6 @@ public interface RequestDetailService {
 
 	void fillReceiveQuantity(RequestDetail requestDetail);
 
+	void deleteRqDetail(RequestDetail rqDetail);
+
 }

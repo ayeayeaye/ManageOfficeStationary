@@ -89,7 +89,8 @@ public class StaffController {
 	@RequestMapping(value="/create/request")
 	public ModelAndView createNewRequest(HttpSession session, HttpServletRequest request)
 	{
-		ModelAndView moView = new ModelAndView("staff-create-request");	
+		//ModelAndView moView = new ModelAndView("staff-create-request");
+		ModelAndView moView = new ModelAndView("staff-create-request-2");
 		ArrayList<Item>  itemList= iService.findAllItem();
 		moView.addObject("itemList",itemList);
 		
@@ -117,8 +118,8 @@ public class StaffController {
 	}
 	
 	//Read
-	@RequestMapping(value="/request/detail/{reqId}")
-	public ModelAndView requestDetail(HttpSession session, @PathVariable Integer reqId)
+	@RequestMapping(value="/request/detailUpdate/{clickBtnText}/{reqId}")
+	public ModelAndView requestDetailUpdate(HttpSession session, @PathVariable Integer reqId, @PathVariable String clickBtnText)
 	{
 		ModelAndView moView = new ModelAndView("staff-request-detail");	
 		
@@ -128,22 +129,41 @@ public class StaffController {
 		Requests aReq =rService.findARequestByReqId(reqId);
 		moView.addObject("aReq", aReq);
 		
+		if(clickBtnText.equals("Detail"))
+		{
+			moView.addObject("msg", "clickDetail");
+		}
+		else if (clickBtnText.equals("Update"))
+		{
+			moView.addObject("msg", "clickUpdate");
+		}
+		
 		return moView;	
 	}
 
-	@RequestMapping(value = "/request/update/{rId}")
-	public ModelAndView editRequestDetail(@PathVariable Integer rId , HttpSession session)
+	//Delete
+	@RequestMapping(value="/request/cancel/{rqId}")
+	public String requestCancel(@PathVariable Integer rqId)
 	{
-		ModelAndView moView = new ModelAndView("staff-request-detail");
+		Requests request = rService.findARequestByReqId(rqId);
+		ArrayList<RequestDetail> rqDetailList = rdService.findReqDetailByReqId(rqId);
 		
-		ArrayList<RequestDetail> reqDetList = rdService.findReqDetailByReqId(rId);	
-		moView.addObject("reqDetList", reqDetList);		
-		Requests aReq =rService.findARequestByReqId(rId);
-		moView.addObject("aReq", aReq);
-		
-		
-		moView.addObject("msg", "updateB");
-		
-		return moView;
+		for (int i = 0; i < rqDetailList.size(); i++) 
+		{
+			rdService.deleteRqDetail(rqDetailList.get(i));
+		}
+			
+		rService.deleteRequest(request);
+		return "redirect:/staff/request/history";
 	}
+	
+	
+	@RequestMapping(value="/request/history/{rId}")
+	public String noCancelToRequestHistory(HttpSession session)
+	{	
+		return "redirect:/staff/request/history";		
+	}
+	
+	
+	
 }

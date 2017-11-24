@@ -18,29 +18,35 @@
 		  <div class="panel panel-default">
 		      <div class="panel-heading">
 				<div class="panel-title">
-					Last Three Requests
+					Last Three Requests 
 				</div>
 			 </div>
 		      <div class="panel-body">
 		      	<table class="table">
 				<thead>
 				  <tr>
-				    <th>No</th>
 				    <th>RequestID</th>
+				    <th>Date</th>
+				    <th>Employee</th>
 				    <th>Department</th>
 				    <th>Status</th>
-				    <th>Detail</th>
 				  </tr>
 		  		</thead>
 				 <tbody>
 				  <c:forEach items="${last3Req}" var="reqPList" varStatus="counter">		  
 					  <tr> 
-					  	<td>${counter.count}</td>
 					  	<td>${reqPList.department}-${reqPList.drepCode}</td>
+					  	
+					  <!-- 	Department - status is "Request", show "Request Date", status is "Approve/Reject", show "approve Date" -->
+					  	
+					  	<td>
+					  		
+					  	</td>
+					  	
+					  	<td>${reqPList.employeeModel.employeeName}</td>
 					    <td>${reqPList.departmentModel.departmentName}</td>  
 					    <td>${reqPList.deptStatus}</td>
-					    <td><a href="${pageContext.request.contextPath}/staff/request/detail/${reqPList.requestId}.html" class="btn btn btn-primary">Detail</a></td>	   
-					  </tr>
+					 </tr>
 				  </c:forEach>	
 				 </tbody>
 		       </table>    	

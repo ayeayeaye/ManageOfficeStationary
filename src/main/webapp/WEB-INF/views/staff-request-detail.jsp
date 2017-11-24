@@ -4,78 +4,69 @@
 
 <h3>Staff Request Details </h3>
 
-<c:set var = "sta"  value = "${aReq.deptStatus}"/>
-<c:set var = "rId"  value = "${rd.requestId}"/>
+<c:set value="${aReq}" var="rq" ></c:set>
+<c:set var = "sta"  value = "${rq.deptStatus}"/>
 
 <c:set value="${msg}" var="btnClick" ></c:set>
 
-<form:form action="${pageContext.request.contextPath}/staff/request/edit/${aReq.requestId}" method="POST" modelAttribute="aReq">
 
 <dl class="row">
   <dt class="col-sm-3">Request Id</dt>
-  <dd class="col-sm-9">:${aReq.department}-${aReq.drepCode}</dd>
+  <dd class="col-sm-9">:${rq.department}-${rq.drepCode}</dd>
 
-  <dt class="col-sm-3">Request Department</dt>
-  <dd class="col-sm-9">:${aReq.departmentModel.departmentName}</dd>
+   <dt class="col-sm-3">Department</dt>
+  <dd class="col-sm-9">:${rq.departmentModel.departmentName}</dd>
 
   <dt class="col-sm-3">Contact Number</dt>
-  <dd class="col-sm-9">:+65${aReq.departmentModel.contactNumber}</dd>
+  <dd class="col-sm-9">:+65${rq.departmentModel.contactNumber}</dd>
 </dl>
 
 
-	<table class="table table-hover ">
-	<thead>
-	  <tr class="bg-info">
-	    <th>No</th>
-	    <th>Item Name</th>
-	     <th>Request Quantity</th>
-	     <th>ReceiveQuantity</th>
-	     <th>Unit</th>
-	  </tr>
-	</thead>
-	  
-	  <c:forEach items="${reqDetList}" var="rd" varStatus="counter">  
-	  <tbody>
-	    
+<table class="table table-hover ">
+	 <thead>
+	  	<tr class="bg-info">
+		    <th>No</th>
+		    <th>Item Name</th>
+		     <th>Request Quantity</th>
+		     <th>ReceiveQuantity</th>
+		     <th>Unit</th>
+	  	</tr>
+	 </thead>  
+	 <c:forEach items="${reqDetList}" var="rd" varStatus="counter">  
+	 <tbody>    
 		  	<tr> 
 		    <td>${counter.count}</td>
 		    <td>${rd.itemModel.itemName}</td>
 		    <td>
-
 <!-- Only Update -->		    
 		    <c:choose>
-			    <c:when test="${btnClick == 'updateB'}">
+			    <c:when test="${btnClick == 'clickUpdate'}">
 			    	<input type="text" value="${rd.reqQuantity}"/>
 			   	</c:when>
 			    <c:otherwise>
 					${rd.reqQuantity}	
 			    </c:otherwise>
-			</c:choose>
-	    
-		    
+			</c:choose>		    
 		    </td>
 			<td>${rd.receiveQuantity}</td>
 		    <td>${rd.itemModel.unit}</td>	  
-		    </tr>
-		  	  
+		    </tr>		  	  
 	  </tbody>
-	
-	   </c:forEach>
-	</table>
+	  </c:forEach>
+</table>
 
 <!-- Only Update -->
-	
-	<c:if test="${btnClick == 'updateB'}">
-		<form:button value="Update" class="btn btn-warning" >Update</form:button>
+	<c:if test="${btnClick == 'clickUpdate'}">
+		<a href="${pageContext.request.contextPath}/staff/request/edit/${rq.requestId}" class="btn btn-warning">Update</a>
 	</c:if>
 	
- </form:form>
+
 
 <%-- <h5>For manager</h5>
 	<c:choose>
 	    <c:when test="${sta == 'Request' }">
-			<a href="${pageContext.request.contextPath}/staff/request/approve/${rId.requestId}.html" class="btn btn-success">Approve</a>
-			<a href="${pageContext.request.contextPath}/staff/request/reject/${rId.requestId}.html" class="btn btn-success">Reject</a>
+			<a href="${pageContext.request.contextPath}/staff/request/approve/${rq.requestId}.html" class="btn btn-success">Approve</a>
+			<a href="${pageContext.request.contextPath}/staff/request/reject/${rq.requestId}.html" class="btn btn-success">Reject</a>
 	   	</c:when>
 	    <c:otherwise>
 				

@@ -50,13 +50,27 @@
 	    <td>${deptReqList.reqDate}</td>
 	    <td>${deptReqList.approveDate}</td>
 	    <td>${deptReqList.disburseDate}</td>
-	    <td><a href="${pageContext.request.contextPath}/staff/request/detail/${deptReqList.requestId}.html" class="btn btn-primary"  >Detail</a></td>
+	    <td><a href="${pageContext.request.contextPath}/staff/request/detailUpdate/Detail/${deptReqList.requestId}.html" class="btn btn-primary" >Detail</a></td>
 	  	
-	  	<!-- Staff can "Update" & "Cancel" their own request + can "U/C" before "Approve"or"Reject" -->
+	  	<!-- Staff can see "Update" & "Cancel" button if 1-their own request 2-before "Approve"or"Reject" -->
 	  	<c:choose>
 	  		<c:when test="${loginEmpId == deptReqList.employee and deptReqList.deptStatus == 'Request' }">
-			  	<td><a href="${pageContext.request.contextPath}/staff/request/update/${deptReqList.requestId}" class="btn btn-warning">Update</a></td>
-			  	<td><a class="btn btn-danger">Cancel</a></td>
+			  	<td><a href="${pageContext.request.contextPath}/staff/request/detailUpdate/Update/${deptReqList.requestId}.html" class="btn btn-warning">Update</a></td>
+			  	
+			  	<!-- cancel confirm ,window pop-up -->			  	
+				<script type="text/javascript">
+					function clickCancelFunction()
+					{
+						var yn = confirm("Are you sure you want to cancel this request!");
+						var text;
+						//alert("**"+yn);
+						if(yn == true ){text = "cancel";}
+						else{text = "history";}
+						document.getElementById("cabcelId").setAttribute('href','${pageContext.request.contextPath}/staff/request/'+ text+'/${deptReqList.requestId}.html');
+					} 
+				</script>				
+			  	<td><a id="cabcelId"  class="btn btn-danger" onclick="clickCancelFunction()" >Cancel</a></td>
+			  	
 	 		</c:when>
 	 		<c:otherwise>
 	 			<td></td>

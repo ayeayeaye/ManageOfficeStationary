@@ -66,7 +66,6 @@
 				<thead>
 					<tr class="listHeading">
 						<th>No</th>
-						<th>Category</th>
 						<th>Name</th>					
 						<th>Quantity</th>
 						<th>Unit</th>
@@ -75,19 +74,13 @@
 				<tbody>	
 				
 				<!-- No change -->
+
 					<tr class="listBody" >
 
 						<td>0</td>					     
-						<td>				
-							<select>													
-								<option>Select--- </option>
-								<c:forEach items="${categoryList}" var="categoryList">								
-								<option value="${categoryList.categoryId}">${categoryList.categoryId} </option>
-								</c:forEach>							
-							</select>																					
-						</td>					
+					
 						<td>
-							<select size="5">
+							<select >
 								<c:forEach items="${itemList}" var="itemList">
 									<option value="${itemList.category}" id="itemName">${itemList.category}-${itemList.itemName}</option>
 								</c:forEach>
@@ -95,11 +88,7 @@
 						</td>					
 						<td> <INPUT TYPE="TEXT" NAME="text1"><br/></td>						
 						<td>
-							<select>
-								<c:forEach items="${itemList}" var="itemList">
-									<option value="${itemList.unit}" >${itemList.unit}</option>
-								</c:forEach>
-							</select>
+							EA
 						</td>						
 						<td><INPUT type="button" value="Remove"  class="btn btn-danger"/></td>						
 				  </tr>				
@@ -108,17 +97,9 @@
 				<!-- Action here-->
 				<tr class="listBody">
 						<td>1 </td>					     
-						<td>					
-						   	<select id="myCategorySelect" onchange="changemyCategorySelect()">													
-									<option>Select--- </option> 
-									<c:forEach items="${categoryList}" var="categoryList">								
-										<option value="${categoryList.categoryId}">${categoryList.categoryId} </option>
-									</c:forEach>							
-						     </select>								     																			
-						</td>
 												
 						<td>													
-							<select size="5">				
+							<select >				
 									<c:forEach items="${itemList}" var="itemList">															
 												<option value="${itemList.category}" id="myItemOption">${itemList.category}-${itemList.itemName}</option>								
 									</c:forEach>
@@ -127,11 +108,7 @@
 						</td>						
 						<td> <INPUT TYPE="TEXT" NAME="text1"><br/></td>					
 						<td>
-							<select>
-								<c:forEach items="${itemList}" var="itemList">
-									<option value="${itemList.unit}" >${itemList.unit}</option>
-								</c:forEach>
-							</select>
+							EA
 						</td>					
 						<td><INPUT type="button" value="Remove"  /></td>
 						
