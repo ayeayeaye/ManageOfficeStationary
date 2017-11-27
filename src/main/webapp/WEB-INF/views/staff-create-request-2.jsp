@@ -36,18 +36,22 @@
 			} 
 
 	}
-	
+/* 	
 	function changemyCategorySelect() 
 	{
 		var s1 = document.getElementById("myCategorySelect");
 		var strUser = s1.options[s1.selectedIndex].value;
-		alert(strUser);
-		
+		alert(strUser);		
 		s1.value = strUser;
 			
-
 	}
-
+ */
+ 
+ 	function removeRow(x) {
+	 var selectRow = x.parentNode.parentNode.rowIndex;
+   	 //alert(selectRow+"*");
+   	 document.getElementById("dataTable").deleteRow(selectRow);
+	}
 	</script>	
 	
 </head>
@@ -55,11 +59,11 @@
 
 <body>
 
-<div class='container'>
+
 
 	<h3>Request Item</h3>
-
-
+<div>
+<form:form action="${pageContext.request.contextPath}/staff/create/request.html" method="POST" modelAttribute="categoryList">
 	<c:if test="${fn:length(itemList) gt 0}">
 		<div class="table-responsive">							
 			<table class="table table-hover " id="dataTable">
@@ -75,54 +79,32 @@
 				
 				<!-- No change -->
 
-					<tr class="listBody" >
+					<tr class="listBody">
 
-						<td>0</td>					     
+						<td>1</td>					     
 					
 						<td>
-							<select >
+							<select name="reqItemC">
 								<c:forEach items="${itemList}" var="itemList">
-									<option value="${itemList.category}" id="itemName">${itemList.category}-${itemList.itemName}</option>
+									<option value="${itemList.itemId}">${itemList.category}-${itemList.itemName}</option>
 								</c:forEach>
 							</select>
 						</td>					
-						<td> <INPUT TYPE="TEXT" NAME="text1"><br/></td>						
+						<td> <INPUT TYPE="TEXT" name="reqQuantityC" ><br/></td>						
 						<td>
 							EA
 						</td>						
-						<td><INPUT type="button" value="Remove"  class="btn btn-danger"/></td>						
+						<td ><a  class="btn btn-danger" id="myRemoveBtn"  onclick="removeRow(this)" >Remove</a></td>						
 				  </tr>				
-				<!-- No change-->
-				
-				<!-- Action here-->
-				<tr class="listBody">
-						<td>1 </td>					     
-												
-						<td>													
-							<select >				
-									<c:forEach items="${itemList}" var="itemList">															
-												<option value="${itemList.category}" id="myItemOption">${itemList.category}-${itemList.itemName}</option>								
-									</c:forEach>
-							</select>
-							
-						</td>						
-						<td> <INPUT TYPE="TEXT" NAME="text1"><br/></td>					
-						<td>
-							EA
-						</td>					
-						<td><INPUT type="button" value="Remove"  /></td>
-						
-						</tr>	
-					<!-- Action here-->			
+					
 				</tbody>
-			</table>
-
-			<INPUT type="button" value="Add Row" onclick="addRow('dataTable')"  class="btn btn-success"/> <br /><br />
-		
+			</table>	
+			<a  class="btn btn-primary" onclick="addRow('dataTable')" >Add New Item</a> <br /><br />
 		</div>
 	</c:if>
+
 			
-	<div class='col-xs-5'>
+	<div class='col-lg-5'>
 		<div class="row">
 			<div class="panel panel-info">
 				<div class="panel-heading">Reason To Request</div>	
@@ -131,13 +113,24 @@
 				</div>				
 			</div>
 		</div>
-
-		<div><a href ="${pageContext.request.contextPath}/staff/created.html" class="btn btn-success"> Submit </a></div>
-		<br>
-		<div><input type="button" value="Back" class="btn btn-primary" onclick="history.back()"/></div>
 	</div>
 
+		<div class='col-lg-9'>
+			<div class="row">
+				<form:button class="btn btn-success" >Submit</form:button>
+			</div>
+		</div>
+		
+</form:form>
 </div>
+	<br><br>
+		<div class='col-lg-12'>
+			<div class="row">
+				<input type="button" value="Back" class="btn btn-primary" onclick="history.back()"/>
+			</div>
+		</div>
+	
+
 
 </body>
 </html>

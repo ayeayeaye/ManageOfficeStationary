@@ -1,28 +1,26 @@
 package com.example.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
-import java.sql.Array;
-import java.util.ArrayList;import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.model.Category;
-import com.example.model.Department;
 import com.example.model.Item;
 import com.example.model.RequestDetail;
 import com.example.model.Requests;
@@ -71,7 +69,7 @@ public class StaffController {
 		String deptCode = "SCI";
 		ArrayList<Requests> aDeptReqList=rService.findADeptRequest(deptCode);	
 		
-		//Get latest 3 rows
+		//Get latest 3 rows/requests
 		Requests[] last3Req = new Requests[3];
 		int count=0;		
 		for (int i =  aDeptReqList.size()-1; i >= aDeptReqList.size()-3 ; i--)
@@ -85,7 +83,7 @@ public class StaffController {
 		return moView;	
 	}
 	
-	//Create
+	//Create****** 
 	@RequestMapping(value="/create/request")
 	public ModelAndView createNewRequest(HttpSession session, HttpServletRequest request)
 	{
@@ -97,7 +95,60 @@ public class StaffController {
 		ArrayList<Category> categoryList = cService.findAllCategory();
 		moView.addObject("categoryList",categoryList);
 		
+		return moView;
+		
+	}
+			
+	
+	//
+	@RequestMapping(value="/create/request", method=RequestMethod.POST)
+	public ModelAndView createdRequest(HttpSession session, HttpServletRequest request,
+	@RequestParam("reqItemC") ArrayList<Integer> reqItemIdList, @RequestParam("reqQuantityC") ArrayList<Integer> reqQuantityList )
+	{
+		ModelAndView moView = new ModelAndView("text");
+		
+		//Eg
+		String drepCode = "PHAR"; //SCI,
+		Integer loginEmp = 10034; //10050,
+		
+		//request
+		Requests  newReq = new Requests();
+		newReq.setDepartment(drepCode);
+		newReq.setEmployee(loginEmp);		
+		//increase "Department request code" by manually
+		Integer maxDepRepId =rService.findMaxDeptRepCode(drepCode);	
+		//Set "drepcode"
+		newReq.setDrepCode(maxDepRepId+1);
+		//Set "dept_status"
+		newReq.setDeptStatus("Request");	
+		//Set "request date"
+	    Date date = Calendar.getInstance().getTime();
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    String d = sdf.format(date);
+	    newReq.setReqDate(date);
 
+
+	    //get last request id
+	    Integer lastReqId = rService.findLastReqId();
+	 
+	    
+	    //save in database(Parent)
+	    rService.saveNewRequest(newReq);
+	    
+		//request detail
+		RequestDetail newReqDetl =  new RequestDetail();
+		//get data from view jsp
+	    for (int i = 0; i < reqItemIdList.size(); i++) {
+			//set "request id"**
+			newReqDetl.setRequestId(lastReqId+1);
+			//set "item code"
+	    	newReqDetl.setItem(reqItemIdList.get(i));	
+			//set "request quantity"
+			newReqDetl.setReqQuantity(reqQuantityList.get(i));
+			//save in database (Child)
+			rdService.saveNewReqDetl(newReqDetl);
+		}
+	    
 		return moView;
 		
 	}
