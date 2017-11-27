@@ -20,5 +20,11 @@ public interface RequestService {
 
 	void deleteRequest(Requests request);
 
+	Integer findMaxDeptRepCode(String drepCode);
+
+	void saveNewRequest(Requests newReq);
+
+	Integer findLastReqId();
+
 
 }

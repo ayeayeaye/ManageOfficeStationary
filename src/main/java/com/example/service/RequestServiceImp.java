@@ -56,6 +56,22 @@ public class RequestServiceImp implements RequestService {
 		repository.delete(request);	
 	}
 
+	@Override
+	public Integer findMaxDeptRepCode(String drepCode) {
+		Integer maxDepRepId = repository.findMaxDeptRepCode(drepCode);
+		return maxDepRepId;
+	}
+
+	@Override
+	public void saveNewRequest(Requests newReq) {
+		repository.saveAndFlush(newReq);	
+	}
+
+	@Override
+	public Integer findLastReqId() {
+		return repository.findLastReqId();
+	}
+
 
 
 

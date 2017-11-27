@@ -31,9 +31,15 @@ public class RequestDetailServiceImp implements RequestDetailService {
 
 	@Override
 	public void deleteRqDetail(RequestDetail rqDetail) {
-		repository.delete(rqDetail);
-		
+		repository.delete(rqDetail);		
 	}
+
+	@Override
+	public void saveNewReqDetl(RequestDetail newReqDetl) {
+		repository.saveAndFlush(newReqDetl);
+	}
+
+
 
 	
 

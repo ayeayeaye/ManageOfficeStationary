@@ -14,4 +14,6 @@ public interface RequestDetailService {
 
 	void deleteRqDetail(RequestDetail rqDetail);
 
+	void saveNewReqDetl(RequestDetail newReqDetl);
+
 }

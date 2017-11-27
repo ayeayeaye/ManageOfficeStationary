@@ -27,5 +27,11 @@ public interface RequestRepository extends JpaRepository<Requests, String> {
 	@Query(value="SELECT * FROM request r where r.approve_date = CURDATE();", nativeQuery=true)
 	ArrayList<Requests> findTodayRequests();
 
+	@Query("select max(e.drepCode) from Requests e where e.department = :drepCode ")
+	Integer findMaxDeptRepCode(@Param("drepCode") String drepCode);
+
+	@Query("select max(e.requestId) from Requests e")
+	Integer findLastReqId();
+
 	
 }

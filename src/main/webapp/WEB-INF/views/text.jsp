@@ -35,6 +35,10 @@ ${reqEditId}
 <h1>Test 6 - cancel</h1>
 ${rqId}
 
+<h1>Test 7 - New</h1>
+=${maxDepRepId}
+=${d}
+
 </body>
 
 </html>
