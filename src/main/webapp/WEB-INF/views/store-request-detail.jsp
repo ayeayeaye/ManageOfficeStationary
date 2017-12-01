@@ -74,7 +74,7 @@
 	<%-- 	<c:choose>
 	    	<c:when test="${storeStatus == 'Pending' }"> --%>
 	    	<%-- 	<a href="${pageContext.request.contextPath}/store/request/pending.html" class="btn btn-primary" >Back</a> --%>
-	    	<input type="button" value="Back" class="btn btn-primary" onclick="history.back()"/>
+	    	<input type="button" value="Back" class="btn btn-primary" onclick="${pageContext.request.contextPath}/store/dashboard"/>
 	    	
 <%-- 	    	</c:when>
 		    	<c:when test="${storeStatus == 'Disbursed' }">

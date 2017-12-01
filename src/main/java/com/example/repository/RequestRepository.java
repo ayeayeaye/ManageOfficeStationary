@@ -33,5 +33,8 @@ public interface RequestRepository extends JpaRepository<Requests, String> {
 	@Query("select max(e.requestId) from Requests e")
 	Integer findLastReqId();
 
+	@Query("SELECT e FROM Requests e where e.deptStatus = 'Request' and e.department = :deptCode")
+	ArrayList<Requests> findDeptPendingAllRequests(@Param("deptCode") String deptCode);
+
 	
 }
