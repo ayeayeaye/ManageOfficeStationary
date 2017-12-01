@@ -10,10 +10,12 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +35,7 @@ import com.example.service.RequestService;
 
 @Controller
 @RequestMapping(value = "/staff")
-public class StaffController {
+public class StaffRequestController {
 
 	@Autowired
 	ItemService iService;
@@ -60,31 +62,37 @@ public class StaffController {
 		
 	}
 	
-	//Read
+	//Read //***If a department has no request, error
 	@RequestMapping(value="/dashboard")
 	public ModelAndView viewDashboard()
 	{
 		ModelAndView moView = new ModelAndView("staff-dashboard");
 		/*Eg	*/	
-		String deptCode = "SCI";
+		String deptCode = "ADMIN";
 		ArrayList<Requests> aDeptReqList=rService.findADeptRequest(deptCode);	
 		
-		//Get latest 3 rows/requests
-		Requests[] last3Req = new Requests[3];
-		int count=0;		
-		for (int i =  aDeptReqList.size()-1; i >= aDeptReqList.size()-3 ; i--)
-		{
-			last3Req[count] = aDeptReqList.get(i);
-			count++;
+		if(aDeptReqList.size()>0 )
+		{				
+			//Get latest 3 rows/requests
+			Requests[] last3Req = new Requests[3];
+			int count=0;		
+			for (int i =  aDeptReqList.size()-1; i >= aDeptReqList.size()-3 ; i--)
+			{
+				last3Req[count] = aDeptReqList.get(i);
+				count++;
+			}
+		
+			moView.addObject("last3Req",last3Req);
 		}
-	
-		moView.addObject("last3Req",last3Req);
-				
+		else
+		{
+			moView.addObject("erMsg", "There are no request at this moment");
+		}
 		return moView;	
 	}
 	
-	//Create****** 
-	@RequestMapping(value="/create/request")
+	//Create
+	@RequestMapping(value="/request/create")
 	public ModelAndView createNewRequest(HttpSession session, HttpServletRequest request)
 	{
 		//ModelAndView moView = new ModelAndView("staff-create-request");
@@ -101,24 +109,31 @@ public class StaffController {
 			
 	
 	//
-	@RequestMapping(value="/create/request", method=RequestMethod.POST)
-	public ModelAndView createdRequest(HttpSession session, HttpServletRequest request,
+	@RequestMapping(value="/request/create", method=RequestMethod.POST)
+	public String createdRequest(HttpSession session, HttpServletRequest request,
 	@RequestParam("reqItemC") ArrayList<Integer> reqItemIdList, @RequestParam("reqQuantityC") ArrayList<Integer> reqQuantityList )
 	{
-		ModelAndView moView = new ModelAndView("text");
-		
+				
 		//Eg
-		String drepCode = "PHAR"; //SCI,
-		Integer loginEmp = 10034; //10050,
+		String drepCode = "ADMIN"; //SCI,
+		Integer loginEmp = 10002; //10050,
 		
 		//request
 		Requests  newReq = new Requests();
 		newReq.setDepartment(drepCode);
-		newReq.setEmployee(loginEmp);		
+		newReq.setEmployee(loginEmp);
+		//Set "drepcode"
 		//increase "Department request code" by manually
 		Integer maxDepRepId =rService.findMaxDeptRepCode(drepCode);	
-		//Set "drepcode"
-		newReq.setDrepCode(maxDepRepId+1);
+		if(maxDepRepId <=0 )
+		{
+			newReq.setDrepCode(1);
+		}
+		else
+		{
+			newReq.setDrepCode(maxDepRepId+1);
+		}
+		
 		//Set "dept_status"
 		newReq.setDeptStatus("Request");	
 		//Set "request date"
@@ -138,7 +153,8 @@ public class StaffController {
 		//request detail
 		RequestDetail newReqDetl =  new RequestDetail();
 		//get data from view jsp
-	    for (int i = 0; i < reqItemIdList.size(); i++) {
+	    for (int i = 0; i < reqItemIdList.size(); i++)
+	    {
 			//set "request id"**
 			newReqDetl.setRequestId(lastReqId+1);
 			//set "item code"
@@ -146,10 +162,10 @@ public class StaffController {
 			//set "request quantity"
 			newReqDetl.setReqQuantity(reqQuantityList.get(i));
 			//save in database (Child)
-			rdService.saveNewReqDetl(newReqDetl);
+			rdService.saveReqDetl(newReqDetl);
 		}
 	    
-		return moView;
+		return "redirect:/staff/request/history";
 		
 	}
 	
@@ -159,16 +175,16 @@ public class StaffController {
 	{
 		ModelAndView moView = new ModelAndView("staff-request-history");	
 		/*example login department*/
-		ArrayList<Requests>  deptReqList= rService.findADeptRequest("SCI");	
+		ArrayList<Requests>  deptReqList= rService.findADeptRequest("ADMIN");	
 		moView.addObject("deptReqList",deptReqList);
 		/*example login department's staff*/
-		Integer loginEmpId = 10050 ; 
+		Integer loginEmpId = 10002 ; 
 		moView.addObject("loginEmpId",loginEmpId);
 	
 		return moView;		
 	}
 	
-	//Read
+/*	//Read
 	@RequestMapping(value="/request/detailUpdate/{clickBtnText}/{reqId}")
 	public ModelAndView requestDetailUpdate(HttpSession session, @PathVariable Integer reqId, @PathVariable String clickBtnText)
 	{
@@ -189,6 +205,52 @@ public class StaffController {
 			moView.addObject("msg", "clickUpdate");
 		}
 		
+		return moView;	
+	}*/
+		//Read
+	@RequestMapping(value="/request/detail/{reqId}")
+	public ModelAndView requestDetail(HttpSession session, @PathVariable Integer reqId)
+	{
+		ModelAndView moView = new ModelAndView("staff-request-detail2");	
+		
+		ArrayList<RequestDetail> reqDetList = rdService.findReqDetailByReqId(reqId);	
+		moView.addObject("reqDetList", reqDetList);	
+		
+		Requests aReq =rService.findARequestByReqId(reqId);
+		moView.addObject("aReq", aReq);
+		
+		moView.addObject("who", "staff");
+		
+		return moView;	
+	}
+	//Read
+	@RequestMapping(value="/request/update/{reqId}")
+	public ModelAndView requestUpdateG(HttpSession session, @PathVariable Integer reqId)
+	{
+		ModelAndView moView = new ModelAndView("staff-update-request");	
+		ArrayList<RequestDetail> reqDetList = rdService.findReqDetailByReqId(reqId);	
+		moView.addObject("reqDetList", reqDetList);	
+		
+		//send this "A" request Id because  request id from request details is "List"
+		Requests aReq =rService.findARequestByReqId(reqId);
+		moView.addObject("aReq", aReq);
+		
+		return moView;	
+	}
+	//Update
+	@RequestMapping(value="/request/update/{reqId}", method=RequestMethod.POST)
+	public ModelAndView requestUpdateP(HttpSession session, @PathVariable Integer reqId, @RequestParam("reqQuantityC") ArrayList<Integer> reqQuantityList )
+	{
+		ModelAndView moView = new ModelAndView("redirect:/staff/request/detail/"+reqId);	
+		
+		//Update "Request Quantity" by "request Detail Id"
+		ArrayList<RequestDetail> rdList = rdService.findReqDetailByReqId(reqId);
+		RequestDetail ard = new RequestDetail();
+		for (int i = 0; i < rdList.size(); i++)
+		{							
+			rdService.updateReqQtyByReqdeId(rdList.get(i).getRequestdetailId(),reqQuantityList.get(i));
+		}
+					
 		return moView;	
 	}
 

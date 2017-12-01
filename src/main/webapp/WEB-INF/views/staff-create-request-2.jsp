@@ -61,9 +61,9 @@
 
 
 
-	<h3>Request Item</h3>
+	<h3>Create New Request</h3>
 <div>
-<form:form action="${pageContext.request.contextPath}/staff/create/request.html" method="POST" modelAttribute="categoryList">
+<form:form action="${pageContext.request.contextPath}/staff/request/create.html" method="POST" modelAttribute="categoryList">
 	<c:if test="${fn:length(itemList) gt 0}">
 		<div class="table-responsive">							
 			<table class="table table-hover " id="dataTable">

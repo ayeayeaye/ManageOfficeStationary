@@ -7,7 +7,7 @@
 
 <div class="row" style="height:50px">
 <div class="col-lg-6">
-<a href="${pageContext.request.contextPath}/staff/create/request.html"class="btn btn-success">Create New Request</a>
+<a href="${pageContext.request.contextPath}/staff/request/create.html"class="btn btn-primary">Create New Request</a>
 </div>
 </div>
 
@@ -50,12 +50,12 @@
 	    <td>${deptReqList.reqDate}</td>
 	    <td>${deptReqList.approveDate}</td>
 	    <td>${deptReqList.disburseDate}</td>
-	    <td><a href="${pageContext.request.contextPath}/staff/request/detailUpdate/Detail/${deptReqList.requestId}.html" class="btn btn-primary" >Detail</a></td>
+	    <td><a href="${pageContext.request.contextPath}/staff/request/detail/${deptReqList.requestId}.html" class="btn btn-primary" >Detail</a></td>
 	  	
 	  	<!-- Staff can see "Update" & "Cancel" button if 1-their own request 2-before "Approve"or"Reject" -->
 	  	<c:choose>
 	  		<c:when test="${loginEmpId == deptReqList.employee and deptReqList.deptStatus == 'Request' }">
-			  	<td><a href="${pageContext.request.contextPath}/staff/request/detailUpdate/Update/${deptReqList.requestId}.html" class="btn btn-warning">Update</a></td>
+			  	<td><a href="${pageContext.request.contextPath}/staff/request/update/${deptReqList.requestId}.html" class="btn btn-warning">Update</a></td>
 			  	
 			  	<!-- cancel confirm ,window pop-up -->			  	
 				<script type="text/javascript">

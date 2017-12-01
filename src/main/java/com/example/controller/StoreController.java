@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import com.example.model.CollectionPoint;
 import com.example.model.Department;
 import com.example.model.RequestDetail;
 import com.example.model.Requests;
 import com.example.service.CategoryService;
-import com.example.service.CollectPointService;
 import com.example.service.DepartmentService;
 import com.example.service.ItemService;
 import com.example.service.RequestDetailService;
@@ -39,8 +37,6 @@ public class StoreController {
 	DepartmentService dService;
 	@Autowired
 	RequestDetailService rdService;
-	@Autowired
-	CollectPointService cpService;
 	
 	//Read
 	@RequestMapping(value="/dashboard")
@@ -56,9 +52,6 @@ public class StoreController {
 		
 		ArrayList<Department> deptList = dService.getAllDept();
 		moView.addObject("deptList", deptList);
-		
-		ArrayList<CollectionPoint> allCollectPointLsit = cpService.getAllCollectPoint();
-		moView.addObject("allCollectPointLsit",allCollectPointLsit);
 		
 		return moView;	
 	}
@@ -105,7 +98,7 @@ public class StoreController {
         Date currentDate  = date;       
 		disbReq.setDisburseDate(currentDate);	
 		//2-Set in database
-		rService.changeRequest(disbReq);
+		rService.saveRequest(disbReq);
 		
 		//3-Get request_detail_id(many) depend on reques_id(see no 1)
 		ArrayList<RequestDetail> disbReqDetailList = rdService.findReqDetailByReqId(aRqId);
@@ -118,11 +111,13 @@ public class StoreController {
 		//5-set first value of receive_quantity array in first RequestDetail Object's column 
 		//  set second value of receive_quantity array in second RequestDetail Object's column
 		//......... loop until the number of result(see no 3 OR no 4)
+		int k=0;
 		for(int j=0; j<disbReqDetailList.size(); j++)
 		{
-			int i = Integer.valueOf(receiveQtyAry[0]);
+			int i = Integer.valueOf(receiveQtyAry[k]);
 			disbReqDetailList.get(j).setReceiveQuantity(i);
 			rdService.fillReceiveQuantity(disbReqDetailList.get(j));
+			k++;
 		}
 			
 		moView.addObject("aRqId", aRqId);
@@ -155,7 +150,7 @@ public class StoreController {
 	}
 
 	//Read
-	@RequestMapping(value="/collectP", method=RequestMethod.GET)
+/*	@RequestMapping(value="/collectP", method=RequestMethod.GET)
 	public ModelAndView viewAllCollectP(HttpSession session)
 	{
 		ModelAndView moView = new ModelAndView("collect-point");
@@ -166,11 +161,11 @@ public class StoreController {
 		moView.addObject("command", new CollectionPoint());
 		
 		return moView;	
-	}
+	}*/
 	
 
 	//Create
-	@RequestMapping(value="/collectP/Created", method=RequestMethod.POST)
+/*	@RequestMapping(value="/collectP/Created", method=RequestMethod.POST)
 	public ModelAndView addNewCollectPoint( @ModelAttribute("collectpoint") CollectionPoint cpFromView )
 	{
 		ModelAndView moView = new ModelAndView("redirect:/store/collectP");
@@ -187,15 +182,15 @@ public class StoreController {
 		
 		moView.addObject("collectPName",cpFromView.getCollectPointName());		
 		return moView;
-	}
+	}*/
 	
-	@RequestMapping(value="/collectP/delete/{cpId}")
+/*	@RequestMapping(value="/collectP/delete/{cpId}")
 	public ModelAndView deleteCollectPoint(@PathVariable Integer cpId)
 	{
 		CollectionPoint aCP =cpService.findaCPById(cpId);
 		cpService.deleteCPbyId(aCP);
 		return new ModelAndView("redirect:/store/collectP", "aCP", aCP);
 
-	}
+	}*/
 
 }

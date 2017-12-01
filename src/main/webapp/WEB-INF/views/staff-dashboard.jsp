@@ -1,18 +1,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link href="../css/styles.css" rel="STYLESHEET" type="text/css">
 
 <div class="container-fluid">
 <h1>Welcome - Staff </h1>
 </div>
 
- <div><a href="${pageContext.request.contextPath}/staff/create/request.html" class="btn btn-success" >Make New Request</a></div><br>
-
 <div class="container">
 
-    <div class="row">
+<div class="container">
+ <div class="row">
+ 	<a href="${pageContext.request.contextPath}/staff/request/create.html" class="btn btn-success" >Make New Request</a>
+ </div>
+ </div><br>
+
+
+
+<div class="row">
     
     <!-- Div 1 -->
-        <div class="col-lg-9" style="background-color:yellow;">
+        <div class="col-lg-9">
 	 
 		  <!-- Panel -->
 		  <div class="panel panel-default">
@@ -22,17 +29,20 @@
 				</div>
 			 </div>
 		      <div class="panel-body">
+		      
+		      <c:if test="${empty last3Req}">${erMsg}</c:if>
+		        <c:if test="${not empty last3Req}">${erMsg}
 		      	<table class="table">
 				<thead>
 				  <tr>
 				    <th>RequestID</th>
-				    <th>Date</th>
+				    <th>Date(Req/Rej/App)</th>
 				    <th>Employee</th>
 				    <th>Department</th>
 				    <th>Status</th>
 				  </tr>
 		  		</thead>
-				 <tbody>
+				 <tbody>			
 				  <c:forEach items="${last3Req}" var="reqPList" varStatus="counter">		  
 					  <tr> 
 					  	<td>${reqPList.department}-${reqPList.drepCode}</td>
@@ -40,7 +50,14 @@
 					  <!-- 	Department - status is "Request", show "Request Date", status is "Approve/Reject", show "approve Date" -->
 					  	
 					  	<td>
-					  		
+						  	<c:choose>
+						  		<c:when test="${reqPList.deptStatus == 'Request' }">
+						  			${reqPList.reqDate}
+						  		</c:when>
+						  		<c:otherwise>
+						  			${reqPList.approveDate}
+						  		</c:otherwise>
+						  	</c:choose>	
 					  	</td>
 					  	
 					  	<td>${reqPList.employeeModel.employeeName}</td>
@@ -48,8 +65,11 @@
 					    <td>${reqPList.deptStatus}</td>
 					 </tr>
 				  </c:forEach>	
+				 				  			  
 				 </tbody>
-		       </table>    	
+		       </table>  
+		        </c:if>
+		         	
 		      </div>
 		      <div class="panel-footer">
 			      <span>
@@ -65,8 +85,8 @@
         </div>
      <!-- Div 1 -->
  
-     <!--Div 2  -->
-        <div class="col-lg-3" style="background-color:pink;">
+<%--      <!--Div 2  -->
+        <div class="col-lg-3">
 			<!-- Panel 2 -->
 		  <div class="panel panel-default">
 		      <div class="panel-heading">
@@ -95,7 +115,7 @@
     <!--Div 2  --> 
                
     <!--Div 3  -->
-        <div class="col-lg-3" style="background-color:pink;">
+        <div class="col-lg-3">
 			<!-- Panel 3 -->
 		  <div class="panel panel-default">
 		      <div class="panel-heading">
@@ -128,14 +148,11 @@
 			 </div>
 	      </div>
         </div>      
-    <!--Panel 3  -->       
-    </div>
+    <!--Panel 3  -->        
+    </div> --%>
  <!--Div 3  -->
  
  
-   
-    </div>
-
    
 </div>
 

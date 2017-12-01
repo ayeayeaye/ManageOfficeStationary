@@ -35,14 +35,13 @@ public class RequestDetailServiceImp implements RequestDetailService {
 	}
 
 	@Override
-	public void saveNewReqDetl(RequestDetail newReqDetl) {
+	public void saveReqDetl(RequestDetail newReqDetl) {
 		repository.saveAndFlush(newReqDetl);
 	}
 
-
-
-	
-
-
+	@Override
+	public void updateReqQtyByReqdeId(Integer rdId, Integer reqQty) {
+		repository.updateReqQtyByReqdeId(rdId, reqQty);
+	}
 
 }

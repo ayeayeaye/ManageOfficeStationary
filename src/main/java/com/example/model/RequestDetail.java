@@ -14,7 +14,7 @@ public class RequestDetail {
 	@Id
 	@Column(name="requestdetail_id")
 	private int requestdetailId;
-	@Column(name="request_id")
+	@Column(name="request")
 	private int requestId;
 	@Column(name="item")
 	private int item;
@@ -28,7 +28,7 @@ public class RequestDetail {
 	private Item itemModel;
 	
 	@ManyToOne
-	@JoinColumn(name="request_id", insertable=false, updatable=false)
+	@JoinColumn(name="request", insertable=false, updatable=false)
 	private Requests requestModel;
 
 	public RequestDetail() {

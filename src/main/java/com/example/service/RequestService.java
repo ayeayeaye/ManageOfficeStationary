@@ -14,7 +14,7 @@ public interface RequestService {
 
 	Requests findARequestByReqId(Integer aRqId);
 
-	void changeRequest(Requests disbReq);
+	void saveRequest(Requests disbReq);
 	
 	ArrayList<Requests> findTodayRequests();
 
@@ -25,6 +25,8 @@ public interface RequestService {
 	void saveNewRequest(Requests newReq);
 
 	Integer findLastReqId();
+
+	ArrayList<Requests> findDeptPendingAllRequests(String deptCode);
 
 
 }

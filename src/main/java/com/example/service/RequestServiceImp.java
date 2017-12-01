@@ -41,7 +41,7 @@ public class RequestServiceImp implements RequestService {
 	}
 
 	@Override
-	public void changeRequest(Requests disbReq) {
+	public void saveRequest(Requests disbReq) {
 		repository.saveAndFlush(disbReq);		
 	}
 
@@ -70,6 +70,11 @@ public class RequestServiceImp implements RequestService {
 	@Override
 	public Integer findLastReqId() {
 		return repository.findLastReqId();
+	}
+
+	@Override
+	public ArrayList<Requests> findDeptPendingAllRequests(String deptCode) {
+		return repository.findDeptPendingAllRequests(deptCode);
 	}
 
 
