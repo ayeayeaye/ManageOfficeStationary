@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.model.Category;
 import com.example.model.Item;

@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<link href="../css/styles.css" rel="STYLESHEET" type="text/css">
 
 <html>
 <head>
@@ -59,13 +60,15 @@
 
 <body>
 
-
-
-	<h3>Create New Request</h3>
-<div>
+<h1>Create New Request - Staff</h1>
+<div></div>
 <form:form action="${pageContext.request.contextPath}/staff/request/create.html" method="POST" modelAttribute="categoryList">
-	<c:if test="${fn:length(itemList) gt 0}">
-		<div class="table-responsive">							
+	<div class="row">
+		<c:if test="${fn:length(itemList) gt 0}">	
+		<div class="col-lg-9">
+		<div class="panel panel-default ">
+		<div class="panel panel-heading"><h3>Choose the Item</h3></div>		
+		<div class="panel panel-body">			
 			<table class="table table-hover " id="dataTable">
 				<thead>
 					<tr class="listHeading">
@@ -77,7 +80,6 @@
 				</thead>
 				<tbody>	
 				
-				<!-- No change -->
 
 					<tr class="listBody">
 
@@ -86,7 +88,7 @@
 						<td>
 							<select name="reqItemC">
 								<c:forEach items="${itemList}" var="itemList">
-									<option value="${itemList.itemId}">${itemList.category}-${itemList.itemName}</option>
+									<option value="${itemList.itemId}">${itemList.category}-${itemList.itemName}</option>								
 								</c:forEach>
 							</select>
 						</td>					
@@ -98,21 +100,41 @@
 				  </tr>				
 					
 				</tbody>
-			</table>	
+			</table>
+			</div>	
 			<a  class="btn btn-primary" onclick="addRow('dataTable')" >Add New Item</a> <br /><br />
+		</div>
 		</div>
 	</c:if>
 
-			
-	<div class='col-lg-5'>
-		<div class="row">
-			<div class="panel panel-info">
-				<div class="panel-heading">Reason To Request</div>	
-				<div class="panel-body">		
-					<textarea class="form-control" rows="4" ></textarea>	
-				</div>				
-			</div>
-		</div>
+		<div class=" col-lg-3 pull-right">
+		<div class="panel panel-default">	
+		<div class="panel panel-body">	
+					<table class="table">
+						<tbody>
+						<tr>
+							<td class="col-lg-3">Request By:<br>
+							Sign in People</td>
+						</tr>
+						<tr>
+							<td class="col-lg-3">Request for:<br>
+							<select name="empName">
+								<c:forEach items="${empList}" var="emp">
+									<option value="${emp.employeeId}">${emp.employeeName}</option>
+								</c:forEach>
+								<option>Others</option>
+							</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-lg-6">Reason:<br>
+							<textarea></textarea></td>
+						</tr>						
+						</tbody>					
+					</table>
+	</div>
+	</div>
+	</div>
 	</div>
 
 		<div class='col-lg-9'>
@@ -122,7 +144,7 @@
 		</div>
 		
 </form:form>
-</div>
+
 	<br><br>
 		<div class='col-lg-12'>
 			<div class="row">

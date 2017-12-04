@@ -29,8 +29,8 @@ public class RequestServiceImp implements RequestService {
 	}
 
 	@Override
-	public ArrayList<Requests> findADeptRequest(String id) {
-		ArrayList<Requests> adeptReqList =  repository.findADeptRequest(id);
+	public ArrayList<Requests> findRequestsByDept(String id) {
+		ArrayList<Requests> adeptReqList =  repository.findRequestsByDept(id);
 		return adeptReqList;
 	}
 

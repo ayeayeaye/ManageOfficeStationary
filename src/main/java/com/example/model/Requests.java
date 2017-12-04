@@ -6,12 +6,17 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.example.javabeans.DepartmentStatus;
+import com.example.javabeans.ManagerApproveNeed;
 
 @Entity
 @Table(name="request")
@@ -26,6 +31,11 @@ public class Requests {
 	private String department;
 	@Column(name = "employee")
 	private int employee;
+	
+	@Column(name="need")
+	@Enumerated(EnumType.STRING)
+	private ManagerApproveNeed  managerApprove;
+	
 	@Column(name = "dept_status")
 	private String deptStatus;
 	@Column(name = "store_status")
@@ -33,12 +43,10 @@ public class Requests {
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "req_date")
-	private Date reqDate;
-	
+	private Date reqDate;	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "approve_date")
 	private Date approveDate;
-
 	@Column(name = "disburse_date")
 	private Date disburseDate;
 	
@@ -50,15 +58,15 @@ public class Requests {
 	@JoinColumn(name="employee", insertable=false, updatable=false)//own column name
 	private Employee employeeModel;
 
-
-	
-	public Requests(int requestId, int drepCode, String department, int employee, String deptStatus, String storeStatus,
-			Date reqDate, Date approveDate, Date disburseDate, Department departmentModel, Employee employeeModel) {
+	public Requests(int requestId, int drepCode, String department, int employee, ManagerApproveNeed managerApprove,
+			String deptStatus, String storeStatus, Date reqDate, Date approveDate, Date disburseDate,
+			Department departmentModel, Employee employeeModel) {
 		super();
 		this.requestId = requestId;
 		this.drepCode = drepCode;
 		this.department = department;
 		this.employee = employee;
+		this.managerApprove = managerApprove;
 		this.deptStatus = deptStatus;
 		this.storeStatus = storeStatus;
 		this.reqDate = reqDate;
@@ -103,6 +111,14 @@ public class Requests {
 
 	public void setEmployee(int employee) {
 		this.employee = employee;
+	}
+
+	public ManagerApproveNeed getManagerApprove() {
+		return managerApprove;
+	}
+
+	public void setManagerApprove(ManagerApproveNeed no) {
+		this.managerApprove = no;
 	}
 
 	public String getDeptStatus() {
@@ -164,10 +180,12 @@ public class Requests {
 	@Override
 	public String toString() {
 		return "Requests [requestId=" + requestId + ", drepCode=" + drepCode + ", department=" + department
-				+ ", employee=" + employee + ", deptStatus=" + deptStatus + ", storeStatus=" + storeStatus
-				+ ", reqDate=" + reqDate + ", approveDate=" + approveDate + ", disburseDate=" + disburseDate
-				+ ", departmentModel=" + departmentModel + ", employeeModel=" + employeeModel + "]";
+				+ ", employee=" + employee + ", managerApprove=" + managerApprove + ", deptStatus=" + deptStatus
+				+ ", storeStatus=" + storeStatus + ", reqDate=" + reqDate + ", approveDate=" + approveDate
+				+ ", disburseDate=" + disburseDate + ", departmentModel=" + departmentModel + ", employeeModel="
+				+ employeeModel + "]";
 	}
+
 
 	
 }

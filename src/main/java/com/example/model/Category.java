@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,15 +23,19 @@ public class Category {
 	@Column(name = "category_name")
 	private String categoryName;
 	
+	@OneToMany(mappedBy = "categoryModel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Item> itemMList;
+
 	public Category() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Category(int categoryId, String categoryName) {
+	public Category(int categoryId, String categoryName, List<Item> itemMList) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
+		this.itemMList = itemMList;
 	}
 
 	public int getCategoryId() {
@@ -49,11 +54,18 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 
+	public List<Item> getItemMList() {
+		return itemMList;
+	}
+
+	public void setItemMList(List<Item> itemMList) {
+		this.itemMList = itemMList;
+	}
 
 	@Override
 	public String toString() {
-		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";
-	}  
-	
+		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + ", itemMList=" + itemMList
+				+ "]";
+	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.model.Category;
 import com.example.model.Item;
@@ -28,6 +29,12 @@ public class ItemServiceImp implements ItemService {
 	public ArrayList<Item> findItemByCategoryId(Integer id) {
 		ArrayList<Item> itemListByCategoryId = (ArrayList<Item>) repository.findItemByCategoryId(id);
 		return itemListByCategoryId;
+	}
+
+	@Override
+	public Double findPriceByItem(Integer itemId) {
+		Double price = repository.findPriceByItem(itemId);
+		return price ;
 	}
 	
 	

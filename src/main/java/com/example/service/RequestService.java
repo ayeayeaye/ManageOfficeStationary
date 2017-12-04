@@ -10,7 +10,7 @@ public interface RequestService {
 	
 	ArrayList<Requests> findStoreAllReques();
 
-	ArrayList<Requests> findADeptRequest(String id);
+	ArrayList<Requests> findRequestsByDept(String id);
 
 	Requests findARequestByReqId(Integer aRqId);
 
@@ -27,6 +27,7 @@ public interface RequestService {
 	Integer findLastReqId();
 
 	ArrayList<Requests> findDeptPendingAllRequests(String deptCode);
+
 
 
 }

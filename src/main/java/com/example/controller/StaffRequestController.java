@@ -22,12 +22,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.javabeans.DepartmentStatus;
+import com.example.javabeans.ManagerApproveNeed;
 import com.example.model.Category;
+import com.example.model.Employee;
 import com.example.model.Item;
 import com.example.model.RequestDetail;
 import com.example.model.Requests;
 import com.example.service.CategoryService;
 import com.example.service.DepartmentService;
+import com.example.service.EmployeeService;
 import com.example.service.ItemService;
 import com.example.service.RequestDetailService;
 import com.example.service.RequestService;
@@ -49,6 +53,11 @@ public class StaffRequestController {
 	RequestDetailService rdService;
 	@Autowired
 	DepartmentService deptService;
+	@Autowired
+	EmployeeService empService;
+	
+	String deptCode = "IT";
+	Integer loginEmp = 10012; 
 	
 	//Read
 	@RequestMapping(value="/test")
@@ -67,9 +76,7 @@ public class StaffRequestController {
 	public ModelAndView viewDashboard()
 	{
 		ModelAndView moView = new ModelAndView("staff-dashboard");
-		/*Eg	*/	
-		String deptCode = "ADMIN";
-		ArrayList<Requests> aDeptReqList=rService.findADeptRequest(deptCode);	
+		ArrayList<Requests> aDeptReqList=rService.findRequestsByDept(deptCode);	
 		
 		if(aDeptReqList.size()>0 )
 		{				
@@ -97,45 +104,56 @@ public class StaffRequestController {
 	{
 		//ModelAndView moView = new ModelAndView("staff-create-request");
 		ModelAndView moView = new ModelAndView("staff-create-request-2");
+		
 		ArrayList<Item>  itemList= iService.findAllItem();
 		moView.addObject("itemList",itemList);
 		
 		ArrayList<Category> categoryList = cService.findAllCategory();
 		moView.addObject("categoryList",categoryList);
+
+		ArrayList<Employee> empList = empService.findEmpsByDept(deptCode);
+		moView.addObject("empList", empList);
 		
 		return moView;
+		
+	}
+	
+	@RequestMapping(value="/request/precreate")
+	public String preCreateRequest(HttpSession session, HttpServletRequest request)
+	{
+
+		return "redirect:/staff/dashboard" ;
 		
 	}
 			
 	
 	//
 	@RequestMapping(value="/request/create", method=RequestMethod.POST)
-	public String createdRequest(HttpSession session, HttpServletRequest request,
+	public ModelAndView createdRequest(HttpSession session, HttpServletRequest request,
 	@RequestParam("reqItemC") ArrayList<Integer> reqItemIdList, @RequestParam("reqQuantityC") ArrayList<Integer> reqQuantityList )
 	{
 				
-		//Eg
-		String drepCode = "ADMIN"; //SCI,
-		Integer loginEmp = 10002; //10050,
+		Integer lastReqId =0;
 		
 		//request
 		Requests  newReq = new Requests();
-		newReq.setDepartment(drepCode);
+		newReq.setDepartment(deptCode);
 		newReq.setEmployee(loginEmp);
 		//Set "drepcode"
 		//increase "Department request code" by manually
-		Integer maxDepRepId =rService.findMaxDeptRepCode(drepCode);	
-		if(maxDepRepId <=0 )
+		ArrayList<Requests> deptReqList =  rService.findRequestsByDept(deptCode);
+		if(deptReqList.size() > 0)
 		{
-			newReq.setDrepCode(1);
+			Integer maxDepRepId =rService.findMaxDeptRepCode(deptCode);	
+			newReq.setDrepCode(maxDepRepId+1);
+			 //get last request id
+			lastReqId = rService.findLastReqId();
 		}
 		else
 		{
-			newReq.setDrepCode(maxDepRepId+1);
+			newReq.setDrepCode(1);
 		}
-		
-		//Set "dept_status"
-		newReq.setDeptStatus("Request");	
+			
 		//Set "request date"
 	    Date date = Calendar.getInstance().getTime();
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -143,30 +161,49 @@ public class StaffRequestController {
 	    newReq.setReqDate(date);
 
 
-	    //get last request id
-	    Integer lastReqId = rService.findLastReqId();
-	 
-	    
-	    //save in database(Parent)
-	    rService.saveNewRequest(newReq);
-	    
-		//request detail
-		RequestDetail newReqDetl =  new RequestDetail();
-		//get data from view jsp
-	    for (int i = 0; i < reqItemIdList.size(); i++)
+	    //Calculate Total Price
+	    Double totalPrice  = 0.0;
+	    String successMsg = null;
+	    for (int j = 0; j < reqItemIdList.size(); j++)
 	    {
-			//set "request id"**
-			newReqDetl.setRequestId(lastReqId+1);
-			//set "item code"
-	    	newReqDetl.setItem(reqItemIdList.get(i));	
-			//set "request quantity"
-			newReqDetl.setReqQuantity(reqQuantityList.get(i));
-			//save in database (Child)
-			rdService.saveReqDetl(newReqDetl);
-		}
+	    	totalPrice = iService.findPriceByItem(reqItemIdList.get(j));
+	    }
 	    
-		return "redirect:/staff/request/history";
-		
+	    	if(totalPrice < 100 )
+	    	{    	     	    
+	    		//Set "dept_status"
+	    		newReq.setDeptStatus("Approve");
+	    		
+	    	    //save in database(Parent)
+	    	    rService.saveNewRequest(newReq);
+	    	    
+	    		//request detail
+	    		RequestDetail newReqDetl =  new RequestDetail();
+	    		//get data from view jsp
+	    	    for (int i = 0; i < reqItemIdList.size(); i++)
+	    	    {
+	    			//set "request id"**
+	    			newReqDetl.setRequestId(lastReqId+1);
+	    			//set "item code"
+	    	    	newReqDetl.setItem(reqItemIdList.get(i));	
+	    			//set "request quantity"
+	    			newReqDetl.setReqQuantity(reqQuantityList.get(i));
+	    			//save in database (Child)
+	    			rdService.saveReqDetl(newReqDetl);
+	    		}
+	    	    
+	    	    successMsg = "successfully requested!";
+	    	    newReq.setManagerApprove(ManagerApproveNeed.NO);
+	    	}
+	    	else if(totalPrice >= 100)
+	    	{
+	    		successMsg = "This request need Manager'Approve to proceed!" ;
+	    		//Set "dept_status"
+	    		newReq.setDeptStatus("Request");
+	    		newReq.setManagerApprove(ManagerApproveNeed.YES);
+	    	}
+
+		return new ModelAndView("success","Created", successMsg);	
 	}
 	
 	//Read
@@ -175,7 +212,7 @@ public class StaffRequestController {
 	{
 		ModelAndView moView = new ModelAndView("staff-request-history");	
 		/*example login department*/
-		ArrayList<Requests>  deptReqList= rService.findADeptRequest("ADMIN");	
+		ArrayList<Requests>  deptReqList= rService.findRequestsByDept("ADMIN");	
 		moView.addObject("deptReqList",deptReqList);
 		/*example login department's staff*/
 		Integer loginEmpId = 10002 ; 

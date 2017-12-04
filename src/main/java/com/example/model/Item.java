@@ -24,23 +24,25 @@ public class Item {
 	@Column(name="category")
 	private int category;
 	private String unit;
+	private double price;
 	
 	@ManyToOne
 	@JoinColumn(name="category", insertable=false, updatable=false)
 	private Category categoryModel;
 
-	public Item() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Item(int itemId, String itemName, int category, String unit, Category categoryModel) {
+	public Item(int itemId, String itemName, int category, String unit, double price, Category categoryModel) {
 		super();
 		this.itemId = itemId;
 		this.itemName = itemName;
 		this.category = category;
 		this.unit = unit;
+		this.price = price;
 		this.categoryModel = categoryModel;
+	}
+
+	public Item() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getItemId() {
@@ -75,6 +77,14 @@ public class Item {
 		this.unit = unit;
 	}
 
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	public Category getCategoryModel() {
 		return categoryModel;
 	}
@@ -86,9 +96,7 @@ public class Item {
 	@Override
 	public String toString() {
 		return "Item [itemId=" + itemId + ", itemName=" + itemName + ", category=" + category + ", unit=" + unit
-				+ ", categoryModel=" + categoryModel + "]";
+				+ ", price=" + price + ", categoryModel=" + categoryModel + "]";
 	}
-
-	
 	
 }
