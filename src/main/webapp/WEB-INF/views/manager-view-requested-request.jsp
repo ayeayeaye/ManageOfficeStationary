@@ -8,7 +8,8 @@
 <div class="panel panel-default">
 	<div class="panel panel-heading"><h3>Pending Request</h3></div>
 	<div class="panel panel-body">
-	
+
+<c:if test="${not empty requestedReqList}">		
 <table class="table">
 	<thead>
 		<tr class="bg-info">
@@ -19,7 +20,7 @@
 			<th>View</th>			
 		</tr>
 	</thead>
-	<tbody>
+	<tbody>				
 		<c:forEach items="${requestedReqList}" var="reqs" varStatus="counter">
 			<tr>
 				<td>${counter.count}</td>
@@ -34,8 +35,14 @@
 				<td><a href="${pageContext.request.contextPath}/manager/request/detail/${reqs.requestId}.html" class="btn btn-primary">View</a></td>
 			</tr>
 		</c:forEach>
-	</tbody>
-</table>
+		
+		</tbody>
+		
+</table>		
+</c:if>
+
+		<p>There are no request to approve/reject at this moment.</p>
+
 
 </div>
 </div>

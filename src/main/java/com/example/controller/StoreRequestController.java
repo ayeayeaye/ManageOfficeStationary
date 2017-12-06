@@ -6,12 +6,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.example.model.Category;
 import com.example.model.Department;
 import com.example.model.RequestDetail;
 import com.example.model.Requests;
@@ -25,7 +29,7 @@ import com.example.service.RequestService;
 
 @Controller
 @RequestMapping(value = "/store")	
-public class StoreController {
+public class StoreRequestController {
 	
 	@Autowired
 	ItemService iService;
@@ -149,48 +153,5 @@ public class StoreController {
 		
 	}
 
-	//Read
-/*	@RequestMapping(value="/collectP", method=RequestMethod.GET)
-	public ModelAndView viewAllCollectP(HttpSession session)
-	{
-		ModelAndView moView = new ModelAndView("collect-point");
-		
-		ArrayList<CollectionPoint> allCollectPointLsit = cpService.getAllCollectPoint();
-		moView.addObject("allCollectPointLsit",allCollectPointLsit);
-		
-		moView.addObject("command", new CollectionPoint());
-		
-		return moView;	
-	}*/
 	
-
-	//Create
-/*	@RequestMapping(value="/collectP/Created", method=RequestMethod.POST)
-	public ModelAndView addNewCollectPoint( @ModelAttribute("collectpoint") CollectionPoint cpFromView )
-	{
-		ModelAndView moView = new ModelAndView("redirect:/store/collectP");
-		
-		CollectionPoint cp = new CollectionPoint();
-		cp.setCollectPointName(cpFromView.getCollectPointName());
-		//"CPId" is not "auto increment" in database, so every create "New", id is = "0" (not unique)
-		//Assign "New CP's ID" Manually
-		int si = cpService.getAllCollectPoint().size();
-		int cpSize =  si  +1;
-		cp.setCollectPointId(cpSize);
-	
-		cpService.createNewCP(cp);
-		
-		moView.addObject("collectPName",cpFromView.getCollectPointName());		
-		return moView;
-	}*/
-	
-/*	@RequestMapping(value="/collectP/delete/{cpId}")
-	public ModelAndView deleteCollectPoint(@PathVariable Integer cpId)
-	{
-		CollectionPoint aCP =cpService.findaCPById(cpId);
-		cpService.deleteCPbyId(aCP);
-		return new ModelAndView("redirect:/store/collectP", "aCP", aCP);
-
-	}*/
-
-}
+ }

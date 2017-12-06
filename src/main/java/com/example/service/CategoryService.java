@@ -10,5 +10,7 @@ public interface CategoryService {
 	ArrayList<Category> findAllCategory();
 	
 	String findCategoryName(Integer id);
+
+	void saveCategory(Category newCat);
 	
 }

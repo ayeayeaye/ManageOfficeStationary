@@ -33,8 +33,7 @@ public class Requests {
 	private int employee;
 	
 	@Column(name="need")
-	@Enumerated(EnumType.STRING)
-	private ManagerApproveNeed  managerApprove;
+	private String  managerApprove;
 	
 	@Column(name = "dept_status")
 	private String deptStatus;
@@ -58,7 +57,7 @@ public class Requests {
 	@JoinColumn(name="employee", insertable=false, updatable=false)//own column name
 	private Employee employeeModel;
 
-	public Requests(int requestId, int drepCode, String department, int employee, ManagerApproveNeed managerApprove,
+	public Requests(int requestId, int drepCode, String department, int employee, String managerApprove,
 			String deptStatus, String storeStatus, Date reqDate, Date approveDate, Date disburseDate,
 			Department departmentModel, Employee employeeModel) {
 		super();
@@ -113,11 +112,11 @@ public class Requests {
 		this.employee = employee;
 	}
 
-	public ManagerApproveNeed getManagerApprove() {
+	public String getManagerApprove() {
 		return managerApprove;
 	}
 
-	public void setManagerApprove(ManagerApproveNeed no) {
+	public void setManagerApprove(String no) {
 		this.managerApprove = no;
 	}
 

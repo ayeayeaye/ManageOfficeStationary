@@ -35,6 +35,11 @@ public class CategoryServiceImp implements CategoryService {
 		return catName;
 	}
 
+	@Override
+	public void saveCategory(Category newCat) {
+		repository.saveAndFlush(newCat);
+	}
+
 
 
 	

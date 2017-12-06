@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.javabeans.DepartmentStatus;
+import com.example.javabeans.StoreStatus;
 import com.example.model.RequestDetail;
 import com.example.model.Requests;
 import com.example.service.RequestDetailService;
@@ -28,6 +30,9 @@ public class ManagerController {
 	@Autowired
 	RequestDetailService rdService;
 	
+	/*Eg: Login Department*/
+	String deptCode = "IT";
+	
 	@RequestMapping(value="/dashboard")
 	public ModelAndView managerDashboard()
 	{
@@ -38,8 +43,7 @@ public class ManagerController {
 	@RequestMapping(value="/view/requested/request")
 	public ModelAndView viewAllReques()
 	{
-		/*Eg: Login Department*/
-		String deptCode = "ADMIN";
+
 		ArrayList<Requests> requestedReqList = rService.findDeptPendingAllRequests(deptCode);
 		return new ModelAndView("manager-view-requested-request", "requestedReqList", requestedReqList);
 	}
@@ -66,9 +70,9 @@ public class ManagerController {
 		
 		//local
 		//set Department Status
-		appReq.setDeptStatus("Approve");
+		appReq.setDeptStatus(DepartmentStatus.APPROVE.toString());
 		//set Store Status
-		appReq.setStoreStatus("Pending");
+		appReq.setStoreStatus(StoreStatus.PENDING.toString());
 		//set Approve/Reject Date
 		appReq.setApproveDate(getitngTodayDate());		
 		//database
@@ -84,7 +88,7 @@ public class ManagerController {
 		
 		//local
 		//set Department Status
-		appReq.setDeptStatus("Reject");
+		appReq.setDeptStatus(DepartmentStatus.REJECT.toString());
 		//set Approve/Reject Date
 		appReq.setApproveDate(getitngTodayDate());
 		

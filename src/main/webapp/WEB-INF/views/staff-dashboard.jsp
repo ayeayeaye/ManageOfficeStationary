@@ -21,17 +21,21 @@
     <!-- Div 1 -->
         <div class="col-lg-9">
 	 
+	 		<c:forEach items="${last3Req}" varStatus="counter">  					
+					<c:set value="${counter.count}" var="z"></c:set>
+			</c:forEach>
+			
 		  <!-- Panel -->
 		  <div class="panel panel-default">
 		      <div class="panel-heading">
 				<div class="panel-title">
-					Last Three Requests 
+					Last ${z} Requests 
 				</div>
 			 </div>
 		      <div class="panel-body">
 		      
 		      <c:if test="${empty last3Req}">${erMsg}</c:if>
-		        <c:if test="${not empty last3Req}">${erMsg}
+		        <c:if test="${not empty last3Req}">
 		      	<table class="table">
 				<thead>
 				  <tr>
@@ -42,7 +46,7 @@
 				    <th>Status</th>
 				  </tr>
 		  		</thead>
-				 <tbody>			
+				 <tbody>
 				  <c:forEach items="${last3Req}" var="reqPList" varStatus="counter">		  
 					  <tr> 
 					  	<td>${reqPList.department}-${reqPList.drepCode}</td>

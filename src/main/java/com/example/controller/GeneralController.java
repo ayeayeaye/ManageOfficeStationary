@@ -22,9 +22,12 @@ public class GeneralController {
 	@RequestMapping(value="/view/catalogue")
 	public ModelAndView viewCatalogueG()
 	{
-		ArrayList<Item> itemList = iService.findAllItem();
-		return new ModelAndView("view-catalogue","itemList", itemList);
+		ModelAndView moView = new ModelAndView("view-catalogue");
 		
+		moView.addObject("itemList", iService.findAllItem());
+		moView.addObject("catList", cService.findAllCategory());
+		
+		return moView;		
 	}
 
 }

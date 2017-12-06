@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.sql.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.javabeans.DepartmentStatus;
 import com.example.javabeans.ManagerApproveNeed;
+import com.example.javabeans.StoreStatus;
 import com.example.model.Category;
 import com.example.model.Employee;
 import com.example.model.Item;
@@ -56,6 +58,10 @@ public class StaffRequestController {
 	@Autowired
 	EmployeeService empService;
 	
+	Date todayDate = Calendar.getInstance().getTime();
+	Double limitAmount = 100.00;
+	
+	//Example
 	String deptCode = "IT";
 	Integer loginEmp = 10012; 
 	
@@ -71,25 +77,18 @@ public class StaffRequestController {
 		
 	}
 	
-	//Read //***If a department has no request, error
+	//Read 
 	@RequestMapping(value="/dashboard")
 	public ModelAndView viewDashboard()
 	{
 		ModelAndView moView = new ModelAndView("staff-dashboard");
 		ArrayList<Requests> aDeptReqList=rService.findRequestsByDept(deptCode);	
 		
-		if(aDeptReqList.size()>0 )
-		{				
-			//Get latest 3 rows/requests
-			Requests[] last3Req = new Requests[3];
-			int count=0;		
-			for (int i =  aDeptReqList.size()-1; i >= aDeptReqList.size()-3 ; i--)
-			{
-				last3Req[count] = aDeptReqList.get(i);
-				count++;
-			}
+		//Get all requests
 		
-			moView.addObject("last3Req",last3Req);
+		if(aDeptReqList.size()> 0 )//If a department has no request, error
+		{						
+			moView.addObject("last3Req",mGetLast3Request(aDeptReqList));
 		}
 		else
 		{
@@ -121,12 +120,9 @@ public class StaffRequestController {
 	@RequestMapping(value="/request/precreate")
 	public String preCreateRequest(HttpSession session, HttpServletRequest request)
 	{
-
-		return "redirect:/staff/dashboard" ;
-		
+		return "redirect:/staff/dashboard" ;		
 	}
-			
-	
+				
 	//
 	@RequestMapping(value="/request/create", method=RequestMethod.POST)
 	public ModelAndView createdRequest(HttpSession session, HttpServletRequest request,
@@ -139,7 +135,7 @@ public class StaffRequestController {
 		Requests  newReq = new Requests();
 		newReq.setDepartment(deptCode);
 		newReq.setEmployee(loginEmp);
-		//Set "drepcode"
+		//Set "drep_code"
 		//increase "Department request code" by manually
 		ArrayList<Requests> deptReqList =  rService.findRequestsByDept(deptCode);
 		if(deptReqList.size() > 0)
@@ -154,54 +150,58 @@ public class StaffRequestController {
 			newReq.setDrepCode(1);
 		}
 			
-		//Set "request date"
-	    Date date = Calendar.getInstance().getTime();
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	    String d = sdf.format(date);
-	    newReq.setReqDate(date);
-
 
 	    //Calculate Total Price
 	    Double totalPrice  = 0.0;
 	    String successMsg = null;
 	    for (int j = 0; j < reqItemIdList.size(); j++)
 	    {
-	    	totalPrice = iService.findPriceByItem(reqItemIdList.get(j));
+	    	totalPrice = totalPrice + iService.findPriceByItem(reqItemIdList.get(j));
 	    }
 	    
-	    	if(totalPrice < 100 )
+	    	if(totalPrice < limitAmount )
 	    	{    	     	    
 	    		//Set "dept_status"
 	    		newReq.setDeptStatus("Approve");
+	    		//Set "store_status"
+	    		newReq.setStoreStatus(StoreStatus.PENDING.toString());
+	    		//Set "approve_date"
+	    		newReq.setApproveDate(todayDate);
+	    		newReq.setManagerApprove(ManagerApproveNeed.NO.toString());
 	    		
-	    	    //save in database(Parent)
+	    	    //SAVE in database(Parent)
 	    	    rService.saveNewRequest(newReq);
 	    	    
-	    		//request detail
-	    		RequestDetail newReqDetl =  new RequestDetail();
-	    		//get data from view jsp
-	    	    for (int i = 0; i < reqItemIdList.size(); i++)
-	    	    {
-	    			//set "request id"**
-	    			newReqDetl.setRequestId(lastReqId+1);
-	    			//set "item code"
-	    	    	newReqDetl.setItem(reqItemIdList.get(i));	
-	    			//set "request quantity"
-	    			newReqDetl.setReqQuantity(reqQuantityList.get(i));
-	    			//save in database (Child)
-	    			rdService.saveReqDetl(newReqDetl);
-	    		}
-	    	    
-	    	    successMsg = "successfully requested!";
-	    	    newReq.setManagerApprove(ManagerApproveNeed.NO);
+	    	    successMsg = "successfully requested!";	    	    
 	    	}
-	    	else if(totalPrice >= 100)
+	    	else if(totalPrice >= limitAmount)
 	    	{
-	    		successMsg = "This request need Manager'Approve to proceed!" ;
 	    		//Set "dept_status"
 	    		newReq.setDeptStatus("Request");
-	    		newReq.setManagerApprove(ManagerApproveNeed.YES);
+	    		//Set "re_date"
+	    		newReq.setReqDate(todayDate);
+	    		newReq.setManagerApprove(ManagerApproveNeed.YES.toString());
+	    		
+	    	    //SAVE in database(Parent)
+	    	    rService.saveNewRequest(newReq);
+	    	    
+	    		successMsg = "This request need Manager'Approve to proceed!" ;	    		
 	    	}
+	    	    	 	    
+    		//request detail
+    		RequestDetail newReqDetl =  new RequestDetail();
+    		//get data from view jsp
+    	    for (int i = 0; i < reqItemIdList.size(); i++)
+    	    {
+    			//set "request id"**
+    			newReqDetl.setRequestId(lastReqId+1);
+    			//set "item code"
+    	    	newReqDetl.setItem(reqItemIdList.get(i));	
+    			//set "request quantity"
+    			newReqDetl.setReqQuantity(reqQuantityList.get(i));
+    			//SAVE in database (Child)
+    			rdService.saveReqDetl(newReqDetl);
+    		}
 
 		return new ModelAndView("success","Created", successMsg);	
 	}
@@ -212,38 +212,14 @@ public class StaffRequestController {
 	{
 		ModelAndView moView = new ModelAndView("staff-request-history");	
 		/*example login department*/
-		ArrayList<Requests>  deptReqList= rService.findRequestsByDept("ADMIN");	
+		ArrayList<Requests>  deptReqList= rService.findRequestsByDept(deptCode);	
 		moView.addObject("deptReqList",deptReqList);
 		/*example login department's staff*/
-		Integer loginEmpId = 10002 ; 
-		moView.addObject("loginEmpId",loginEmpId);
+		moView.addObject("loginEmpId",loginEmp);
 	
 		return moView;		
 	}
 	
-/*	//Read
-	@RequestMapping(value="/request/detailUpdate/{clickBtnText}/{reqId}")
-	public ModelAndView requestDetailUpdate(HttpSession session, @PathVariable Integer reqId, @PathVariable String clickBtnText)
-	{
-		ModelAndView moView = new ModelAndView("staff-request-detail");	
-		
-		ArrayList<RequestDetail> reqDetList = rdService.findReqDetailByReqId(reqId);	
-		moView.addObject("reqDetList", reqDetList);	
-		
-		Requests aReq =rService.findARequestByReqId(reqId);
-		moView.addObject("aReq", aReq);
-		
-		if(clickBtnText.equals("Detail"))
-		{
-			moView.addObject("msg", "clickDetail");
-		}
-		else if (clickBtnText.equals("Update"))
-		{
-			moView.addObject("msg", "clickUpdate");
-		}
-		
-		return moView;	
-	}*/
 		//Read
 	@RequestMapping(value="/request/detail/{reqId}")
 	public ModelAndView requestDetail(HttpSession session, @PathVariable Integer reqId)
@@ -314,6 +290,28 @@ public class StaffRequestController {
 		return "redirect:/staff/request/history";		
 	}
 	
-	
-	
+	//methods
+	Integer noReqStaffDashboard = 3;
+	public ArrayList<Requests> mGetLast3Request(ArrayList<Requests> aDepreqList)
+	{
+		ArrayList<Requests> reqList = new ArrayList<Requests>();
+		
+		for (int i = aDepreqList.size()-1; i >= 0 ; i--)
+		{
+			reqList.add(aDepreqList.get(i));
+		}
+		
+		//Get only 3
+		ArrayList<Requests> threeReq = new ArrayList<Requests>();	
+		if(reqList.size() > noReqStaffDashboard )
+		{
+			for (int i = 0; i < noReqStaffDashboard ; i++){threeReq.add(reqList.get(i));}
+		}
+		else
+		{
+			for (int i = 0; i < reqList.size(); i++){threeReq.add(reqList.get(i));}
+		}
+		
+		return threeReq;
+	}
 }
