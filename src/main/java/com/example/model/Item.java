@@ -25,18 +25,25 @@ public class Item {
 	private int category;
 	private String unit;
 	private double price;
+	@Column(name="total_quantity")
+	private int totalQty;
+	@Column(name="reorder_level")
+	private int reorderLevel;
 	
 	@ManyToOne
 	@JoinColumn(name="category", insertable=false, updatable=false)
 	private Category categoryModel;
 
-	public Item(int itemId, String itemName, int category, String unit, double price, Category categoryModel) {
+	public Item(int itemId, String itemName, int category, String unit, double price, int totalQty, int reorderLevel,
+			Category categoryModel) {
 		super();
 		this.itemId = itemId;
 		this.itemName = itemName;
 		this.category = category;
 		this.unit = unit;
 		this.price = price;
+		this.totalQty = totalQty;
+		this.reorderLevel = reorderLevel;
 		this.categoryModel = categoryModel;
 	}
 
@@ -85,6 +92,22 @@ public class Item {
 		this.price = price;
 	}
 
+	public int getTotalQty() {
+		return totalQty;
+	}
+
+	public void setTotalQty(int totalQty) {
+		this.totalQty = totalQty;
+	}
+
+	public int getReorderLevel() {
+		return reorderLevel;
+	}
+
+	public void setReorderLevel(int reorderLevel) {
+		this.reorderLevel = reorderLevel;
+	}
+
 	public Category getCategoryModel() {
 		return categoryModel;
 	}
@@ -96,7 +119,9 @@ public class Item {
 	@Override
 	public String toString() {
 		return "Item [itemId=" + itemId + ", itemName=" + itemName + ", category=" + category + ", unit=" + unit
-				+ ", price=" + price + ", categoryModel=" + categoryModel + "]";
+				+ ", price=" + price + ", totalQty=" + totalQty + ", reorderLevel=" + reorderLevel + ", categoryModel="
+				+ categoryModel + "]";
 	}
+
 	
 }

@@ -36,6 +36,11 @@ public class ItemServiceImp implements ItemService {
 		Double price = repository.findPriceByItem(itemId);
 		return price ;
 	}
+
+	@Override
+	public void saveItem(Item newItem) {
+		repository.saveAndFlush(newItem);
+	}
 	
 	
 

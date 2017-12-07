@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <link href="../css/styles.css" rel="STYLESHEET" type="text/css">
 
 <!-- auto complete(from table) by java script -->
@@ -39,28 +40,42 @@ function myFunction() {
 	
   }
 }
+
+
+//check create new catedory is already exist or not
+function checkCategoryExist() {
+	var inputCatName = document.getElementById("newCatNameID").value;
+	//alert(inputCatName);
+	
+	var cats = document.getElementById("di").value;
+	alert(cats);
+}
+	
 </script>
+
+
+
 
 <div class="container">
 
 <h1>All</h1>
 	
 <div class="row">
-	
+
+<!-- 1 -->	
+	<div class="col-lg-7">
 	<div class="panel panel-default">
-		<div class="panel panel-heading"><h3>Catalogue</h3></div>
+		<div class="panel panel-heading"><h3>Search Catalogue</h3></div>
 		<div class="panel panel-body"> 
 		
-			<div class="col-lg-5">
 				 <div class="input-group mb-2 mr-sm-2 mb-sm-0"> <!-- to combine search & input box -->
 				    <div class="input-group-addon">Search</div>
 				    <input type="text"  class="form-control" id="inlineFormInputGroupUsername2" onkeyup="myFunction()" placeholder="Category or Item">
 				</div>
-			</div>
+
+			<br>
 			
-			<br><br>
-				
-			<div class="col-lg-7">
+			<div>	
 			<table id="myTable" class="table table-striped">
 				<thead>
 					<tr class="bg-info">
@@ -81,93 +96,95 @@ function myFunction() {
 			</table>
 			</div>
 			
-	            
-<%-- 	     <!--Div 2  -->
-	
-	        <div class="col-lg-4  pull-right">
+			</div>	 
+	</div>	
+	</div>	
+<!-- 1 -->
+
+<!-- 2 -->
+				<div class="col-lg-5 pull-right">
+					<div class="panel panel-default">
+					<div class="panel panel-heading"><h3>Create New</h3></div>
+					<div class="panel panel-body"> 
+				
+			  <!-- 2.1 -->
 			  <div class="panel panel-default" >
 			      <div class="panel-heading">
 			      	<h4 class="panel-title">
 				        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-				           Create New Category
+				           Create New Category <label>${existCatErrMsg}</label> 
 				        </a>
 			     	 </h4>
 			      </div>
 			      <div id="collapseOne" class="panel-collapse collapse">
 			      	      
-			      <div class="panel-body">
-			      <form action="${pageContext.request.contextPath}/store/catalogue/create/category.html">
+			     <div class="panel-body">
+				 <form:form action="${pageContext.request.contextPath}/store/catalogue/create/category.html" modelAttribute="catList">				 
 					<table class="table">
 							<tr>
 								<td>Id</td>
-								<td>#</td>
+								<td>:#</td>
 							</tr>
 							<tr>
 								<td>Name</td>
-								<td><input type="text" name="newCatName"/></td>
-							</tr>
+								<td>:<input type="text" name="newCatName" id="newCatNameID" /></td>
+							</tr>							
 							<tr>
-								<td colspan="2"><input type="submit" class="btn btn-success" value="Create Category"></td>
+							<td colspan="2" ><form:button class="btn btn-success" >Submit</form:button></td>
 							</tr>						
 					</table>
-				  </form>
-				 </div>
+				</form:form>
+			    </div>
 		      </div>
-	        </div>            
-	    </div>
-	 <!--Div 2  --> --%>
-	
- <%--     <!--Div 3  -->
-
-        <div class="col-lg-4  pull-right">
-		  <div class="panel panel-default" >
-		      <div class="panel-heading">
-		      	<h4 class="panel-title">
-			        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseItem">
-			          Create New Item
-			        </a>
-		     	 </h4>
-		      </div>
-		      <div id="collapseItem" class="panel-collapse collapse">
-		      	      
-		      <div class="panel-body">
-		       <form action="${pageContext.request.contentType}/store/create/item">
-					<table class="table">	
-						  <tr> 
-						    <td>Name</td>
-						    <td><input type="text" name="newItemName"/></td>
-						  </tr>
-						  <tr> 
+	        </div>					
+			<!-- 2.1 -->
+						
+			<!-- 2.2 -->
+			  <div class="panel panel-default" >
+			      <div class="panel-heading">
+			      	<h4 class="panel-title">
+				        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+				           Create New Item
+				        </a>
+			     	 </h4>
+			      </div>
+			      <div id="collapseTwo" class="panel-collapse collapse">
+			      	      
+			     <div class="panel-body">
+			     <table class="table">
+					 <form:form action="${pageContext.request.contextPath}/store/catalogue/create/item.html" commandName="newItem" method="POST">				 
+						 <tr>
+						    <td>Name</td><td>:<form:input path="itemName"/></td>
+						 </tr>	
+						 <tr>
 						    <td>Category</td>
-						    <td>
-						    	<select>
-						    		<c:forEach items="${catList}" var="cat">
-						    		<option>${cat.categoryName}</option>
+						    <td>:<form:select path="category" id="mySelectCategory" >
+									<c:forEach items="${catList}" var="cat" >
+						    		<form:option value="${cat.categoryId}" label="${cat.categoryName}"></form:option>
 						    		</c:forEach>
-						    	</select>
-						    </td>
-						  </tr>	
-						  <tr> 
-						    <td>Unit</td>
-						    <td><input type="text" name="newUnitName"/></td>
-						  </tr>
-						  <tr> 
-						    <td>Price</td>
-						    <td><input type="text" name="newItemPrice"/></td>
-						  </tr>	
-						  <tr>
-						  	<td><input type="submit" value="Create Item" class="btn btn-success" /></td>
-						  </tr>					  	  
-					</table>
-			</form>
-			 </div>
-	      </div>
-        </div>       
-    </div>
- <!--Div 3  -->  --%>
-	 
-	</div>
-	</div>
-</div>
+						    	</form:select></td>					     							     
+						 </tr>	
+						 <tr>
+						    <td>Unit</td><td>:<form:input path="unit"/></td>
+						 </tr>
+						<tr>
+						    <td>Price</td><td>:<form:input path="price"/></td>
+						</tr>	
+						 <tr>
+						    <td colspan="2" ><form:button class= "btn btn-success" >Create</form:button> </td>
+						 </tr>													 		     
+						   
+					</form:form>
+				</table>
+			    </div>
+		      </div>
+	        </div>							
+			<!-- 2.2 -->
+				
+					</div>
+					</div>
+				</div>
+<!-- 2 -->
 
+	</div>	
 </div>

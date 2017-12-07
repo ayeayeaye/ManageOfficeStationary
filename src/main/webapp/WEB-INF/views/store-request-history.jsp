@@ -30,7 +30,7 @@
     <td>${reqList.approveDate}</td>   
     <td>${reqList.disburseDate}</td> 
     <td>${reqList.storeStatus}</td>
-    <td><a href="${pageContext.request.contextPath}/store/request/detail/${reqList.requestId}.html" class="btn btn btn-primary">Detail</a></td>
+    <td><a href="${pageContext.request.contextPath}/store/request/detail/${reqList.requestId}.html" class="btn btn-primary">Detail</a></td>
    
   </tr>
   </c:forEach>

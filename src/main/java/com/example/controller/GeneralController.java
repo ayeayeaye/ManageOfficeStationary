@@ -26,8 +26,19 @@ public class GeneralController {
 		
 		moView.addObject("itemList", iService.findAllItem());
 		moView.addObject("catList", cService.findAllCategory());
+				
+		moView.addObject("newItem", new Item());
+		
 		
 		return moView;		
+	}
+	
+	@RequestMapping(value="/create/category")
+	public ModelAndView createNewCategory( )
+	{
+		ModelAndView moView = new ModelAndView("text");
+		//moView.addObject("newCatName", newCatName);
+		return moView;
 	}
 
 }

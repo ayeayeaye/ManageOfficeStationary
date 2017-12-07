@@ -12,5 +12,7 @@ public interface ItemService {
 	ArrayList<Item> findItemByCategoryId(Integer id);
 
 	Double findPriceByItem(Integer itemId);
+
+	void saveItem(Item newItem);
 	
 }
