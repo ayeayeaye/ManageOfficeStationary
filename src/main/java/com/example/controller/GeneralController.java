@@ -19,10 +19,10 @@ public class GeneralController {
 	ItemService iService;
 	
 	
-	@RequestMapping(value="/view/catalogue")
+	@RequestMapping(value="/view/items")
 	public ModelAndView viewCatalogueG()
 	{
-		ModelAndView moView = new ModelAndView("view-catalogue");
+		ModelAndView moView = new ModelAndView("view-items");
 		
 		moView.addObject("itemList", iService.findAllItem());
 		moView.addObject("catList", cService.findAllCategory());
@@ -33,12 +33,5 @@ public class GeneralController {
 		return moView;		
 	}
 	
-	@RequestMapping(value="/create/category")
-	public ModelAndView createNewCategory( )
-	{
-		ModelAndView moView = new ModelAndView("text");
-		//moView.addObject("newCatName", newCatName);
-		return moView;
-	}
 
 }

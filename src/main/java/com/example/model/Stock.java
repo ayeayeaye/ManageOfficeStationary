@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +23,8 @@ public class Stock {
 	@Column(name="added_price")
 	private double addedPrice;
 	private int supplier;
+	
+	
 	
 	public Stock() {
 		super();

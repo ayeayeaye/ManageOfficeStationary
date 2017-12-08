@@ -20,7 +20,7 @@
 
 		//get row length,  rowCount=2(first time have default one row, 3, 4,...)
 		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount); //*get rows
+		var row = table.insertRow(rowCount); 
 
 		
 		//Cell 1  = serial number 
@@ -29,7 +29,7 @@
 		
 		//Cell 2  
   		var cell2 = row.insertCell(1);		
-			var colCount = table.rows[1].cells.length;//every second row from * =rows[1], colCount=6			
+		var colCount = table.rows[1].cells.length;//every second row from * =rows[1], colCount=6			
 			for(var i=1; i<colCount; i++) //start from second column
 			{							
 			    var newcell	= row.insertCell(i); //**get a column from second row
@@ -61,7 +61,7 @@
 <body>
 
 <h1>Create New Request - Staff</h1>
-<div></div>
+
 <form:form action="${pageContext.request.contextPath}/staff/request/create.html" method="POST" modelAttribute="categoryList">
 	<div class="row">
 		<c:if test="${fn:length(itemList) gt 0}">	
@@ -102,10 +102,13 @@
 				</tbody>
 			</table>
 			</div>	
-			<a  class="btn btn-primary" onclick="addRow('dataTable')" >Add New Item</a> <br /><br />
+			
+			<div class="panel panel-footer"><a class="btn btn-primary" onclick="addRow('dataTable')" >Add New Item</a> </div>
 		</div>
 		</div>
 	</c:if>
+
+		
 
 		<div class=" col-lg-3 pull-right">
 		<div class="panel panel-default">	
@@ -137,6 +140,7 @@
 	</div>
 	</div>
 
+<br />
 		<div class='col-lg-9'>
 			<div class="row">
 				<form:button class="btn btn-success" >Submit</form:button>

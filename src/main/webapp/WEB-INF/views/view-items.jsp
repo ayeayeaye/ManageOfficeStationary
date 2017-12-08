@@ -65,7 +65,7 @@ function checkCategoryExist() {
 <!-- 1 -->	
 	<div class="col-lg-7">
 	<div class="panel panel-default">
-		<div class="panel panel-heading"><h3>Search Catalogue</h3></div>
+		<div class="panel panel-heading"><h3>Item Catalogue</h3></div>
 		<div class="panel panel-body"> 
 		
 				 <div class="input-group mb-2 mr-sm-2 mb-sm-0"> <!-- to combine search & input box -->
@@ -158,18 +158,18 @@ function checkCategoryExist() {
 						 </tr>	
 						 <tr>
 						    <td>Category</td>
-						    <td>:<form:select path="category" id="mySelectCategory" >
+						    <td>:
+						    	<form:select path="category">
 									<c:forEach items="${catList}" var="cat" >
 						    		<form:option value="${cat.categoryId}" label="${cat.categoryName}"></form:option>
 						    		</c:forEach>
-						    	</form:select></td>					     							     
+						    	</form:select>
+						    	</td>	
+						    					     							     
 						 </tr>	
 						 <tr>
 						    <td>Unit</td><td>:<form:input path="unit"/></td>
-						 </tr>
-						<tr>
-						    <td>Price</td><td>:<form:input path="price"/></td>
-						</tr>	
+						 </tr>	
 						 <tr>
 						    <td colspan="2" ><form:button class= "btn btn-success" >Create</form:button> </td>
 						 </tr>													 		     
