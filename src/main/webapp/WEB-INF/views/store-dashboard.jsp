@@ -1,14 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="../css/styles.css" rel="STYLESHEET" type="text/css">
 
-<div class="container-fluid">
-<h1>Welcome - Store </h1>
-</div>
-
 <div class="container">
+<h2 class="col-lg-12">Welcome - Store </h2>
+
+
 
     <div class="row">
-    
+   
     <!-- Div 1 -->
         <div class="col-lg-8 col-md-9 col-sm-9 col-xs-9" >
 		  <!-- Panel -->
@@ -138,5 +137,4 @@
 
    
 </div>
-
 

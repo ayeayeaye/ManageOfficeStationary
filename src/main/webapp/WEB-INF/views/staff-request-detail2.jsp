@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<h1>${who}</h1>
+<h2>${who}</h2>
 
 <c:set value="${aReq}" var="rq" ></c:set>
 <c:set var = "sta"  value = "${rq.deptStatus}"/>

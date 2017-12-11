@@ -3,14 +3,19 @@
 
 
 <script type="text/javascript" >
-function popupItem() {
-    window.open("../stock/popup/chooseItem", 'window', 'width=600,height=400');
+function popupItem( ) {
+	
+/*  	var myTable = document.getElementById("myTable");
+	var rowIndex = myTable.rows.length - 3 ;
+	document.getElementById("myParentItemId").name = rowIndex;
+	alert(document.getElementById("myParentItemId").name); */
+	
+    window.open("../stock/popup/chooseItem/"+rowIndex, 'window', 'width=600,height=400');
 }
 
 function popupSupplier() {
     window.open("../stock/popup/chooseSupplier", 'window', 'width=600,height=400');
 }
-
 
 
 function addNewRole(tableID) {
@@ -24,16 +29,16 @@ function addNewRole(tableID) {
 
 	var cell1= newRow.insertCell(0);
 	cell1.innerHTML = noOfRow;
+	
+
+ 
 
 	//var cell2 = newRow.insertCell(1);		
 	var noOfCol = myTable.rows[1].cells.length;	
 		for(var i=1; i<noOfCol; i++) 
 		{							
-
 			    var newcell	= newRow.insertCell(i); 
-				newcell.innerHTML = myTable.rows[1].cells[i].innerHTML;
-	
-
+				newcell.innerHTML = myTable.rows[1].cells[i].innerHTML;	
 		} 
 
 }
@@ -41,12 +46,14 @@ function addNewRole(tableID) {
 </script>
 
 
-<div class="container">
+		<c:out value="">-</c:out>
 
-<h1>Store</h1>
+<div class="container col-lg-12">
+
+<h2>Store</h2>
 
 <form:form action="${pageContext.request.contextPath}/store/stock/add" method="POST" modelAttribute="stockLists">
-	<div class="col-lg-12">
+<!-- 	<div class="col-lg-12"> -->
 	<div class="panel panel-default">
 		<div class="panel panel-heading"><h4>Add New Stock</h4></div>
 		<div class="panel panel-body"> 
@@ -58,7 +65,6 @@ function addNewRole(tableID) {
 
 		
 <!-- table -->				
-			<div>
 				<table class="table table-bordered" id="myTable">				
 					<thead>
 						<tr class="bg-info">
@@ -76,8 +82,8 @@ function addNewRole(tableID) {
 								1
 							</td>							
 							<td>							
-								<input type="text" name="stockItem" id="myParentItem" /> 
-								<a class="btn" onclick="popupItem()" ><span class="glyphicon glyphicon-search"></span></a>
+								<input type="text" id="myParentItemId"/> 
+								<a class="btn" onclick="popupItem()"><span class="glyphicon glyphicon-search"></span></a>
 							</td>
 							<td>
 								<input type="text" size="5" name="stockQty"/> 
@@ -88,13 +94,13 @@ function addNewRole(tableID) {
 							
 							<td>
 								<input type="text" name="stockSup" id="myParentSup"  />
-								<a class="btn" onclick="popupSupplier()" ><span class="glyphicon glyphicon-search"></span></a>
+								<a class="btn" onclick="popupSupplier()"><span class="glyphicon glyphicon-search"></span></a>
 							</td>						
 						</tr>
 
 					</tbody>
 				</table>
-			</div>
+
 <!-- table -->		
 
 	</div>	
@@ -103,7 +109,7 @@ function addNewRole(tableID) {
  	</div>	
 	
 	</div>	
-</div>
+<!-- </div> -->
 
 <div>
 	<form:button class="btn btn-success" >Submit</form:button>

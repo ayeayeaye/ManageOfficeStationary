@@ -42,11 +42,12 @@ public class StoreStockController {
 	}
 	
 	
-	@RequestMapping(value="/popup/chooseItem")
-	public ModelAndView popUpSearchItemG( )
+	@RequestMapping(value="/popup/chooseItem/{rowIndex}")
+	public ModelAndView popUpSearchItemG (@PathVariable Integer rowIndex )
 	{
 		ModelAndView moView = new ModelAndView("store-stock-choose-item");
 		moView.addObject("itemLists", itService.findAllItem());
+		moView.addObject("rowIndex", rowIndex);
 		return moView;
 	}
 	

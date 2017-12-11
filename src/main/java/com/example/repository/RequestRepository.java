@@ -25,7 +25,7 @@ public interface RequestRepository extends JpaRepository<Requests, String> {
 	
 	//Yin
 	@Query(value="SELECT * FROM request r where r.approve_date = CURDATE();", nativeQuery=true)
-	ArrayList<Requests> findTodayRequests();
+	ArrayList<Requests> findTodayApproveRequests();
 
 	@Query("select max(e.drepCode) from Requests e where e.department = :drepCode ")
 	Integer findMaxDeptRepCode(@Param("drepCode") String drepCode);
@@ -35,6 +35,7 @@ public interface RequestRepository extends JpaRepository<Requests, String> {
 
 	@Query("SELECT e FROM Requests e where e.deptStatus = 'Request' and e.department = :deptCode")
 	ArrayList<Requests> findDeptPendingAllRequests(@Param("deptCode") String deptCode);
+
 
 	
 }

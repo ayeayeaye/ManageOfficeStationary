@@ -60,7 +60,7 @@
 
 <body>
 
-<h1>Create New Request - Staff</h1>
+<h2> Create New Request - Staff</h2>
 
 <form:form action="${pageContext.request.contextPath}/staff/request/create.html" method="POST" modelAttribute="categoryList">
 	<div class="row">
@@ -121,9 +121,9 @@
 						</tr>
 						<tr>
 							<td class="col-lg-3">Request for:<br>
-							<select name="empName">
+							<select name="forWho">
 								<c:forEach items="${empList}" var="emp">
-									<option value="${emp.employeeId}">${emp.employeeName}</option>
+									<option value="${emp.employeeName}">${emp.employeeName}</option>
 								</c:forEach>
 								<option>Others</option>
 							</select>
@@ -131,7 +131,7 @@
 						</tr>
 						<tr>
 							<td class="col-lg-6">Reason:<br>
-							<textarea></textarea></td>
+							<textarea name="reason" ></textarea></td>
 						</tr>						
 						</tbody>					
 					</table>

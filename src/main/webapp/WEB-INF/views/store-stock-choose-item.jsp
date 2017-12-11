@@ -1,7 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<script type="text/javascript">
+
+
+<script  type="text/javascript">
 /* Search text box - from the value of table  */
 function mySearchFunction() {
 	var textBox, inputUpcase, dataTable, row, itemCol, i;
@@ -35,12 +37,16 @@ function mySearchFunction() {
 /* close this window */
 function closeWin(choosingItem)
 {
-	//set the value of Parent(defined) window's element
-	window.opener.document.getElementById("myParentItem").value= choosingItem;
-	window.close();
+
+/* 	window.opener.document.getElementByName("0").innerHTML = choosingItem; */
+	
+	self.close();
+
 }
 
 </script>
+
+<input type="text" value="${rowIndex}" id="myInput"/>
 
 <div class="row">
 	<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
@@ -57,8 +63,9 @@ function closeWin(choosingItem)
 	<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 		<table class="table table-bordered" id="myTable">
 			<c:forEach items="${itemLists}" var="items">
-				<tr>
-					<td><a href="${pageContext.request.contextPath}/store/stock/after/choosedItem" onclick="closeWin('${items.itemName}')"><label id="choosingItemLb">${items.itemName}</label></a></td>
+				<tr  class='clickable-row' onclick="closeWin('${items.itemName}')" >
+					<%-- <td><a onclick="closeWin('${items.itemName}')"><label>${items.itemName}</label></a></td> --%>
+					<td ><label onclick="closeWin('${items.itemName}')" >${items.itemName}</label></td>
 				</tr>
 			</c:forEach>
 		</table>

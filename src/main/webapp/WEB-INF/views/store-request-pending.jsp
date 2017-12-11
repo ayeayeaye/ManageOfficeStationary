@@ -3,7 +3,7 @@
 <div class="panel panel-default">
 
 <div class="panel-heading" >
-<h3>Store Request Pending - All Department </h3>
+<h2>Store Request Pending - All Department </h2>
 </div>
 
 <div class="panel-body">

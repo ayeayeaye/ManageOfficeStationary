@@ -35,7 +35,7 @@ function mySearchFunction() {
 
 <div class="container">
 
-<h1>Store -Stock </h1>
+<h2>Store -Stock </h2>
 
 	
 <div class="row">

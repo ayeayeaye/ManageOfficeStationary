@@ -46,8 +46,8 @@ public class RequestServiceImp implements RequestService {
 	}
 
 	@Override
-	public ArrayList<Requests> findTodayRequests() {
-		ArrayList<Requests> todayReqList =  repository.findTodayRequests();
+	public ArrayList<Requests> findTodayApproveRequests() {
+		ArrayList<Requests> todayReqList =  repository.findTodayApproveRequests();
 		return todayReqList;
 	}
 
@@ -76,10 +76,6 @@ public class RequestServiceImp implements RequestService {
 	public ArrayList<Requests> findDeptPendingAllRequests(String deptCode) {
 		return repository.findDeptPendingAllRequests(deptCode);
 	}
-
-
-
-
 
 
 

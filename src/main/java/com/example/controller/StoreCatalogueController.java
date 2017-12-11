@@ -40,8 +40,7 @@ public class StoreCatalogueController {
 	
 	@RequestMapping(value="/create/item")
 	public String createNewItem(@ModelAttribute ("newItem") Item newItem )
-	{
-		
+	{	
 		itService.saveItem(newItem);
 		return "redirect:/all//view/catalogue";
 	}

@@ -43,7 +43,7 @@ function addNewRole(tableID) {
 
 <div class="container">
 
-<h1>Store</h1>
+<h2>Store</h2>
 
 <form:form action="${pageContext.request.contextPath}/store/stock/add" method="POST" modelAttribute="stockLists">
 	<div class="col-lg-12">

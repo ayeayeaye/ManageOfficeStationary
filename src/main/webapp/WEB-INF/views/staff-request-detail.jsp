@@ -2,7 +2,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 
-<h3>Staff Request Details </h3>
+<h2>Staff Request Details </h2>
 
 <c:set value="${aReq}" var="rq" ></c:set>
 <c:set var = "sta"  value = "${rq.deptStatus}"/>

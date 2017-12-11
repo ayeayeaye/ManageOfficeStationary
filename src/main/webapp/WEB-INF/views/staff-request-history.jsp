@@ -1,9 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<h3>Department Request History - One Department </h3>
-
-
 <div class="container">
+
+<h2>Department Request History - One Department </h2>
 
 <div class="row" style="height:50px">
 <div class="col-lg-6">

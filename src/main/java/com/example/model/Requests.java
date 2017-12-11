@@ -49,6 +49,8 @@ public class Requests {
 	@Column(name = "disburse_date")
 	private Date disburseDate;
 	
+	private String reason;
+	
 	@ManyToOne
 	@JoinColumn(name="department", insertable=false, updatable=false)//own column name
 	private Department departmentModel;
@@ -58,7 +60,7 @@ public class Requests {
 	private Employee employeeModel;
 
 	public Requests(int requestId, int drepCode, String department, int employee, String managerApprove,
-			String deptStatus, String storeStatus, Date reqDate, Date approveDate, Date disburseDate,
+			String deptStatus, String storeStatus, Date reqDate, Date approveDate, Date disburseDate, String reason,
 			Department departmentModel, Employee employeeModel) {
 		super();
 		this.requestId = requestId;
@@ -71,6 +73,7 @@ public class Requests {
 		this.reqDate = reqDate;
 		this.approveDate = approveDate;
 		this.disburseDate = disburseDate;
+		this.reason = reason;
 		this.departmentModel = departmentModel;
 		this.employeeModel = employeeModel;
 	}
@@ -116,8 +119,8 @@ public class Requests {
 		return managerApprove;
 	}
 
-	public void setManagerApprove(String no) {
-		this.managerApprove = no;
+	public void setManagerApprove(String managerApprove) {
+		this.managerApprove = managerApprove;
 	}
 
 	public String getDeptStatus() {
@@ -160,6 +163,14 @@ public class Requests {
 		this.disburseDate = disburseDate;
 	}
 
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 	public Department getDepartmentModel() {
 		return departmentModel;
 	}
@@ -181,10 +192,9 @@ public class Requests {
 		return "Requests [requestId=" + requestId + ", drepCode=" + drepCode + ", department=" + department
 				+ ", employee=" + employee + ", managerApprove=" + managerApprove + ", deptStatus=" + deptStatus
 				+ ", storeStatus=" + storeStatus + ", reqDate=" + reqDate + ", approveDate=" + approveDate
-				+ ", disburseDate=" + disburseDate + ", departmentModel=" + departmentModel + ", employeeModel="
-				+ employeeModel + "]";
+				+ ", disburseDate=" + disburseDate + ", reason=" + reason + ", departmentModel=" + departmentModel
+				+ ", employeeModel=" + employeeModel + "]";
 	}
-
 
 	
 }

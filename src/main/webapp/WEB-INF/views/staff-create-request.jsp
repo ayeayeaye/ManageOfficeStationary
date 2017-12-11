@@ -57,7 +57,7 @@
 
 <div class='container'>
 
-	<h3>Request Item</h3>
+	<h2>Request Item</h2>
 
 
 	<c:if test="${fn:length(itemList) gt 0}">

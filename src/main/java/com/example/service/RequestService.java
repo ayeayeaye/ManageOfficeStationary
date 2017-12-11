@@ -16,7 +16,7 @@ public interface RequestService {
 
 	void saveRequest(Requests disbReq);
 	
-	ArrayList<Requests> findTodayRequests();
+	ArrayList<Requests> findTodayApproveRequests();
 
 	void deleteRequest(Requests request);
 
@@ -27,7 +27,5 @@ public interface RequestService {
 	Integer findLastReqId();
 
 	ArrayList<Requests> findDeptPendingAllRequests(String deptCode);
-
-
 
 }

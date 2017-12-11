@@ -58,7 +58,7 @@ function checkCategoryExist() {
 
 <div class="container">
 
-<h1>All</h1>
+<h2>All</h2>
 	
 <div class="row">
 

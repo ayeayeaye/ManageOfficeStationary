@@ -3,10 +3,8 @@
 <link href="../css/styles.css" rel="STYLESHEET" type="text/css">
 
 <div class="container-fluid">
-<h1>Welcome - Staff </h1>
-</div>
+<h2>Welcome - Staff </h2>
 
-<div class="container">
 
 <div class="container">
  <div class="row">
@@ -80,7 +78,7 @@
 			      	<a href="${pageContext.request.contextPath}/staff/request/history.html" class="btn btn-primary">All Request History</a>
 			      </span>
 			      <span>
-			      	<a href="${pageContext.request.contextPath}/staff/request/today/history.html" class="btn btn-primary">Today Request History</a>
+			      	<a href="${pageContext.request.contextPath}/staff/request/today/history.html" class="btn btn-primary">Requesting Request</a>
 			      </span>
 		      </div>
 	      </div>

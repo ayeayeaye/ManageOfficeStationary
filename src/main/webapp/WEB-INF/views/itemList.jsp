@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>Item List</h3>
+	<h2>Item List</h2>
 
 
 	<c:if test="${fn:length(itemList) gt 0}">

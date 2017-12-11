@@ -34,39 +34,37 @@
 	crossorigin="anonymous"></script>
 
 <%@include file="Header.jsp"%>
+
+<dec:head />
+
 <style>
-h1 {
-	margin: 1em 0 0.5em 0;
-	font-weight: 600;
-	font-family: 'Titillium Web', sans-serif;
-	position: relative;
-	font-size: 21px;
+h2{
+
 	line-height: 60px;
 	padding: 15px 15px 15px 15%;
-	color: #355681;
-	box-shadow: inset 0 0 0 1px rgba(53, 86, 129, 0.4), inset 0 0 5px
-		rgba(53, 86, 129, 0.5), inset -285px 0 35px white;
-	border-radius: 0 10px 0 10px;
+	box-shadow: inset 0 0 0 1px rgba(53, 86, 129, 0.4);
+	
 }
 </style>
 
-<%-- <c:url value="/css/simple.css" var="ss" />
-<link rel="STYLESHEET" type="text/css" href="${ss}" /> --%>
-<dec:head />
 </head>
 <body>
 	<div class="container-fluid">
+				
 		<div class="row">
-			<div class="col-md-2"><%@ include file="Menu.jsp"%></div>
-
-			<div class="col-md-8">
+			
+			<div>
+				<div class="col-md-2"><%@ include file="Menu.jsp"%></div>
+			</div>
+			
+			<div class="col-md-10">
 				<spring:message code="${bodyTitle}" />
-
 				<dec:body />
 			</div>
 		</div>
+		
+	   </div>
 
-	</div>
 
 	<!-- ======== Footer ======== -->
 	<div id="footer" align="center">

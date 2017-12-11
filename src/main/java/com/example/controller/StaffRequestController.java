@@ -126,7 +126,8 @@ public class StaffRequestController {
 	//
 	@RequestMapping(value="/request/create", method=RequestMethod.POST)
 	public ModelAndView createdRequest(HttpSession session, HttpServletRequest request,
-	@RequestParam("reqItemC") ArrayList<Integer> reqItemIdList, @RequestParam("reqQuantityC") ArrayList<Integer> reqQuantityList )
+	@RequestParam("reqItemC") ArrayList<Integer> reqItemIdList, @RequestParam("reqQuantityC") ArrayList<Integer> reqQuantityList
+	,@RequestParam("forWho") String forWho, @RequestParam("reason") String reason )
 	{
 				
 		Integer lastReqId =0;
@@ -135,6 +136,8 @@ public class StaffRequestController {
 		Requests  newReq = new Requests();
 		newReq.setDepartment(deptCode);
 		newReq.setEmployee(loginEmp);
+		//Set "reason"
+		newReq.setReason("For "+forWho+", "+reason);	
 		//Set "drep_code"
 		//increase "Department request code" by manually
 		ArrayList<Requests> deptReqList =  rService.findRequestsByDept(deptCode);
@@ -289,6 +292,19 @@ public class StaffRequestController {
 	{	
 		return "redirect:/staff/request/history";		
 	}
+	
+	@RequestMapping(value="/request/today/history")
+	public ModelAndView requestTodayHistory(HttpSession session)
+	{
+		ModelAndView moView = new ModelAndView("staff-request-today-history");	
+		
+		ArrayList<Requests>  todayReqList= rService.findDeptPendingAllRequests(deptCode);		
+		moView.addObject("todayReqList",todayReqList);
+	
+		return moView;
+		
+	}
+	
 	
 	//methods
 	Integer noReqStaffDashboard = 3;

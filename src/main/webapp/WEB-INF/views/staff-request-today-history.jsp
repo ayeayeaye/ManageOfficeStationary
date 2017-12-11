@@ -3,7 +3,7 @@
 <div class="panel panel-default">
 
 <div class="panel-heading" >
-<h2>Store Request History - All Department </h2>
+<h2>Staff Requesting Request (These request)</h2>
 </div>
 
 <div class="panel-body">
@@ -13,10 +13,7 @@
 			  <tr>
 			    <th>No</th>
 			    <th>RequestID</th>
-			    <th>Department</th>
-			    <th>PendingDate </th>
-			    <th>DisbursedDate</th>
-			    <th>Status</th>
+			    <th>RequestDate </th>
 			    <th>Detail</th>
 			  </tr>
 		  </thead>
@@ -25,10 +22,7 @@
 				  <tr> 
 				  	<td>${counter.count}</td>
 				  	<td>${reqPList.department}-${reqPList.drepCode}</td>
-				    <td>${reqPList.departmentModel.departmentName}</td>
-				    <td>${reqPList.approveDate}</td>  
-				    <td>${reqPList.disburseDate}</td>
-				    <td>${reqPList.storeStatus}</td> 
+				    <td>${reqPList.reqDate}</td>  
 				    <td><a href="${pageContext.request.contextPath}/store/request/detail/${reqPList.requestId}.html" class="btn btn btn-primary">Detail</a></td>	   
 				  </tr>
 		  </c:forEach>	

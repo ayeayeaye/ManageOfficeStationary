@@ -2,7 +2,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 
-<h3>Store Request Details </h3>
+<h2>Store Request Details </h2>
 
 
 <form:form action="${pageContext.request.contextPath}/store/request/detail/${aReq.requestId}" method="POST"  modelAttribute="requestDetail">

@@ -146,7 +146,7 @@ public class StoreRequestController {
 	{
 		ModelAndView moView = new ModelAndView("store-request-today-history");	
 		
-		ArrayList<Requests>  todayReqList= rService.findTodayRequests();		
+		ArrayList<Requests>  todayReqList= rService.findTodayApproveRequests();		
 		moView.addObject("todayReqList",todayReqList);
 	
 		return moView;

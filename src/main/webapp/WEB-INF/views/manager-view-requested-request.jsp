@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<h1>Manager</h1>
+<h2>Manager</h2>
 
 
 <div class="panel panel-default">
@@ -41,8 +41,9 @@
 </table>		
 </c:if>
 
-		<p>There are no request to approve/reject at this moment.</p>
-
+<c:if test="${empty requestedReqList}">	
+	<p>There are no request to approve/reject at this moment.</p>
+</c:if>
 
 </div>
 </div>

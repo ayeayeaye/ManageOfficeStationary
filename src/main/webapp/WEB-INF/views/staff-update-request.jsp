@@ -15,7 +15,7 @@
 	}
 	</script> 
 
-<h3>Edit request </h3>
+<h2>Edit request </h2>
 <c:set value="${aReq}" var="r"></c:set>
 
  <form:form action="${pageContext.request.contextPath}/staff/request/update/${r.requestId}.html" method="POST" modelAttribute="reqDetList" >
