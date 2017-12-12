@@ -33,43 +33,43 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 
-<%@include file="Header.jsp"%>
-
-<dec:head />
-
 <style>
-h2{
-
-	line-height: 60px;
-	padding: 15px 15px 15px 15%;
-	box-shadow: inset 0 0 0 1px rgba(53, 86, 129, 0.4);
-	
+.col-md-11{
+	margin-top: 50px;
+	padding-left: 3px;	
 }
 </style>
 
 </head>
 <body>
-	<div class="container-fluid">
-				
+
+<div class="container-fluid">
+
+<!-- Header -->
+<div class="row">
+	<%@include file="Header.jsp"%>
+</div>
+<!-- Body -->
+		
 		<div class="row">
 			
 			<div>
-				<div class="col-md-2"><%@ include file="Menu.jsp"%></div>
+				<div class="col-md-1"><%@ include file="Menu.jsp"%></div>
 			</div>
 			
-			<div class="col-md-10">
+			<div class="col-md-11">
 				<spring:message code="${bodyTitle}" />
 				<dec:body />
 			</div>
 		</div>
 		
-	   </div>
-
 
 	<!-- ======== Footer ======== -->
 	<div id="footer" align="center">
 		<hr>
 		<small> &copy; YinThuAye - ISS NUS SA44 2017  </small>
 	</div>
+	
+</div>
 </body>
 </html>

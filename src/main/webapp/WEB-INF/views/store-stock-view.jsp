@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<link rel="STYLESHEET" type="text/css" href="${pageContext.request.contextPath}/css/simple.css" rel="STYLESHEET" type="text/css">
 
 <script type="text/javascript">
 function mySearchFunction() {
@@ -33,19 +33,15 @@ function mySearchFunction() {
 
 </script>
 
-<div class="container">
-
-<h2>Store -Stock </h2>
-
-	
-<div class="row">
 
 <!-- 1 -->	
-	<div class="col-lg-12">
-	<div class="panel panel-default">
-		<div class="panel panel-heading"><h3>Item Stock</h3></div>
-		<div class="panel panel-body"> 
-		
+
+	
+		<div >
+			<h3>Item Stock</h3>
+		</div>	
+	 
+	
 		<div class="row">
 		
 			<div class="col-lg-4">
@@ -54,50 +50,55 @@ function mySearchFunction() {
 				<input type="text"  class="form-control" id="inputSearch" onkeyup="mySearchFunction()" placeholder="Enter Item">
 			</div>
 			</div>
-			
-			<div class="col-lg-1 pull-right">
-			<div class="pull-right">
-				<a href="${pageContext.request.contextPath}/store/stock/add" class="btn btn-success">
-					<span class="glyphicon glyphicon-plus-sign"></span> Add Stock
-				</a>
-			</div>
-			</div>
-		
+				
+				<div class="link-menu">
+				<p class="navbar-text navbar-right">
+					<span><a href="${pageContext.request.contextPath}/store/stock/view">Stock</a></span>
+					<a href="${pageContext.request.contextPath}/all/view/items">Item Catalogue</a>
+					<a href="${pageContext.request.contextPath}/store/stock/supplier" >Supplier</a>						
+				</p>
+				</div>
 		</div>
 		
-			<br>
 			
 			<div>	
-			<table id="myTable" class="table table-striped">
+			<table id="myTable" class="table table-scroll">
 				<thead>
-					<tr class="bg-info">
-						<th>#</th>
-						<th>Id</th>
-						<th>Item</th>
-						<th>Total Quantity</th>
-						<th>Unit</th>
-						<th>Price(one unit)</th>
+					<tr >
+						<th class="col-xs-1">#</th>
+						<th class="col-xs-2">Id</th>
+						<th class="col-xs-3">Item</th>
+						<th class="col-xs-2">TotalQuantity</th>
+						<th class="col-xs-2">Unit</th>
+						<th class="col-xs-2">Price(one unit)</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${itemList}" var="items" varStatus="counter">
 						<tr>
-							<td>${counter.count}</td>
-							<td>${items.itemId}</td>
-							<td>${items.itemName}</td>
-							<td>${items.totalQty}</td>
-							<td>${items.unit}</td>
-							<td>${items.price}</td>
+							<td class="col-xs-1">${counter.count}</td>
+							<td class="col-xs-2">${items.itemId}</td>
+							<td class="col-xs-3">${items.itemName}</td>
+							<td class="col-xs-2">${items.totalQty}</td>
+							<td class="col-xs-2">${items.unit}</td>
+							<td class="col-xs-2">${items.price}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 			</div>
 			
+		
+			
+			<div class="pull-right ">
+
+					<a href="${pageContext.request.contextPath}/store/stock/add" class="btn btn-success">
+					<span class="glyphicon glyphicon-plus-sign"></span> Add Stock
+					</a>
 			</div>	 
-	</div>	
-	</div>	
+		
+
 <!-- 1 -->
 
-</div>
-</div>
+
+

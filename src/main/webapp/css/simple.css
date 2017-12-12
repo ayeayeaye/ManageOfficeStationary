@@ -1,1 +1,55 @@
+/* make table scrollable */
 
+.table-scroll thead {
+  width: 97%;
+}
+.table-scroll tbody {
+  height: 300px;
+  overflow-y: auto;
+  width: 100%;
+}
+.table-scroll thead, .table-scroll tbody, .table-scroll tr, .table-scroll td, .table-scroll th {
+  display: block;
+}
+.table-scroll thead > tr > th {
+	color: teal;
+}
+
+.table-scroll tbody td, .table-scroll thead > tr> th {
+
+	float : left;
+  border-bottom-width: 0;
+
+}
+
+ 
+/* content title */
+h3
+{
+	font-size: 20px;
+	margin-top: 5px;
+}
+td
+{
+	font-size: 14px;
+}
+
+/* general */
+.pull-right
+{
+	float: right;
+}
+
+.link-menu a
+{	
+ 	padding-right: 30px;
+	color: black;
+	font-size: 16px;
+}
+
+.link-menu span > a
+{
+	 color: blue;
+	 font-size: medium; 
+	 text-decoration: underline;
+}

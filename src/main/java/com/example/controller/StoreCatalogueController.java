@@ -1,4 +1,4 @@
-package com.example.controller;
+/*package com.example.controller;
 
 import java.util.ArrayList;
 
@@ -42,7 +42,8 @@ public class StoreCatalogueController {
 	public String createNewItem(@ModelAttribute ("newItem") Item newItem )
 	{	
 		itService.saveItem(newItem);
-		return "redirect:/all//view/catalogue";
+		return "redirect:/all/view/catalogue";
 	}
 
 }
+*/

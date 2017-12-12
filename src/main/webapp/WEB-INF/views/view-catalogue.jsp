@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <link href="../css/styles.css" rel="STYLESHEET" type="text/css">
+<link rel="STYLESHEET" type="text/css" href="${pageContext.request.contextPath}/css/simple.css" rel="STYLESHEET" type="text/css">
+
 
 <!-- auto complete(from table) by java script -->
 <script>
@@ -53,74 +55,71 @@ function checkCategoryExist() {
 	
 </script>
 
-
-
-
-<div class="container">
-
-<h2>All</h2>
+<div>
+	<h3>Stock</h3>
+</div>
 	
 <div class="row">
-
-<!-- 1 -->	
+<!-- 1.1 -->	
 	<div class="col-lg-7">
-	<div class="panel panel-default">
-		<div class="panel panel-heading"><h3>Item Catalogue</h3></div>
-		<div class="panel panel-body"> 
-		
-				 <div class="input-group mb-2 mr-sm-2 mb-sm-0"> <!-- to combine search & input box -->
-				    <div class="input-group-addon">Search</div>
-				    <input type="text"  class="form-control" id="inlineFormInputGroupUsername2" onkeyup="myFunction()" placeholder="Category or Item">
-				</div>
-
-			<br>
+		<div class="input-group mb-2 mr-sm-2 mb-sm-0"> <!-- to combine search & input box -->
+			<div class="input-group-addon">Search</div>
+			<input type="text"  class="form-control" id="inlineFormInputGroupUsername2" onkeyup="myFunction()" placeholder="Category or Item">
+		</div>
+	</div>
+<!-- 1.2 -->
+	<div class="link-menu">
+		<p class="navbar-text navbar-right">
+			<a href="${pageContext.request.contextPath}">Stock</a>
+			<span><a href="${pageContext.request.contextPath}/all/view/items">Item Catalogue</a></span>
+			<a href="${pageContext.request.contextPath}/store/stock/supplier" >Supplier</a>						
+		</p>
+	</div>
+</div>
 			
-			<div>	
-			<table id="myTable" class="table table-striped">
+<div class="row">
+<!-- 2.1 -->
+	<div class="col-lg-8">
+			<table id="myTable" class="table table-scroll">
 				<thead>
 					<tr class="bg-info">
-						<th>#</th>
-						<th>Category</th>
-						<th>Item</th>
+						<th class="col-xs-2">#</th>
+						<th class="col-xs-5">Category</th>
+						<th class="col-xs-5">Item</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${itemList}" var="items"  varStatus="counter">
 					<tr>
-						<td>${counter.count}</td>
-						<td>${items.categoryModel.categoryName}</td>
-						<td>${items.itemName}</td>
+						<td class="col-xs-2">${counter.count}</td>
+						<td class="col-xs-5">${items.categoryModel.categoryName}</td>
+						<td class="col-xs-5">${items.itemName}</td>
 					</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-			</div>
-			
-			</div>	 
-	</div>	
-	</div>	
-<!-- 1 -->
+	</div>
+	
 
-<!-- 2 -->
-				<div class="col-lg-5 pull-right">
-					<div class="panel panel-default">
-					<div class="panel panel-heading"><h3>Create New</h3></div>
-					<div class="panel panel-body"> 
+	<br><br>
+
+<!-- 2.2 -->
+	<div class="col-lg-4 pull-right"> 
 				
 			  <!-- 2.1 -->
 			  <div class="panel panel-default" >
-			      <div class="panel-heading">
-			      	<h4 class="panel-title">
-				        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-				           Create New Category <label>${existCatErrMsg}</label> 
-				        </a>
-			     	 </h4>
-			      </div>
-			      <div id="collapseOne" class="panel-collapse collapse">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+						New Category</a>
+					</h4>	
+				</div>
+			    
+			    <div id="collapse1" class="panel-collapse collapse" style="height: 0px;">
 			      	      
 			     <div class="panel-body">
-				 <form:form action="${pageContext.request.contextPath}/store/catalogue/create/category.html" modelAttribute="catList">				 
-					<table class="table">
+				 <form:form action="${pageContext.request.contextPath}/store/stock/create/category.html" modelAttribute="catList">				 
+					<table class="table table-bordered">
 							<tr>
 								<td>Id</td>
 								<td>:#</td>
@@ -137,9 +136,9 @@ function checkCategoryExist() {
 			    </div>
 		      </div>
 	        </div>					
-			<!-- 2.1 -->
+
 						
-			<!-- 2.2 -->
+<!-- 2.3 -->
 			  <div class="panel panel-default" >
 			      <div class="panel-heading">
 			      	<h4 class="panel-title">
@@ -151,8 +150,8 @@ function checkCategoryExist() {
 			      <div id="collapseTwo" class="panel-collapse collapse">
 			      	      
 			     <div class="panel-body">
-			     <table class="table">
-					 <form:form action="${pageContext.request.contextPath}/store/catalogue/create/item.html" commandName="newItem" method="POST">				 
+			     <table class="table table-bordered">
+					 <form:form action="${pageContext.request.contextPath}/store/stock/create/item.html" commandName="newItem" method="POST">				 
 						 <tr>
 						    <td>Name</td><td>:<form:input path="itemName"/></td>
 						 </tr>	
@@ -179,12 +178,8 @@ function checkCategoryExist() {
 			    </div>
 		      </div>
 	        </div>							
-			<!-- 2.2 -->
+					
 				
-					</div>
-					</div>
-				</div>
+	</div>
 <!-- 2 -->
-
-	</div>	
-</div>
+</div>	

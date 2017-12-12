@@ -22,7 +22,7 @@ public class GeneralController {
 	@RequestMapping(value="/view/items")
 	public ModelAndView viewCatalogueG()
 	{
-		ModelAndView moView = new ModelAndView("view-items");
+		ModelAndView moView = new ModelAndView("view-catalogue");
 		
 		moView.addObject("itemList", iService.findAllItem());
 		moView.addObject("catList", cService.findAllCategory());

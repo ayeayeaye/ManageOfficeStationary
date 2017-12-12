@@ -29,7 +29,7 @@ public class CommonController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "index";
 	}
 	
 }

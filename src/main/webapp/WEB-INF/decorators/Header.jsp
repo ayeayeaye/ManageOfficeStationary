@@ -4,15 +4,22 @@
 <style>
 .mainHeading
 {
-	border-style: hidden;
-	padding: 15px 15px 15px 0;
-	background-color: activeborder;
-		box-shadow: inset 0 0 0 1px rgba(53, 86, 129, 0.4), inset 0 0 5px
-		rgba(53, 86, 129, 0.5);
+
+	width: 100%;
+    height: 50px;
+    position: fixed;
+    font-size: 25px;
+    background-color: #35302E;
+    color:white;
+    border-style: none;
+    z-index: 1;
+    
+	
 }
+
 </style>
 
 <div class="mainHeading">
-	<h1 align="left">Office Inventory Management System</h1>
+	<p align="left">Office Supply Management</p>
 </div>
 

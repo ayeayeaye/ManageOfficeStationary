@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <link href="../css/styles.css" rel="STYLESHEET" type="text/css">
 
 <div class="container">
