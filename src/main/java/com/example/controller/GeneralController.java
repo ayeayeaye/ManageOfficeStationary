@@ -19,7 +19,7 @@ public class GeneralController {
 	ItemService iService;
 	
 	
-	@RequestMapping(value="/view/items")
+	@RequestMapping(value="/view/catalogue")
 	public ModelAndView viewCatalogueG()
 	{
 		ModelAndView moView = new ModelAndView("view-catalogue");

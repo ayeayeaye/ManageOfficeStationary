@@ -67,8 +67,8 @@ function checkCategoryExist() {
 <!-- 1.2 -->
 	<div class="link-menu">
 		<p class="navbar-text navbar-right">
-			<a href="${pageContext.request.contextPath}">Stock</a>
-			<a href="${pageContext.request.contextPath}/all/view/items">Item Catalogue</a>
+			<a href="${pageContext.request.contextPath}/store/stock/view">Stock</a>
+			<a href="${pageContext.request.contextPath}/all/view/catalogue">Item Catalogue</a>
 			<span><a href="${pageContext.request.contextPath}/store/stock/supplier" >Supplier</a></span>						
 		</p>
 	</div>
@@ -76,15 +76,15 @@ function checkCategoryExist() {
 			
 <div class="row">
 <!-- 2.1 -->
-	<div class="col-lg-8">
+	<div class="col-lg-9">
 			<table id="myTable" class="table table-scroll">
 				<thead>
 					<tr class="bg-info">
 						<th class="col-xs-1">#</th>
-						<th class="col-xs-2">Name</th>
+						<th class="col-xs-1">Name</th>
 						<th class="col-xs-2">Company</th>
 						<th class="col-xs-2">Phone</th>
-						<th class="col-xs-2">Email</th>
+						<th class="col-xs-3">Email</th>
 						<th class="col-xs-3">Address</th>
 					</tr>
 				</thead>
@@ -92,10 +92,10 @@ function checkCategoryExist() {
 					<c:forEach items="${supList}" var="sup" varStatus="counter">
 					<tr>
 						<td class="col-xs-1">${counter.count}</td>
-						<td class="col-xs-2">${sup.supName}</td>
+						<td class="col-xs-1">${sup.supName}</td>
 						<td class="col-xs-2">${sup.supCompany}</td>
 						<td class="col-xs-2">${sup.supPhNo}</td>
-						<td class="col-xs-2">${sup.supEmail}</td>
+						<td class="col-xs-3">${sup.supEmail}</td>
 						<td class="col-xs-3">${sup.supAddres}</td>
 					</tr>
 					</c:forEach>
@@ -107,7 +107,7 @@ function checkCategoryExist() {
 	<br><br>
 
 <!-- 2.2 -->
-	<div class="col-lg-4 pull-right"> 
+	<div class="col-lg-3 pull-right"> 
 				
 			  <!-- 2.1 -->
 			  <div class="panel panel-default" >

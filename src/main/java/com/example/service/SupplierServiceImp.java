@@ -20,4 +20,5 @@ public class SupplierServiceImp implements SupplierService {
 		return (ArrayList<Supplier>) repository.findAll() ;
 	}
 
+
 }

@@ -17,6 +17,7 @@ import com.example.model.Stock;
 import com.example.model.Supplier;
 import com.example.service.CategoryService;
 import com.example.service.ItemService;
+import com.example.service.StockService;
 import com.example.service.SupplierService;
 
 @Controller
@@ -31,6 +32,11 @@ public class StoreStockController {
 	CategoryService cService;
 	@Autowired
 	SupplierService supService;
+	@Autowired
+	StockService stService;
+	
+	/*example*/
+	Integer storeStaff = 10018;
 	
 	//
 	@RequestMapping(value="/create/category")
@@ -51,7 +57,7 @@ public class StoreStockController {
 		return "redirect:/all/view/catalogue";
 	}
 
-	//
+	// Store-stock-view
 	@RequestMapping(value="/view")
 	public ModelAndView viewStock( )
 	{
@@ -60,7 +66,7 @@ public class StoreStockController {
 		return moView;
 	}
 
-	
+	// Store-stock-add
 	@RequestMapping(value="/add")
 	public ModelAndView addStockG( )
 	{
@@ -104,6 +110,21 @@ public class StoreStockController {
 		return moView;
 	}
 	
+	// Store-stock-update
+	@RequestMapping(value="/update/{itemId}")
+	public ModelAndView updateStockG(@PathVariable Integer itemId )
+	{
+		ModelAndView moView = new ModelAndView("text1");
+
+		moView.addObject("itemId", itemId);
+/*		Stock updateStock = stService.findStockById(stockId);
+		//update stock
+		stService.saveStock(updateStock);
+		moView.addObject("updateStock", updateStock);*/
+		return moView;
+	}
+	
+	// Store-stock-supplier
 	@RequestMapping(value="/supplier")
 	public ModelAndView viewSupplier( )
 	{
@@ -113,5 +134,7 @@ public class StoreStockController {
 		moView.addObject("newSup", new Supplier());
 		return moView;
 	}
+	
+	
 	
 }

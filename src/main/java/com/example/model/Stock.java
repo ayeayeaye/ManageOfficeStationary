@@ -15,6 +15,7 @@ public class Stock {
 	@Id
 	@Column(name="stock_id")
 	private int stockId;
+	private int employee;
 	private int item; 
 	@Column(name="added_quantity")
 	private int addQty;
@@ -23,22 +24,26 @@ public class Stock {
 	@Column(name="added_price")
 	private double addedPrice;
 	private int supplier;
+	private String update;
+	private String reason;
 	
-	
-	
-	public Stock() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Stock(int stockId, int item, int addQty, Date addDate, double addedPrice, int supplier) {
+	public Stock(int stockId, int employee, int item, int addQty, Date addDate, double addedPrice, int supplier,
+			String update, String reason) {
 		super();
 		this.stockId = stockId;
+		this.employee = employee;
 		this.item = item;
 		this.addQty = addQty;
 		this.addDate = addDate;
 		this.addedPrice = addedPrice;
 		this.supplier = supplier;
+		this.update = update;
+		this.reason = reason;
+	}
+
+	public Stock() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getStockId() {
@@ -47,6 +52,14 @@ public class Stock {
 
 	public void setStockId(int stockId) {
 		this.stockId = stockId;
+	}
+
+	public int getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(int employee) {
+		this.employee = employee;
 	}
 
 	public int getItem() {
@@ -89,13 +102,28 @@ public class Stock {
 		this.supplier = supplier;
 	}
 
+	public String getUpdate() {
+		return update;
+	}
+
+	public void setUpdate(String update) {
+		this.update = update;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 	@Override
 	public String toString() {
-		return "Stock [stockId=" + stockId + ", item=" + item + ", addQty=" + addQty + ", addDate=" + addDate
-				+ ", addedPrice=" + addedPrice + ", supplier=" + supplier + "]";
-	}	
-	
-	
+		return "Stock [stockId=" + stockId + ", employee=" + employee + ", item=" + item + ", addQty=" + addQty
+				+ ", addDate=" + addDate + ", addedPrice=" + addedPrice + ", supplier=" + supplier + ", update="
+				+ update + ", reason=" + reason + "]";
+	}
 	
 	
 }
