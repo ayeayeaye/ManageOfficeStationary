@@ -25,7 +25,7 @@ public class RequestDetail {
 	
 	@ManyToOne
 	@JoinColumn(name="item", insertable=false, updatable=false)
-	private Item itemModel;
+	private ItemStcok itemModel;
 	
 	@ManyToOne
 	@JoinColumn(name="request", insertable=false, updatable=false)
@@ -37,7 +37,7 @@ public class RequestDetail {
 	}
 
 	public RequestDetail(int requestdetailId, int requestId, int item, int reqQuantity, int receiveQuantity,
-			Item itemModel, Requests requestModel) {
+			ItemStcok itemModel, Requests requestModel) {
 		super();
 		this.requestdetailId = requestdetailId;
 		this.requestId = requestId;
@@ -88,11 +88,11 @@ public class RequestDetail {
 		this.receiveQuantity = receiveQuantity;
 	}
 
-	public Item getItemModel() {
+	public ItemStcok getItemModel() {
 		return itemModel;
 	}
 
-	public void setItemModel(Item itemModel) {
+	public void setItemModel(ItemStcok itemModel) {
 		this.itemModel = itemModel;
 	}
 

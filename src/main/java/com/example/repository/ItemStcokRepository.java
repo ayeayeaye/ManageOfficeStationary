@@ -8,15 +8,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 
-import com.example.model.Item;
+import com.example.model.ItemStcok;
 
 
-public interface ItemRepository extends JpaRepository<Item,String> {
+public interface ItemStcokRepository extends JpaRepository<ItemStcok,String> {
 
-	@Query("SELECT e FROM Item e where e.category = :id")
-	ArrayList<Item> findItemByCategoryId(@Param("id") Integer id);
+	@Query("SELECT e FROM ItemStcok e where e.category = :id")
+	ArrayList<ItemStcok> findItemByCategoryId(@Param("id") Integer id);
 
-	@Query("Select i.price from Item i where i.itemId = :itemId")
+	@Query("Select i.price from ItemStcok i where i.itemId = :itemId")
 	Double findPriceByItem(@Param("itemId") Integer itemId);
 
 }

@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.model.Category;
-import com.example.model.Item;
+import com.example.model.ItemStcok;
 import com.example.model.Stock;
 import com.example.model.Supplier;
 import com.example.service.CategoryService;
-import com.example.service.ItemService;
+import com.example.service.ItemStcokService;
 import com.example.service.StockService;
 import com.example.service.SupplierService;
 
@@ -25,7 +25,7 @@ import com.example.service.SupplierService;
 public class StoreStockController {
 
 	@Autowired
-	ItemService itService;
+	ItemStcokService itService;
 	@Autowired
 	SupplierService spService;
 	@Autowired
@@ -51,7 +51,7 @@ public class StoreStockController {
 	}
 	
 	@RequestMapping(value="/create/item")
-	public String createNewItem(@ModelAttribute ("newItem") Item newItem )
+	public String createNewItem(@ModelAttribute ("newItem") ItemStcok newItem )
 	{	
 		itService.saveItem(newItem);
 		return "redirect:/all/view/catalogue";
@@ -134,7 +134,6 @@ public class StoreStockController {
 		moView.addObject("newSup", new Supplier());
 		return moView;
 	}
-	
 	
 	
 }

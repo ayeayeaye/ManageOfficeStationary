@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.model.Category;
 import com.example.model.Department;
-import com.example.model.Item;
+import com.example.model.ItemStcok;
 import com.example.model.Requests;
 import com.example.repository.CategoryRepository;
 import com.example.repository.DepartmentRepository;
-import com.example.repository.ItemRepository;
+import com.example.repository.ItemStcokRepository;
 
 
 @Service

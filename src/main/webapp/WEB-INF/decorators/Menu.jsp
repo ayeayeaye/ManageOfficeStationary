@@ -22,8 +22,13 @@
     font-size: 16px;
     color: white;
     display: block;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
+
+.glyphicon-menu {
+    font-size: 25px;
+}
+ */
 
 </style>
 <!-- example -->
@@ -32,7 +37,8 @@
 <c:set value="store" var="loginUser"></c:set>
 
 	<div class="sidenav">
-	  <a href="${pageContext.request.contextPath}/home">Home</a>
+	  <a href="${pageContext.request.contextPath}/home">
+	  <span class="glyphicon glyphicon-home glyphicon-menu"></span><br><h5>Home</h5></a>
 	  
 <%-- 	  <!-- Department head -->
 	  <c:if test="${loginUser == 'deptH'}">
@@ -50,12 +56,22 @@
 	  </c:if> --%>
 	  
 	  <!-- example -->
-	  <a href="${pageContext.request.contextPath}/manager/dashboard">Approve Request</a>
-	  <a href="${pageContext.request.contextPath}/staff/dashboard">Make Request</a>
-	  <a href="${pageContext.request.contextPath}/store/dashboard">Disburse Request</a>
-	  <a href="${pageContext.request.contextPath}/store/stock/view">Stock</a>
-	  <a href="${pageContext.request.contextPath}/all/view/items">Catalogue</a>
-	  <a href="#">Employee</a>
+	  <a href="${pageContext.request.contextPath}/manager/dashboard">
+	  <span class="glyphicon glyphicon-plus glyphicon-menu"></span><br><h5>Approve Request</h5></a>
+	  
+	  <a href="${pageContext.request.contextPath}/staff/dashboard">
+	  <span class="glyphicon glyphicon-plus glyphicon-menu"></span><br><h5>Make Request</h5></a>
+	  
+	  <a href="${pageContext.request.contextPath}/store/dashboard">
+	  <span class="glyphicon glyphicon-plus glyphicon-menu"></span><br><h5>Disburse Request</h5></a> 
+	  
+	  <a href="${pageContext.request.contextPath}/store/stock/view">
+	  <span class="glyphicon glyphicon-shopping-cart glyphicon-menu" style="background-color: y"></span><br><h5>Stock</h5></a>
+	  <a href="${pageContext.request.contextPath}/all/view/catalogue">
+	  <span class="glyphicon glyphicon-book glyphicon-menu"></span><br><h5>Catalogue</h5></a>
+	  
+<!-- 	  <a href="#">
+	  <span class="glyphicon glyphicon-user glyphicon-menu"></span><br><h5>Employee</h5></a> -->
 	</div>
 
 

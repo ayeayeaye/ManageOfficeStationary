@@ -28,13 +28,13 @@ import com.example.javabeans.ManagerApproveNeed;
 import com.example.javabeans.StoreStatus;
 import com.example.model.Category;
 import com.example.model.Employee;
-import com.example.model.Item;
+import com.example.model.ItemStcok;
 import com.example.model.RequestDetail;
 import com.example.model.Requests;
 import com.example.service.CategoryService;
 import com.example.service.DepartmentService;
 import com.example.service.EmployeeService;
-import com.example.service.ItemService;
+import com.example.service.ItemStcokService;
 import com.example.service.RequestDetailService;
 import com.example.service.RequestService;
 
@@ -44,7 +44,7 @@ import com.example.service.RequestService;
 public class StaffRequestController {
 
 	@Autowired
-	ItemService iService;
+	ItemStcokService iService;
 	@Autowired
 	CategoryService cService;
 	@Autowired
@@ -71,7 +71,7 @@ public class StaffRequestController {
 	{
 		
 		ModelAndView moView = new ModelAndView("itemList");
-		ArrayList<Item>  itemList= iService.findAllItem();
+		ArrayList<ItemStcok>  itemList= iService.findAllItem();
 		moView.addObject("itemList",itemList);
 		return moView;
 		
@@ -104,7 +104,7 @@ public class StaffRequestController {
 		//ModelAndView moView = new ModelAndView("staff-create-request");
 		ModelAndView moView = new ModelAndView("staff-create-request-2");
 		
-		ArrayList<Item>  itemList= iService.findAllItem();
+		ArrayList<ItemStcok>  itemList= iService.findAllItem();
 		moView.addObject("itemList",itemList);
 		
 		ArrayList<Category> categoryList = cService.findAllCategory();

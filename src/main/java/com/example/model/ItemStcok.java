@@ -11,8 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="item")
-public class Item {
+@Table(name="item_stock")
+public class ItemStcok {
 
 
 
@@ -34,7 +34,7 @@ public class Item {
 	@JoinColumn(name="category", insertable=false, updatable=false)
 	private Category categoryModel;
 
-	public Item(int itemId, String itemName, int category, String unit, double price, int totalQty, int reorderLevel,
+	public ItemStcok(int itemId, String itemName, int category, String unit, double price, int totalQty, int reorderLevel,
 			Category categoryModel) {
 		super();
 		this.itemId = itemId;
@@ -47,7 +47,7 @@ public class Item {
 		this.categoryModel = categoryModel;
 	}
 
-	public Item() {
+	public ItemStcok() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

@@ -3,7 +3,7 @@ package com.example.service;
 import java.util.ArrayList;
 
 import com.example.model.Category;
-import com.example.model.Item;
+import com.example.model.ItemStcok;
 
 public interface CategoryService {
 

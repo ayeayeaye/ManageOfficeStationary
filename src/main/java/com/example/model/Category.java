@@ -24,14 +24,14 @@ public class Category {
 	private String categoryName;
 	
 	@OneToMany(mappedBy = "categoryModel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Item> itemMList;
+	private List<ItemStcok> itemMList;
 
 	public Category() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Category(int categoryId, String categoryName, List<Item> itemMList) {
+	public Category(int categoryId, String categoryName, List<ItemStcok> itemMList) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -54,11 +54,11 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 
-	public List<Item> getItemMList() {
+	public List<ItemStcok> getItemMList() {
 		return itemMList;
 	}
 
-	public void setItemMList(List<Item> itemMList) {
+	public void setItemMList(List<ItemStcok> itemMList) {
 		this.itemMList = itemMList;
 	}
 

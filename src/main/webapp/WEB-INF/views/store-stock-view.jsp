@@ -1,8 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<link href="../css/styles.css" rel="STYLESHEET" type="text/css">
 <link rel="STYLESHEET" type="text/css" href="${pageContext.request.contextPath}/css/simple.css" rel="STYLESHEET" type="text/css">
 
-
-<script type="text/javascript">
+<script>
 function mySearchFunction() {
 	var textBox, inputUpcase, dataTable, row, itemCol, i;
 	
@@ -43,26 +44,13 @@ function myRowSelect(itemId) {
 	{	
 		document.getElementById(i+"modal").value = dataTable.rows[itemId].cells[i].innerHTML;
 	}
-
- 
-/* 	document.getElementById("0modal").value = dataTable.rows[rowNo].cells[1].innerHTML;
-	document.getElementById("1modal").value = dataTable.rows[rowNo].cells[2].innerHTML;
-	document.getElementById("2modal").value = dataTable.rows[rowNo].cells[3].innerHTML;
-	document.getElementById("3modal").value = dataTable.rows[rowNo].cells[4].innerHTML;
-	document.getElementById("4modal").value = dataTable.rows[rowNo].cells[5].innerHTML; */
 	
   	document.getElementById("myBtnUpdate").href = "${pageContext.request.contextPath}/store/stock/update/"+itemId;
-
- 
-		
-
 }
 
 </script>
 
 <!-- 1 -->	
-
-	
 		<div >
 			<h3>Item Stock</h3>
 		</div>	
@@ -73,21 +61,20 @@ function myRowSelect(itemId) {
 			<div class="col-lg-5">
 				<div class="input-group mb-2 mr-sm-2 mb-sm-0"> <!-- to combine search & input box -->
 					<div class="input-group-addon">Search</div>
-					<input type="text"  class="form-control" id="inlineFormInputGroupUsername2" onkeyup="myFunction()" placeholder="*****">
+					<input type="text"  class="form-control" id="inputSearch" onkeyup="mySearchFunction()" placeholder="*****">
 				</div>
 			</div>
 
 		<!-- 1.2 -->	
-			<div class="link-menu navbar-text navbar-right">
-				
+			<div class="link-menu navbar-text navbar-right">			
 				   <span><a href="${pageContext.request.contextPath}/store/stock/view">Stock</a></span>
 						<a href="${pageContext.request.contextPath}/all/view/catalogue">Item Catalogue</a>
-						<a href="${pageContext.request.contextPath}/store/stock/supplier" >Supplier</a>						
-				
+						<a href="${pageContext.request.contextPath}/store/stock/supplier" >Supplier</a>									
 			</div>
+			
 		</div>
 		
-			
+	<!-- 2 -->	
 			<div class="table-responsive">	
 			<table id="myTable" class="table table-scroll">
 				<thead>
@@ -114,28 +101,25 @@ function myRowSelect(itemId) {
 				</tbody>
 			</table>
 			</div>
-			
-		
-			
+					
+<!-- 3 -->			
 			<div class="pull-right ">
 
 					<a class="btn btn-success" id="myUpdateLink" >
 					<span class="glyphicon glyphicon-pencil"></span> Update Stock
 					</a>
 					
-					<a href="${pageContext.request.contextPath}/store/stock/add" class="btn btn-success">
-					<span class="glyphicon glyphicon-plus-sign"></span> Add Stock
+					<a class="btn btn-success" id="myAddLink" >
+					<span class="glyphicon glyphicon-plus-sign"></span>Add Stock
 					</a>
+					
+					<a href="${pageContext.request.contextPath}/store/stock/add"> Add Stock</a>
 			</div>	 
-		
 
-<!-- 1 -->
 
-<!-- Modal popup -->
+<!-- Update Modal popup Starts-->
 
-<a href="#myModal">Test</a>
-
-<div id="myModal" class="modal">
+<div id="myUpdateModal" class="modal">
 	<div class="modal-dialog">
 		  <!-- Modal content -->
 		  <div class="modal-content">
@@ -178,26 +162,85 @@ function myRowSelect(itemId) {
 		  			<a class="btn btn-warning " id="myBtnUpdate">Update</a>
 		  		</div> 		  		
 		  </div> 
-
-		    
+	    
 		  </div>
   	</div>
 </div>
+<!-- Update Modal popup End-->
+
+
+<!-- Add Modal popup Starts-->
+<div id="myAddModal" class="modal">
+	<div class="modal-dialog">
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		    <span class="close" onclick="closeModalF('myAddModal')">&times;</span>
+		    
+		  <div class="modal-header">
+			  	<p class="modal-title">Add Stock</p>
+	  	
+			 	<div class="modal-body">
+ 		
+					<table class="modal-table">
+						<tbody>
+							<tr>
+								<td><label>Id</label></td>
+								<td>:<input /></td>
+							</tr>
+							<tr>
+								<td><label>Name</label></td>
+								<td>:<input /></td>
+							</tr>
+							<tr>
+								<td><label>Quantity</label></td>
+								<td>:<input/></td>
+							</tr>
+							<tr>
+								<td><label>Unit</label></td>
+								<td>:<input /></td>
+							</tr>
+							<tr>
+								<td><label>Price</label></td>
+								<td>:<input /></td>
+							</tr>														
+						</tbody>
+					</table>
+
+		  		</div> 
+		  		
+			 	<div class="modal-footer">
+		  			<a class="btn btn-warning " id="myBtnAdd">Add</a>
+		  		</div> 		  		
+		  </div> 
+	    
+		  </div>
+  	</div>
+</div>
+<!-- Add Modal popup End-->
+
 
 <script>
-//Get the modal
-var modal = document.getElementById('myModal');
-//Get the button that opens the modal
-var btn = document.getElementById("myUpdateLink");
-//Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-//When the user clicks the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
+//open Update Modal
+var modalUpdate = document.getElementById('myUpdateModal');
+var btnUpdate = document.getElementById("myUpdateLink");
+btnUpdate.onclick = function() {
+	modalUpdate.style.display = "block";
+}
+//close Update Modal
+var spanClose = document.getElementsByClassName("close")[0];
+spanClose.onclick = function() {
+	modalUpdate.style.display = "none";
 }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
+//Open Add Modal
+var modalAdd = document.getElementById('myAddModal');
+var btnAdd = document.getElementById("myAddLink");
+btnAdd.onclick = function() {
+	modalAdd.style.display = "block";
+}
+//Close Add Modal
+var spanClose = document.getElementsByClassName("close")[1];
+spanClose.onclick = function() {
+	modalAdd.style.display = "none";
 }
 </script> 

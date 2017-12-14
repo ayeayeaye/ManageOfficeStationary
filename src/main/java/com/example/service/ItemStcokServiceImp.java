@@ -8,26 +8,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.model.Category;
-import com.example.model.Item;
-import com.example.repository.ItemRepository;
+import com.example.model.ItemStcok;
+import com.example.repository.ItemStcokRepository;
 
 
 @Service
-public class ItemServiceImp implements ItemService {
+public class ItemStcokServiceImp implements ItemStcokService {
 
 	
 	@Resource
-	private ItemRepository repository;
+	private ItemStcokRepository repository;
 
 	@Override
-	public ArrayList<Item> findAllItem() {
-		ArrayList<Item> itemList = (ArrayList<Item>) repository.findAll();
+	public ArrayList<ItemStcok> findAllItem() {
+		ArrayList<ItemStcok> itemList = (ArrayList<ItemStcok>) repository.findAll();
 		return itemList;
 	}
 
 	@Override
-	public ArrayList<Item> findItemByCategoryId(Integer id) {
-		ArrayList<Item> itemListByCategoryId = (ArrayList<Item>) repository.findItemByCategoryId(id);
+	public ArrayList<ItemStcok> findItemByCategoryId(Integer id) {
+		ArrayList<ItemStcok> itemListByCategoryId = (ArrayList<ItemStcok>) repository.findItemByCategoryId(id);
 		return itemListByCategoryId;
 	}
 
@@ -38,7 +38,7 @@ public class ItemServiceImp implements ItemService {
 	}
 
 	@Override
-	public void saveItem(Item newItem) {
+	public void saveItem(ItemStcok newItem) {
 		repository.saveAndFlush(newItem);
 	}
 	

@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.model.Category;
 import com.example.model.Employee;
-import com.example.model.Item;
+import com.example.model.ItemStcok;
 import com.example.repository.EmployeeRepository;
-import com.example.repository.ItemRepository;
+import com.example.repository.ItemStcokRepository;
 
 
 @Service

@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.model.Category;
-import com.example.model.Item;
+import com.example.model.ItemStcok;
 import com.example.repository.CategoryRepository;
-import com.example.repository.ItemRepository;
+import com.example.repository.ItemStcokRepository;
 
 
 @Service

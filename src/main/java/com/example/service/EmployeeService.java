@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.example.model.Category;
 import com.example.model.Employee;
-import com.example.model.Item;
+import com.example.model.ItemStcok;
 
 public interface EmployeeService {
 

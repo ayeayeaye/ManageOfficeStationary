@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.model.Employee;
-import com.example.model.Item;
+import com.example.model.ItemStcok;
 
 
 public interface EmployeeRepository extends JpaRepository<Employee,String> {

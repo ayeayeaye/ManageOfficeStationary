@@ -7,9 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="../css/styles.css" rel="STYLESHEET" type="text/css">
 
-<html>
-<head>
-<title>Insert title here</title>
+
 
 	<script type="text/javascript">
 	
@@ -21,7 +19,6 @@
 		//get row length,  rowCount=2(first time have default one row, 3, 4,...)
 		var rowCount = table.rows.length;
 		var row = table.insertRow(rowCount); 
-
 		
 		//Cell 1  = serial number 
 		var cell1= row.insertCell(0);
@@ -53,12 +50,12 @@
    	 //alert(selectRow+"*");
    	 document.getElementById("dataTable").deleteRow(selectRow);
 	}
+ 
+
 	</script>	
 	
-</head>
+	
 
-
-<body>
 
 <h2> Create New Request - Staff</h2>
 
@@ -69,7 +66,7 @@
 		<div class="panel panel-default ">
 		<div class="panel panel-heading"><h3>Choose the Item</h3></div>		
 		<div class="panel panel-body">			
-			<table class="table table-hover " id="dataTable">
+			<table class="table" id="dataTable">
 				<thead>
 					<tr class="listHeading">
 						<th>No</th>
@@ -103,7 +100,9 @@
 			</table>
 			</div>	
 			
-			<div class="panel panel-footer"><a class="btn btn-primary" onclick="addRow('dataTable')" >Add New Item</a> </div>
+			<div class="panel panel-footer">
+			<a class="btn btn-primary" onclick="addRow('dataTable')" >Add New Item</a>
+			</div>
 		</div>
 		</div>
 	</c:if>
@@ -157,6 +156,3 @@
 		</div>
 	
 
-
-</body>
-</html>

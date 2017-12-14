@@ -21,7 +21,7 @@ import com.example.model.RequestDetail;
 import com.example.model.Requests;
 import com.example.service.CategoryService;
 import com.example.service.DepartmentService;
-import com.example.service.ItemService;
+import com.example.service.ItemStcokService;
 import com.example.service.RequestDetailService;
 import com.example.service.RequestService;
 ;
@@ -32,7 +32,7 @@ import com.example.service.RequestService;
 public class StoreRequestController {
 	
 	@Autowired
-	ItemService iService;
+	ItemStcokService iService;
 	@Autowired
 	CategoryService cService;
 	@Autowired
