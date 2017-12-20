@@ -3,42 +3,34 @@
 
 
 <script type="text/javascript" >
-function popupItem( ) {
-	
-/*  	var myTable = document.getElementById("myTable");
-	var rowIndex = myTable.rows.length - 3 ;
-	document.getElementById("myParentItemId").name = rowIndex;
-	alert(document.getElementById("myParentItemId").name); */
+/* function popupItem( ) {
 	
     window.open("../stock/popup/chooseItem/"+rowIndex, 'window', 'width=600,height=400');
 }
 
 function popupSupplier() {
     window.open("../stock/popup/chooseSupplier", 'window', 'width=600,height=400');
-}
+} */
 
 
 function addNewRole(tableID) {
 
+	
 	//get table
 	var myTable = document.getElementById(tableID);
 
 	var noOfRow = myTable.rows.length;
 	var newRow = myTable.insertRow(noOfRow); 
 
-
 	var cell1= newRow.insertCell(0);
 	cell1.innerHTML = noOfRow;
-	
-
  
-
 	//var cell2 = newRow.insertCell(1);		
 	var noOfCol = myTable.rows[1].cells.length;	
 		for(var i=1; i<noOfCol; i++) 
 		{							
 			    var newcell	= newRow.insertCell(i); 
-				newcell.innerHTML = myTable.rows[1].cells[i].innerHTML;	
+				newcell.innerHTML = myTable.rows[1].cells[i].innerHTML;					
 		} 
 
 }
@@ -83,7 +75,7 @@ function addNewRole(tableID) {
 							</td>							
 							<td>							
 								<input type="text" id="myParentItemId"/> 
-								<a class="btn" onclick="popupItem()"><span class="glyphicon glyphicon-search"></span></a>
+								<a class="btn"><span class="glyphicon glyphicon-search"></span></a>
 							</td>
 							<td>
 								<input type="text" size="5" name="stockQty"/> 
@@ -94,7 +86,7 @@ function addNewRole(tableID) {
 							
 							<td>
 								<input type="text" name="stockSup" id="myParentSup"  />
-								<a class="btn" onclick="popupSupplier()"><span class="glyphicon glyphicon-search"></span></a>
+								<a class="btn"><span class="glyphicon glyphicon-search"></span></a>
 							</td>						
 						</tr>
 
@@ -117,3 +109,53 @@ function addNewRole(tableID) {
 </form:form>
 
 </div>
+
+
+<!-- Item Modal popup Starts-->
+
+<div id="myItemModal" class="modal">
+	<div class="modal-dialog">
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		    <span class="close">&times;</span>
+		    
+		  <div class="modal-header">
+			  	<p class="modal-title">Item</p>
+
+			  	
+			 	<div class="modal-body">
+			 		
+					AAA
+
+		  		</div> 
+		  		
+			 	<div class="modal-footer">
+		  			<a class="btn btn-warning " id="myBtnAdd">Add</a>
+		  		</div> 		  		
+		  </div> 
+	    
+		  </div>
+  	</div>
+</div>
+<!-- Item Modal popup End-->
+
+<script>
+var itemModal = document.getElementById('myItemModal');
+
+var myTable = document.getElementById('myTable');
+var noOfRow = myTable.rows.length;
+for(var i=1; i< noOfRow; i++) 
+	{
+		var btnItemSearch = document.getElementById("myItemSearchLink");
+		btnItemSearch.onclick = function()
+		{
+			itemModal.style.display = "block";
+		}
+	}
+
+//close Update Modal
+var spanClose = document.getElementsByClassName("close")[0];
+spanClose.onclick = function() {
+	itemModal.style.display = "none";
+}
+</script>
