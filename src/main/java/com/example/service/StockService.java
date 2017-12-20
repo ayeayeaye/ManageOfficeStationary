@@ -8,4 +8,6 @@ public interface StockService {
 
 	void saveStock(Stock updateStock);
 
+	void saveNewStock(Stock addNewStock);
+
 }

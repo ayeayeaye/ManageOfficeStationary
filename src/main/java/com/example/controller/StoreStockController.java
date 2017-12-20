@@ -1,16 +1,24 @@
 package com.example.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.javabeans.MyDate;
 import com.example.model.Category;
 import com.example.model.ItemStcok;
 import com.example.model.Stock;
@@ -37,6 +45,10 @@ public class StoreStockController {
 	
 	/*example*/
 	Integer storeStaff = 10018;
+	//
+	Calendar cal = Calendar.getInstance();
+	SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	String fTodayDate = format1.format(cal.getTime());
 	
 	//
 	@RequestMapping(value="/create/category")
@@ -63,19 +75,41 @@ public class StoreStockController {
 	{
 		ModelAndView moView = new ModelAndView("store-stock-view");
 		moView.addObject("itemList", itService.findAllItem());
+		//Give empty stock object for ("/add")
+		moView.addObject("addNewStock", new Stock());	
+		moView.addObject("supList",supService.findAllSup());
+		
 		return moView;
 	}
 
-	// Store-stock-add
+
 	@RequestMapping(value="/add")
 	public ModelAndView addStockG( )
 	{
-		ModelAndView moView = new ModelAndView("store-stock-add2");			
-		moView.addObject("stockLists",new ArrayList<Stock>());
+		ModelAndView moView = new ModelAndView("store-stock-add");	
+		moView.addObject("itemList", itService.findAllItem());
+		moView.addObject("supList",supService.findAllSup());
+		moView.addObject("newStockList",new ArrayList<Stock>());
 		return moView;
 	}
 	
+	@RequestMapping(value="/added")
+	public ModelAndView addStockP(@RequestParam("reqItemC") ArrayList<Integer> reqItemIdList)
+	{
+		ModelAndView moView = new ModelAndView("text1");
+		return moView;
+	}
 	
+	@RequestMapping(value="/view/log")
+	public ModelAndView viewStocKLog( )
+	{
+		ModelAndView moView = new ModelAndView("store-stock-view-stocklog");
+		moView.addObject("itemList", itService.findAllItem());
+		moView.addObject("supList",supService.findAllSup());
+		return moView;
+	}
+	
+	//Pop-up window
 	@RequestMapping(value="/popup/chooseItem/{rowIndex}")
 	public ModelAndView popUpSearchItemG (@PathVariable Integer rowIndex )
 	{
@@ -94,22 +128,6 @@ public class StoreStockController {
 		return moView;
 	}
 
-/*	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public ModelAndView addStockP(@ModelAttribute("stockLists") ArrayList<Stock> addedStockLists )
-	{
-		ModelAndView moView = new ModelAndView("text1");			
-		
-		moView.addObject("addedStock", addedStockLists.get(0));
-		return moView;
-	}*/
-	
-	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public ModelAndView addStockP(  )
-	{
-		ModelAndView moView = new ModelAndView("text1");			
-		return moView;
-	}
-	
 	// Store-stock-update
 	@RequestMapping(value="/update/{itemId}")
 	public ModelAndView updateStockG(@PathVariable Integer itemId )

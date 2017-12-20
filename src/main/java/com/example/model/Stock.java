@@ -13,9 +13,10 @@ import javax.persistence.Table;
 public class Stock {
 
 	@Id
-	@Column(name="stock_id")
+	@Column(name="stock_id" )
 	private int stockId;
 	private int employee;
+	@Column(name="item")
 	private int item; 
 	@Column(name="added_quantity")
 	private int addQty;
@@ -23,8 +24,11 @@ public class Stock {
 	private Date addDate;
 	@Column(name="added_price")
 	private double addedPrice;
+	@Column(name="supplier")
 	private int supplier;
+	@Column(name="update")
 	private String update;
+	@Column(name="reason")
 	private String reason;
 	
 	public Stock(int stockId, int employee, int item, int addQty, Date addDate, double addedPrice, int supplier,
@@ -124,6 +128,8 @@ public class Stock {
 				+ ", addDate=" + addDate + ", addedPrice=" + addedPrice + ", supplier=" + supplier + ", update="
 				+ update + ", reason=" + reason + "]";
 	}
+	
+	
 	
 	
 }

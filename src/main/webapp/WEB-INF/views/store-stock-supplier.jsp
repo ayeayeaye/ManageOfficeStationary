@@ -70,6 +70,7 @@ function checkCategoryExist() {
 			<a href="${pageContext.request.contextPath}/store/stock/view">Stock</a>
 			<a href="${pageContext.request.contextPath}/all/view/catalogue">Item Catalogue</a>
 			<span><a href="${pageContext.request.contextPath}/store/stock/supplier" >Supplier</a></span>						
+			<a href="${pageContext.request.contextPath}/store/stock/view/log" >Stock Log</a>	
 		</p>
 	</div>
 </div>

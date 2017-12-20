@@ -72,7 +72,8 @@ function checkCategoryExist() {
 		<p class="navbar-text navbar-right">
 			<a href="${pageContext.request.contextPath}/store/stock/view">Stock</a>
 			<span><a href="${pageContext.request.contextPath}/all/view/items">Item Catalogue</a></span>
-			<a href="${pageContext.request.contextPath}/store/stock/supplier" >Supplier</a>						
+			<a href="${pageContext.request.contextPath}/store/stock/supplier" >Supplier</a>	
+			<a href="${pageContext.request.contextPath}/store/stock/view/log" >Stock Log</a>						
 		</p>
 	</div>
 </div>

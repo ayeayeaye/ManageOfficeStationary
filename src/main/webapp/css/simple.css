@@ -60,7 +60,7 @@ td
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    padding-top: 90px; /* Location of the box */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -69,6 +69,7 @@ td
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
+
 /* Modal Title */
 .modal-title
 {
@@ -81,22 +82,21 @@ td
 .modal-content {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
     border: 1px solid #888;
-    width: 80%;
-}
+    width: 100%;
+    overflow: auto;
+    }
 
 /*  modal-table element*/
 
-.modal-table tbody tr > td >input
+/* .modal-table tbody tr > td >input, .modal-table tr > td >form:option
 {
 	size : 90;
-	height: 40px;
-	
+	height: 35px;	
 	margin-bottom: 8px;
 	margin-left: 15px;
 	border-style: groove;
-}
+} */
 
 .modal-table tbody tr > td > label
 {
@@ -119,5 +119,23 @@ td
     cursor: pointer;
 }
 
-
-
+/* --- */
+.blank-table
+{
+	height: 100px;
+}
+/* .blank-table tr , .blank-table td, .blank-table th
+{
+	border-style: solid;
+}
+ */
+.blank-table tr  
+{
+	display: table-row;
+	border-style: solid;
+}
+.blank-table tr > td  
+{
+	display: table-column;
+	border-style: solid;
+	}

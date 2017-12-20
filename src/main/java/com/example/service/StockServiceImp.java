@@ -23,5 +23,10 @@ public class StockServiceImp implements StockService {
 	public void saveStock(Stock updateStock) {
 		repository.saveAndFlush(updateStock);		
 	}
+
+	@Override
+	public void saveNewStock(Stock addNewStock) {
+		repository.saveAndFlush(addNewStock);		
+	}
 	
 }

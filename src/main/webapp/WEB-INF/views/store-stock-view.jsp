@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link href="../css/styles.css" rel="STYLESHEET" type="text/css">
 <link rel="STYLESHEET" type="text/css" href="${pageContext.request.contextPath}/css/simple.css" rel="STYLESHEET" type="text/css">
 
@@ -69,7 +70,8 @@ function myRowSelect(itemId) {
 			<div class="link-menu navbar-text navbar-right">			
 				   <span><a href="${pageContext.request.contextPath}/store/stock/view">Stock</a></span>
 						<a href="${pageContext.request.contextPath}/all/view/catalogue">Item Catalogue</a>
-						<a href="${pageContext.request.contextPath}/store/stock/supplier" >Supplier</a>									
+						<a href="${pageContext.request.contextPath}/store/stock/supplier" >Supplier</a>	
+						<a href="${pageContext.request.contextPath}/store/stock/view/log" >Stock Log</a>								
 			</div>
 			
 		</div>
@@ -104,13 +106,16 @@ function myRowSelect(itemId) {
 					
 <!-- 3 -->			
 			<div class="pull-right ">
+					<a id="myAddLink" href="${pageContext.request.contextPath}/store/stock/add" class="btn btn-success"  >
+					<span class="glyphicon glyphicon-plus-sign"></span> Add New Stock
+					</a>
 
 					<a class="btn btn-success" id="myUpdateLink" >
 					<span class="glyphicon glyphicon-pencil"></span> Update Stock
 					</a>
 					
-					<a class="btn btn-success" id="myAddLink" >
-					<span class="glyphicon glyphicon-plus-sign"></span>Add Stock
+					<a class="btn btn-success" id="myDeleteLink" >
+					<span class="glyphicon glyphicon-trash"></span> Delete Stock
 					</a>
 					
 					<a href="${pageContext.request.contextPath}/store/stock/add"> Add Stock</a>
@@ -177,41 +182,25 @@ function myRowSelect(itemId) {
 		    <span class="close" onclick="closeModalF('myAddModal')">&times;</span>
 		    
 		  <div class="modal-header">
-			  	<p class="modal-title">Add Stock</p>
-	  	
+			  	<div class="modal-title">
+			  		<p>Add Stock</p>
+		  				  	
+			  	</div>
+	  		</div>
+	  		
+	  	<form:form action="${pageContext.request.contextPath}/store/stock/add" modelAttribute="addNewStock">
 			 	<div class="modal-body">
- 		
-					<table class="modal-table">
-						<tbody>
-							<tr>
-								<td><label>Id</label></td>
-								<td>:<input /></td>
-							</tr>
-							<tr>
-								<td><label>Name</label></td>
-								<td>:<input /></td>
-							</tr>
-							<tr>
-								<td><label>Quantity</label></td>
-								<td>:<input/></td>
-							</tr>
-							<tr>
-								<td><label>Unit</label></td>
-								<td>:<input /></td>
-							</tr>
-							<tr>
-								<td><label>Price</label></td>
-								<td>:<input /></td>
-							</tr>														
-						</tbody>
-					</table>
-
+	
 		  		</div> 
 		  		
-			 	<div class="modal-footer">
-		  			<a class="btn btn-warning " id="myBtnAdd">Add</a>
+			 	<div class="modal-footer">			
+		  			<a class="btn btn-default">Delete</a>
+		  			<br><br>
+		  			<form:button class="btn btn-default">Save All</form:button>
 		  		</div> 		  		
-		  </div> 
+		 </form:form>
+		 	
+		   
 	    
 		  </div>
   	</div>
@@ -219,7 +208,10 @@ function myRowSelect(itemId) {
 <!-- Add Modal popup End-->
 
 
+<!-- Start script for modal -->
 <script>
+
+<!-- Start script for update modal -->
 //open Update Modal
 var modalUpdate = document.getElementById('myUpdateModal');
 var btnUpdate = document.getElementById("myUpdateLink");
@@ -231,8 +223,10 @@ var spanClose = document.getElementsByClassName("close")[0];
 spanClose.onclick = function() {
 	modalUpdate.style.display = "none";
 }
+//End script for update modal 
 
-//Open Add Modal
+//Start script for add modal
+ //Open Add Modal
 var modalAdd = document.getElementById('myAddModal');
 var btnAdd = document.getElementById("myAddLink");
 btnAdd.onclick = function() {
@@ -242,5 +236,9 @@ btnAdd.onclick = function() {
 var spanClose = document.getElementsByClassName("close")[1];
 spanClose.onclick = function() {
 	modalAdd.style.display = "none";
-}
+} 
+
+
+// End script for add modal -->
 </script> 
+<!-- End script for modal -->
