@@ -13,6 +13,5 @@
 ..${itemId} --%>
 
 <h2>stock/add</h2>
-
-	${newStockList}
+${aaa}
 

@@ -89,14 +89,14 @@ td
 
 /*  modal-table element*/
 
-/* .modal-table tbody tr > td >input, .modal-table tr > td >form:option
+.modal-table tbody tr > td > input 
 {
 	size : 90;
 	height: 35px;	
 	margin-bottom: 8px;
 	margin-left: 15px;
 	border-style: groove;
-} */
+} 
 
 .modal-table tbody tr > td > label
 {
@@ -138,4 +138,18 @@ td
 {
 	display: table-column;
 	border-style: solid;
-	}
+}
+	
+	
+/* datalist  - only support in Mozila Firefox*/
+datalist{
+   height:20px !important;
+   max-height:40px !important;
+   overflow-y:auto;
+   display:block !important;
+}
+
+datalist option > label
+{
+	color: red;
+}

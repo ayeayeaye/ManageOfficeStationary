@@ -106,7 +106,7 @@ function myRowSelect(itemId) {
 					
 <!-- 3 -->			
 			<div class="pull-right ">
-					<a id="myAddLink" href="${pageContext.request.contextPath}/store/stock/add" class="btn btn-success"  >
+					<a id="myAddLink" class="btn btn-success"  >
 					<span class="glyphicon glyphicon-plus-sign"></span> Add New Stock
 					</a>
 
@@ -189,14 +189,34 @@ function myRowSelect(itemId) {
 	  		</div>
 	  		
 	  	<form:form action="${pageContext.request.contextPath}/store/stock/add" modelAttribute="addNewStock">
-			 	<div class="modal-body">
+			<div class="modal-body">
+			<table class="modal-table">
+			<tr>
+				<td><label>Item</label></td>
+				<td>:<input id="myInputItem"/></td>
+			</tr>
+			
+
+			<tr>
+				<td><label>Quantity</label></td>
+				<td>:<input id="myInputQty" /></td>
+			</tr>
+			
+			<tr>
+				<td><label>Price($)</label></td>
+				<td>:<input id="myInputPrice"/></td>
+			</tr>
+			
+			<tr>
+				<td><label>Supplier</label></td>
+				<td>:<input id="myInputSupp" /></td>
+				
 	
+			</table>					
 		  		</div> 
 		  		
 			 	<div class="modal-footer">			
-		  			<a class="btn btn-default">Delete</a>
-		  			<br><br>
-		  			<form:button class="btn btn-default">Save All</form:button>
+		  			<form:button class="btn btn-default">Save</form:button>
 		  		</div> 		  		
 		 </form:form>
 		 	
@@ -205,6 +225,18 @@ function myRowSelect(itemId) {
 		  </div>
   	</div>
 </div>
+
+<%-- <datalist id="itemDataList">
+	<c:forEach items="${itemList}" var="item">
+	<option label="${item.itemName}"  value="${item.itemId}"></option>
+	</c:forEach>
+</datalist>
+
+<datalist id="suppDataList">
+	<c:forEach items="${supList}" var="supp">
+	<option label="${supp.supName}" value="${supp.supplierId}"  ></option>
+	</c:forEach>
+</datalist> --%>
 <!-- Add Modal popup End-->
 
 
@@ -238,7 +270,11 @@ spanClose.onclick = function() {
 	modalAdd.style.display = "none";
 } 
 
-
+function fillInput(mySelect,myInput) 
+{
+	var selectVal = document.getElementById(mySelect).options[document.getElementById(mySelect).selectedIndex].text;;	
+	document.getElementById(myInput).value = selectVal;
+}
 // End script for add modal -->
 </script> 
 <!-- End script for modal -->

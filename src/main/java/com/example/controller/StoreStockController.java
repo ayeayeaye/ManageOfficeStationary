@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,15 +88,15 @@ public class StoreStockController {
 	@RequestMapping(value="/add")
 	public ModelAndView addStockG( )
 	{
-		ModelAndView moView = new ModelAndView("store-stock-add");	
+		ModelAndView moView = new ModelAndView("store-stock-add4");	
 		moView.addObject("itemList", itService.findAllItem());
 		moView.addObject("supList",supService.findAllSup());
-		moView.addObject("newStockList",new ArrayList<Stock>());
+		/*moView.addObject("newStockList",new ArrayList<Stock>());*/
 		return moView;
 	}
 	
 	@RequestMapping(value="/added")
-	public ModelAndView addStockP(@RequestParam("reqItemC") ArrayList<Integer> reqItemIdList)
+	public ModelAndView addStockP( )
 	{
 		ModelAndView moView = new ModelAndView("text1");
 		return moView;

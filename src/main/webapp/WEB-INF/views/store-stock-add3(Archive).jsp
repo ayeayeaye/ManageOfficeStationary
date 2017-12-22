@@ -3,20 +3,21 @@
 <link rel="STYLESHEET" type="text/css" href="${pageContext.request.contextPath}/css/simple.css" rel="STYLESHEET" type="text/css">
 
 
-<script>
+<script spellcheck="">
 var count=0;
 function fillToTable( ) {
 	
 	count=parseInt(count)+parseInt(1);
 		
 	var myTable2 = document.getElementById("myTable2");
-	var myRowLength = myTable2.getElementsByTagName("tr").length;
-	var myRowIndex = parseInt(myRowLength)-1;
+	var myRowCount = myTable2.getElementsByTagName("tr").length;
+	var myRowIndex = parseInt(myRowCount)-1;
+	var myColCount = myTable2.getElementsByTagName("td").length;
 	
-	var my1 = document.getElementById("mySelectItem").value;
+	var my1 = document.getElementById("myInputItem").value;
 	var my2 = document.getElementById("myInputQty").value;
 	var my3 = document.getElementById("myInputPrice").value;
-	var my4 = document.getElementById("mySelectSupp").value;
+	var my4 = document.getElementById("myInputSupp").value;
 	
 	/* create link */
 	var newlink = document.createElement('a');
@@ -24,11 +25,17 @@ function fillToTable( ) {
 	newlink.style.color = "red";
 /* 	var linkText = document.createTextNode("Remove");
 	newlink.appendChild(linkText); */
-
 	
-	if(count>myRowLength-1)
+	/* create label*/
+	var lbItemVal= myCreateElementLabel('input',my1, "myLbItem")
+	var lbQtyVal= myCreateElementLabel('input',my2, "myLbQty")
+	var lbPriceVal= myCreateElementLabel('input',my3, "myLbPrice")
+	var lbSuppVal= myCreateElementLabel('input',my4, "myLbSupp")
+
+	if(count>myRowCount-1)
 	{
-	    var row = myTable2.insertRow(myRowLength);
+	    var row = myTable2.insertRow(myRowCount);
+	    
 	    var cell0 = row.insertCell(0);
 	    var cell1 = row.insertCell(1);
 	    var cell2 = row.insertCell(2);
@@ -38,26 +45,26 @@ function fillToTable( ) {
 	    
 	    //*To protect ==> After "delete" row, "add" row again, remember the deleted last row (error).
 	    //*Solution => Get present last row.
-		for(var i=1; i<myRowLength; i++)
+		for(var i=1; i<myRowCount; i++)
 		{							
 			var lastNo = myTable2.rows[i].cells[0].innerHTML;
 		} 	
-	    cell0.innerHTML = parseInt(lastNo)+1;	    
- 	    cell1.innerHTML = my1;
-	    cell2.innerHTML = my2;
-	    cell3.innerHTML = my3;
-	    cell4.innerHTML = my4;	
+	    var rowNumber = parseInt(lastNo)+1;
+	    cell0.innerHTML = rowNumber;
+ 	    cell1.appendChild(lbItemVal);
+	    cell2.appendChild(lbQtyVal);
+	    cell3.appendChild(lbPriceVal);
+	    cell4.appendChild(lbSuppVal);	
 		cell5.appendChild(newlink);
 	}
 	else
-	{
+	{	
 		
-		myTable2.rows[myRowIndex].cells[1].innerHTML = my1;
-		myTable2.rows[myRowIndex].cells[2].innerHTML = my2;
-		myTable2.rows[myRowIndex].cells[3].innerHTML = my3;
-		myTable2.rows[myRowIndex].cells[4].innerHTML = my4;
+		myTable2.rows[myRowIndex].cells[1].appendChild(lbItemVal);	
+		myTable2.rows[myRowIndex].cells[2].appendChild(lbQtyVal);		
+		myTable2.rows[myRowIndex].cells[3].appendChild(lbPriceVal);		
+		myTable2.rows[myRowIndex].cells[4].appendChild(lbSuppVal);
 		myTable2.rows[myRowIndex].cells[5].appendChild(newlink);
-
 	}
 	
 	newlink.setAttribute('onClick', 'removeRow(this)');	
@@ -74,8 +81,8 @@ function removeRow(x)
 	
  	//*Everytime click "delete" row, To protect => Origin=1,2,3,4,5. Delete=2. Error=1,3,4,5. 
  	//*Everytime click "delete" row, Solution => rearrange the number.
-	var myRowLength = myTable2.getElementsByTagName("tr").length;	
-	for(var r=1; r<myRowLength; r++)
+	var myRowCount = myTable2.getElementsByTagName("tr").length;	
+	for(var r=1; r<myRowCount; r++)
 		{
 			myTable2.rows[r].cells[0].innerHTML = r;
 		} 
@@ -87,6 +94,35 @@ function fillInput(mySelect,myInput)
 	document.getElementById(myInput).value = selectVal;
 }
 
+/* function myCreateElementInput(name,readOnlyYN,styleColorCode,sizeNo,value) {
+	
+	var input = document.createElement(name);
+	input.readOnly = readOnlyYN;
+	input.style.backgroundColor=styleColorCode;
+	input.size = sizeNo;
+	input.value = value;
+	
+	return input;
+} */
+
+function myCreateElementLabel(elementType,value, name) {
+
+	var elementLb = document.createElement(elementType);
+	elementLb.setAttribute("Type","Text");
+	/* elementLb.innerHTML = value; */
+	elementLb.name = name;
+	elementLb.setAttribute("value",value);
+
+	return elementLb;
+}
+
+function showTestVal() {
+	var myTable2 = document.getElementById("myTable2");
+	var ddd = myTable2.rows[1].cells[1].innerHTML;
+	alert(ddd);
+	var eee = ddd.value;
+	alert(document.getElementById("myLbItem").value);
+}
 </script>
  
 	<div class="row">
@@ -104,7 +140,6 @@ function fillInput(mySelect,myInput)
 <div class="panel panel-body">
 		<!--Start Table 2 -->	
 <div class="col-lg-7">				
-
 		<table class="table table-bordered" id="myTable2" >
 			<thead>
 				<tr>
@@ -127,7 +162,10 @@ function fillInput(mySelect,myInput)
 				</tr>
 			</tbody>			
 		</table>
-		<a href="${pageContext.request.contextPath}/store/stock/added" class="btn success">Save</a>
+	
+
+		<%-- <a href="${pageContext.request.contextPath}/store/stock/added" class="btn btn-success">Save</a> --%>
+		<a href="#" class="btn btn-success" onclick="showTestVal()">Save</a>
 		<a href="#" class="btn btn-danger">Cancel</a>
 		
 </div>
