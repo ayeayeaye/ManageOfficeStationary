@@ -22,6 +22,7 @@ public class Supplier {
 	private String supEmail;
 	@Column(name="address")
 	private String supAddres;
+	
 	public Supplier(int supplierId, String supName, String supCompany, String supPhNo, String supEmail,
 			String supAddres) {
 		super();

@@ -41,6 +41,14 @@ public class ItemStcokServiceImp implements ItemStcokService {
 	public void saveItem(ItemStcok newItem) {
 		repository.saveAndFlush(newItem);
 	}
+
+	@Override
+	public ItemStcok findItemById(Integer itemId) {
+		ItemStcok a = repository.findItemById(itemId);
+		return a;
+	}
+
+
 	
 	
 

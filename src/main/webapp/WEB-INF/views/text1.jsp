@@ -8,10 +8,14 @@
 
 <h2>add(Post)</h2>
 ..${addedStock}
+--%>
 
-<h2>stock/update</h2>
-..${itemId} --%>
+<%-- <h2>stock/update</h2>
+..${itemId} 
 
 <h2>stock/add</h2>
-${aaa}
+${newAddStock}
+itemId = ${itemId} --%>
+<%-- item = ${stock} . --%>
+- ${updItem}
 

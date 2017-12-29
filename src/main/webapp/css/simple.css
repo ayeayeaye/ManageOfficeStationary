@@ -16,7 +16,6 @@
 }
 
 .table-scroll tbody td, .table-scroll thead > tr> th {
-
 	float : left;
   	border-bottom-width: 0;
 
@@ -89,13 +88,12 @@ td
 
 /*  modal-table element*/
 
-.modal-table tbody tr > td > input 
+.modal-table tbody tr > td > input, .modal-table tbody tr > td > textarea
 {
 	size : 90;
 	height: 35px;	
 	margin-bottom: 8px;
 	margin-left: 15px;
-	border-style: groove;
 } 
 
 .modal-table tbody tr > td > label
@@ -147,9 +145,4 @@ datalist{
    max-height:40px !important;
    overflow-y:auto;
    display:block !important;
-}
-
-datalist option > label
-{
-	color: red;
 }

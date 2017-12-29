@@ -1,5 +1,7 @@
 package com.example.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,13 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="item_stock")
 public class ItemStcok {
-
-
 
 	@Id
 	@Column(name="item_id")
@@ -24,8 +25,9 @@ public class ItemStcok {
 	@Column(name="category")
 	private int category;
 	private String unit;
+	@Column(name="updated_price")
 	private double price;
-	@Column(name="total_quantity")
+	@Column(name="updated_quantity")
 	private int totalQty;
 	@Column(name="reorder_level")
 	private int reorderLevel;
@@ -33,9 +35,14 @@ public class ItemStcok {
 	@ManyToOne
 	@JoinColumn(name="category", insertable=false, updatable=false)
 	private Category categoryModel;
+	
+	public ItemStcok() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-	public ItemStcok(int itemId, String itemName, int category, String unit, double price, int totalQty, int reorderLevel,
-			Category categoryModel) {
+	public ItemStcok(int itemId, String itemName, int category, String unit, double price, int totalQty,
+			int reorderLevel, Category categoryModel) {
 		super();
 		this.itemId = itemId;
 		this.itemName = itemName;
@@ -45,11 +52,6 @@ public class ItemStcok {
 		this.totalQty = totalQty;
 		this.reorderLevel = reorderLevel;
 		this.categoryModel = categoryModel;
-	}
-
-	public ItemStcok() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getItemId() {
@@ -116,12 +118,11 @@ public class ItemStcok {
 		this.categoryModel = categoryModel;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Item [itemId=" + itemId + ", itemName=" + itemName + ", category=" + category + ", unit=" + unit
-				+ ", price=" + price + ", totalQty=" + totalQty + ", reorderLevel=" + reorderLevel + ", categoryModel="
-				+ categoryModel + "]";
+		return "ItemStcok [itemId=" + itemId + ", itemName=" + itemName + ", category=" + category + ", unit=" + unit
+				+ ", price=" + price + ", totalQty=" + totalQty + ", reorderLevel=" + reorderLevel + "]";
 	}
-
 	
 }

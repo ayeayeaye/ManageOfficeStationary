@@ -14,5 +14,7 @@ public interface ItemStcokService {
 	Double findPriceByItem(Integer itemId);
 
 	void saveItem(ItemStcok newItem);
-	
+
+	ItemStcok findItemById(Integer itemId);
+
 }

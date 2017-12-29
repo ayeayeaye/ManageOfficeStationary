@@ -19,4 +19,7 @@ public interface ItemStcokRepository extends JpaRepository<ItemStcok,String> {
 	@Query("Select i.price from ItemStcok i where i.itemId = :itemId")
 	Double findPriceByItem(@Param("itemId") Integer itemId);
 
+	@Query("SELECT e FROM ItemStcok e where e.itemId = :itemId")
+	ItemStcok findItemById(@Param("itemId") Integer itemId);
+
 }

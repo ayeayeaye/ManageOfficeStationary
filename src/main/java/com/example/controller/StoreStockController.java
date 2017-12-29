@@ -1,6 +1,12 @@
 package com.example.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,6 +17,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +34,7 @@ import com.example.model.Stock;
 import com.example.model.Supplier;
 import com.example.service.CategoryService;
 import com.example.service.ItemStcokService;
-import com.example.service.StockService;
+import com.example.service.StockLogService;
 import com.example.service.SupplierService;
 
 @Controller
@@ -43,14 +50,14 @@ public class StoreStockController {
 	@Autowired
 	SupplierService supService;
 	@Autowired
-	StockService stService;
+	StockLogService stService;
 	
 	/*example*/
 	Integer storeStaff = 10018;
 	//
-	Calendar cal = Calendar.getInstance();
-	SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-	String fTodayDate = format1.format(cal.getTime());
+	Date todayDate = Calendar.getInstance().getTime();
+
+
 	
 	//
 	@RequestMapping(value="/create/category")
@@ -71,43 +78,73 @@ public class StoreStockController {
 		return "redirect:/all/view/catalogue";
 	}
 
-	// Store-stock-view
+	/*Stock*/
 	@RequestMapping(value="/view")
 	public ModelAndView viewStock( )
 	{
-		ModelAndView moView = new ModelAndView("store-stock-view");
+		ModelAndView moView = new ModelAndView("store-stock-view");		
+		moView.addObject("catList", cService.findAllCategory());
 		moView.addObject("itemList", itService.findAllItem());
 		//Give empty stock object for ("/add")
-		moView.addObject("addNewStock", new Stock());	
+		moView.addObject("newStock", new Stock());	
+		moView.addObject("aItem", new ItemStcok());
 		moView.addObject("supList",supService.findAllSup());
 		
 		return moView;
 	}
 
+	@RequestMapping(value="/add/{itemId}")
+	public String addStockP(@ModelAttribute ("newStock") Stock stock, HttpSession session, @PathVariable Integer itemId)
+	{
 
-	@RequestMapping(value="/add")
-	public ModelAndView addStockG( )
-	{
-		ModelAndView moView = new ModelAndView("store-stock-add4");	
-		moView.addObject("itemList", itService.findAllItem());
-		moView.addObject("supList",supService.findAllSup());
-		/*moView.addObject("newStockList",new ArrayList<Stock>());*/
-		return moView;
+		/*Stock_Log*/
+		stock.setAddedEmployee(storeStaff);	
+		stock.setAddedDate(todayDate);
+		stService.saveAStock(stock);
+		
+		/*Item*/
+		ItemStcok addedStockItem = itService.findItemById(itemId);
+		//Quantity(Update Quantity)
+		Integer currentQty = addedStockItem.getTotalQty();
+		Integer addedQty = stock.getAddedQty();
+		Integer totalQty = currentQty+addedQty;
+		addedStockItem.setTotalQty(totalQty); 
+		//Price(Update Price)
+		double currentPrice = addedStockItem.getPrice();		
+		double addedPrice = stock.getAddedPrice();		
+		if(addedPrice > currentPrice )
+		{
+			addedStockItem.setPrice(addedPrice);
+		}	
+		itService.saveItem(addedStockItem);
+		
+		
+		return "redirect:/store/stock/view";
 	}
 	
-	@RequestMapping(value="/added")
-	public ModelAndView addStockP( )
-	{
-		ModelAndView moView = new ModelAndView("text1");
-		return moView;
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public String updateStockP(@ModelAttribute ("aItem") ItemStcok updItem)
+	{	
+		//category, unit, reorderLevel are null value in ModelAttribute. So.... 
+		ItemStcok itemToUpd =itService.findItemById(updItem.getItemId());
+		updItem.setCategory(itemToUpd.getCategory());
+		updItem.setUnit(itemToUpd.getUnit());
+		updItem.setReorderLevel(itemToUpd.getReorderLevel());
+		//when input set disable, don't know the value/ don't bind data. So,...
+		updItem.setItemName(itemToUpd.getItemName());
+			
+		itService.saveItem(updItem);
+		
+		return "redirect:/store/stock/view";
 	}
 	
+	/*Stock Log*/
 	@RequestMapping(value="/view/log")
 	public ModelAndView viewStocKLog( )
 	{
 		ModelAndView moView = new ModelAndView("store-stock-view-stocklog");
-		moView.addObject("itemList", itService.findAllItem());
-		moView.addObject("supList",supService.findAllSup());
+		ArrayList<Stock> stockLogList = stService.getAllStock();
+		moView.addObject("stockLogList", stockLogList);
 		return moView;
 	}
 	
@@ -119,9 +156,7 @@ public class StoreStockController {
 		moView.addObject("itemLists", itService.findAllItem());
 		moView.addObject("rowIndex", rowIndex);
 		return moView;
-	}
-	
-	
+	}	
 	@RequestMapping(value="/popup/chooseSupplier")
 	public ModelAndView popUpSearchSupplierG( )
 	{

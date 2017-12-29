@@ -1,11 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<link href="../css/styles.css" rel="STYLESHEET" type="text/css">
+<link rel="STYLESHEET" type="text/css" href="${pageContext.request.contextPath}/css/style.css" rel="STYLESHEET" type="text/css">
 <link rel="STYLESHEET" type="text/css" href="${pageContext.request.contextPath}/css/simple.css" rel="STYLESHEET" type="text/css">
 
 <script>
-function mySearchFunction() {
+function myMainSearchFunction() {
 	var textBox, inputUpcase, dataTable, row, itemCol, i;
 	
 	textBox =  document.getElementById("inputSearch");
@@ -33,20 +33,45 @@ function mySearchFunction() {
 	}
 	
 }
-
-function myRowSelect(itemId) {
+var count=0;
+ function myRowSelect(rowIndex) {
+	   //alert(count);
+	  count = parseInt(count)+parseInt(1);
+	 
 	//alert("***"+ itemId);
 	var dataTable=document.getElementById("myTable");
 	var rows = dataTable.getElementsByTagName("tr");
-	rows[itemId].className ="active";
 	
- 	var colCount = dataTable.rows[0].cells.length;
-	for(var i=1; i<colCount; i++) 
-	{	
-		document.getElementById(i+"modal").value = dataTable.rows[itemId].cells[i].innerHTML;
-	}
 	
-  	document.getElementById("myBtnUpdate").href = "${pageContext.request.contextPath}/store/stock/update/"+itemId;
+ 	//Limit Let the user select only one row
+	var rowCount = dataTable.getElementsByTagName("tr").length;
+ 	if(count > parseInt(1))
+ 		{
+			if(rows[rowIndex].className != "active")
+				{
+				alert("Please select the only one item!")
+				}
+ 		}
+ 	else
+ 		{
+ 			rows[rowIndex].className ="active";
+ 		}
+
+	
+ 		//For Add Modal
+		document.getElementById("inputItemVal").value = dataTable.rows[rowIndex].cells[1].innerHTML;
+		document.getElementById("inputItemTxt").value = dataTable.rows[rowIndex].cells[2].innerHTML;		
+		document.getElementById("inputQty").value = dataTable.rows[rowIndex].cells[3].innerHTML;		
+		document.getElementById("inputUnit").value = dataTable.rows[rowIndex].cells[4].innerHTML
+		document.getElementById("inputPrice").value = dataTable.rows[rowIndex].cells[5].innerHTML;
+		
+		//For Update Modal
+		document.getElementById("upInputItemVal").value = dataTable.rows[rowIndex].cells[1].innerHTML;
+		document.getElementById("upInputItemTxt").value = dataTable.rows[rowIndex].cells[2].innerHTML;		
+		document.getElementById("upInputQty").value = dataTable.rows[rowIndex].cells[3].innerHTML;		
+		document.getElementById("upInputUnit").value = dataTable.rows[rowIndex].cells[4].innerHTML
+		document.getElementById("upInputPrice").value = dataTable.rows[rowIndex].cells[5].innerHTML;
+	
 }
 
 </script>
@@ -62,7 +87,7 @@ function myRowSelect(itemId) {
 			<div class="col-lg-5">
 				<div class="input-group mb-2 mr-sm-2 mb-sm-0"> <!-- to combine search & input box -->
 					<div class="input-group-addon">Search</div>
-					<input type="text"  class="form-control" id="inputSearch" onkeyup="mySearchFunction()" placeholder="*****">
+					<input type="text"  class="form-control" id="inputSearch" onkeyup="myMainSearchFunction()" placeholder="Enter item">
 				</div>
 			</div>
 
@@ -74,15 +99,15 @@ function myRowSelect(itemId) {
 						<a href="${pageContext.request.contextPath}/store/stock/view/log" >Stock Log</a>								
 			</div>
 			
-		</div>
+	  </div>
 		
 	<!-- 2 -->	
 			<div class="table-responsive">	
 			<table id="myTable" class="table table-scroll">
 				<thead>
-					<tr >
+					<tr>
 						<th class="col-xs-1">#</th>
-						<th class="col-xs-2">Id</th>
+						<th class="col-xs-2">ItemCode</th>
 						<th class="col-xs-3">Item</th>
 						<th class="col-xs-2">TotalQuantity</th>
 						<th class="col-xs-2">Unit</th>
@@ -91,7 +116,7 @@ function myRowSelect(itemId) {
 				</thead>
 				<tbody>
 					<c:forEach items="${itemList}" var="items" varStatus="counter">
-						<tr onclick="myRowSelect('${items.itemId}')" >
+						<tr onclick="myRowSelect('${counter.count}')" >
 							<td class="col-xs-1">${counter.count}</td>
 							<td class="col-xs-2">${items.itemId}</td>
 							<td class="col-xs-3">${items.itemName}</td>
@@ -113,168 +138,176 @@ function myRowSelect(itemId) {
 					<a class="btn btn-success" id="myUpdateLink" >
 					<span class="glyphicon glyphicon-pencil"></span> Update Stock
 					</a>
-					
-					<a class="btn btn-success" id="myDeleteLink" >
-					<span class="glyphicon glyphicon-trash"></span> Delete Stock
-					</a>
-					
-					<a href="${pageContext.request.contextPath}/store/stock/add"> Add Stock</a>
+				
 			</div>	 
 
 
+
+<!-- Add Modal popup Starts-->
+<form:form id="formAdd"  modelAttribute="newStock" >
+
+<div id="myAddModal" class="modal">
+	<div class="modal-dialog">
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		    <button type="button" class="close" aria-label="Close" onclick="document.getElementById('myAddModal').style.display='none'">
+  				<span aria-hidden="true">&times;</span>
+			</button>
+		    
+		  <div class="modal-header">
+			  	<div class="modal-title">
+			  		<p id="modalTitle">Add Item to Stock</p>  				  	
+			  	</div>
+	  	</div>
+
+		<div class="modal-body">
+				<!-- Add Table -->
+				<table class="modal-table" id="addTable">
+					<tbody>
+					<tr>
+						<td><label>Item</label></td>
+						<td>:<form:hidden path="addedItem" id="inputItemVal"/><input id="inputItemTxt" disabled="disabled"></td>
+					<tr>
+						<td><label>Quantity</label></td>
+						<td>:<form:input path="addedQty" id="inputQty" /></td>
+					</tr>			
+					<tr>
+						<td><label>Price($)</label></td>
+						<td>:<form:input path="addedPrice" id="inputPrice" /></td>
+					</tr>
+					<tr>
+						<td><label>Unit</label></td>
+						<td>:<input id="inputUnit" disabled="disabled"></input></td>
+					</tr>							
+					<tr id="suppRow">
+						<td><label>Supplier</label><br><br><br><br><br><div>.</div></td>
+						<td>:
+							<span>
+							<form:hidden path="supplier" id="inputSuppVal"/><input id="inputSuppTxt" style="margin-left: 10px">
+							<br>
+							<select id="mySuppSelect" size="5" style="margin-left: 18px; width: 89%" ondblclick="fillSelectedtoInput('mySuppSelect')">
+								<c:forEach items="${supList}" var="supp">
+								<option value="${supp.supplierId}">${supp.supName}</option>
+								</c:forEach>
+							</select>
+							</span>
+						</td>
+					</tr>
+
+				</tbody>
+				</table>
+				<!-- Update Table -->				
+				</div>
+			
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-default" id="submitBtn" >Add</button>
+			</div>
+			
+			</div>				
+	</div>					  		
+</div> 
+
+</form:form>
+<!-- Add Modal popup End-->
+
 <!-- Update Modal popup Starts-->
+<form:form id="formUpdate"  modelAttribute="aItem" >
 
 <div id="myUpdateModal" class="modal">
 	<div class="modal-dialog">
 		  <!-- Modal content -->
 		  <div class="modal-content">
-		    <span class="close">&times;</span>
-		    
-		  <div class="modal-header">
-			  	<p class="modal-title">Update Stock</p>
-
-			  	
-			 	<div class="modal-body">
-			 		
-					<table class="modal-table">
-						<tbody>
-							<tr>
-								<td><label>Id</label></td>
-								<td>:<input id="1modal" /></td>
-							</tr>
-							<tr>
-								<td><label>Name</label></td>
-								<td>:<input id="2modal" /></td>
-							</tr>
-							<tr>
-								<td><label>Quantity</label></td>
-								<td>:<input id="3modal" /></td>
-							</tr>
-							<tr>
-								<td><label>Unit</label></td>
-								<td>:<input id="4modal" /></td>
-							</tr>
-							<tr>
-								<td><label>Price</label></td>
-								<td>:<input id="5modal" /></td>
-							</tr>														
-						</tbody>
-					</table>
-
-		  		</div> 
-		  		
-			 	<div class="modal-footer">
-		  			<a class="btn btn-warning " id="myBtnUpdate">Update</a>
-		  		</div> 		  		
-		  </div> 
-	    
-		  </div>
-  	</div>
-</div>
-<!-- Update Modal popup End-->
-
-
-<!-- Add Modal popup Starts-->
-<div id="myAddModal" class="modal">
-	<div class="modal-dialog">
-		  <!-- Modal content -->
-		  <div class="modal-content">
-		    <span class="close" onclick="closeModalF('myAddModal')">&times;</span>
+		    <button type="button" class="close" aria-label="Close" onclick="document.getElementById('myUpdateModal').style.display='none'">
+  				<span aria-hidden="true">&times;</span>
+			</button>
 		    
 		  <div class="modal-header">
 			  	<div class="modal-title">
-			  		<p>Add Stock</p>
-		  				  	
+			  		<p id="modalTitle">Update Item</p>  				  	
 			  	</div>
-	  		</div>
-	  		
-	  	<form:form action="${pageContext.request.contextPath}/store/stock/add" modelAttribute="addNewStock">
-			<div class="modal-body">
-			<table class="modal-table">
-			<tr>
-				<td><label>Item</label></td>
-				<td>:<input id="myInputItem"/></td>
-			</tr>
+	  	</div>
+
+		<div class="modal-body">
+				<!-- Update Table -->
+				<table class="modal-table" id="updateTable" >
+					<tbody>
+					<tr>
+						<td><label>Item</label></td>
+						<td>:<form:hidden path="itemId" id="upInputItemVal"/><input id="upInputItemTxt" disabled="disabled"/></td>
+					<tr>				
+						<td><label>Quantity</label></td>
+						<td>:<form:input path="totalQty" id="upInputQty"/></td>
+					</tr>	
+					<tr>				
+						<td><label>Unit</label></td>
+						<td>:<input id="upInputUnit" disabled="disabled"/></td>
+					</tr>							
+					<tr>
+						<td><label>Price($)</label></td>
+						<td>:<form:input path="price" id="upInputPrice" /></td>
+					</tr>		
+				</tbody>
+				</table>
+				<!-- Update Table -->				
+				</div>
 			
-
-			<tr>
-				<td><label>Quantity</label></td>
-				<td>:<input id="myInputQty" /></td>
-			</tr>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-default" id="submitBtn" >Update</button>
+			</div>
 			
-			<tr>
-				<td><label>Price($)</label></td>
-				<td>:<input id="myInputPrice"/></td>
-			</tr>
-			
-			<tr>
-				<td><label>Supplier</label></td>
-				<td>:<input id="myInputSupp" /></td>
-				
-	
-			</table>					
-		  		</div> 
-		  		
-			 	<div class="modal-footer">			
-		  			<form:button class="btn btn-default">Save</form:button>
-		  		</div> 		  		
-		 </form:form>
-		 	
-		   
-	    
-		  </div>
-  	</div>
-</div>
+			</div>				
+	</div>					  		
+</div> 
 
-<%-- <datalist id="itemDataList">
-	<c:forEach items="${itemList}" var="item">
-	<option label="${item.itemName}"  value="${item.itemId}"></option>
-	</c:forEach>
-</datalist>
-
-<datalist id="suppDataList">
-	<c:forEach items="${supList}" var="supp">
-	<option label="${supp.supName}" value="${supp.supplierId}"  ></option>
-	</c:forEach>
-</datalist> --%>
-<!-- Add Modal popup End-->
-
+</form:form>
+<!--Update Modal popup End-->
 
 <!-- Start script for modal -->
+
 <script>
+var addModal= document.getElementById('myAddModal');
+var UpdModal= document.getElementById('myUpdateModal');
+var formAdd = document.getElementById("formAdd");
+var formUpd = document.getElementById("formUpdate");
+var addTable = document.getElementById("addTable");
+var updateTable = document.getElementById("updateTable");
 
-<!-- Start script for update modal -->
 //open Update Modal
-var modalUpdate = document.getElementById('myUpdateModal');
 var btnUpdate = document.getElementById("myUpdateLink");
-btnUpdate.onclick = function() {
-	modalUpdate.style.display = "block";
+btnUpdate.onclick = function() {	
+	
+	var itemId = document.getElementById("upInputItemVal").value;
+	if(itemId == 0)
+		{
+			alert("Please select the item first to update stock.")
+		}
+	else
+		{
+			UpdModal.style.display = "block";
+		}
+ 	formUpd.setAttribute('action',"${pageContext.request.contextPath}/store/stock/update"); 
 }
-//close Update Modal
-var spanClose = document.getElementsByClassName("close")[0];
-spanClose.onclick = function() {
-	modalUpdate.style.display = "none";
-}
-//End script for update modal 
-
-//Start script for add modal
- //Open Add Modal
-var modalAdd = document.getElementById('myAddModal');
+//Open Add Modal
 var btnAdd = document.getElementById("myAddLink");
-btnAdd.onclick = function() {
-	modalAdd.style.display = "block";
-}
-//Close Add Modal
-var spanClose = document.getElementsByClassName("close")[1];
-spanClose.onclick = function() {
-	modalAdd.style.display = "none";
+btnAdd.onclick = function() {		
+	
+	var itemId = document.getElementById("inputItemVal").value;	
+	if(itemId == 0)
+		{
+			alert("Please select the item first to add stock.")
+		}
+	else
+		{
+		addModal.style.display = "block";
+		}
+	
+	formAdd.setAttribute('action',"${pageContext.request.contextPath}/store/stock/add/"+itemId); 
 } 
 
-function fillInput(mySelect,myInput) 
-{
-	var selectVal = document.getElementById(mySelect).options[document.getElementById(mySelect).selectedIndex].text;;	
-	document.getElementById(myInput).value = selectVal;
+function fillSelectedtoInput(mySelect) {
+	var selectTxt = document.getElementById(mySelect).options[document.getElementById(mySelect).selectedIndex].text;	
+	var selectVal= document.getElementById(mySelect).options[document.getElementById(mySelect).selectedIndex].value;
+	document.getElementById("inputSuppTxt").value = selectTxt;
+	document.getElementById("inputSuppVal").value = selectVal;
 }
-// End script for add modal -->
 </script> 
-<!-- End script for modal -->

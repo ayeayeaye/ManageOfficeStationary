@@ -2,9 +2,14 @@ package com.example.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -13,41 +18,44 @@ import javax.persistence.Table;
 public class Stock {
 
 	@Id
-	@Column(name="stock_id" )
+	@Column(name="stock_id")
 	private int stockId;
-	private int employee;
-	@Column(name="item")
-	private int item; 
+	@Column(name="added_employee")
+	private int addedEmployee;
+	@Column(name="item_stock")
+	private int addedItem;
 	@Column(name="added_quantity")
-	private int addQty;
-	@Column(name="added_date")
-	private Date addDate;
+	private int addedQty;
 	@Column(name="added_price")
 	private double addedPrice;
-	@Column(name="supplier")
+	@Column(name="added_date")
+	private Date addedDate;
 	private int supplier;
-	@Column(name="update")
-	private String update;
-	@Column(name="reason")
+	private String updated;
 	private String reason;
 	
-	public Stock(int stockId, int employee, int item, int addQty, Date addDate, double addedPrice, int supplier,
-			String update, String reason) {
-		super();
-		this.stockId = stockId;
-		this.employee = employee;
-		this.item = item;
-		this.addQty = addQty;
-		this.addDate = addDate;
-		this.addedPrice = addedPrice;
-		this.supplier = supplier;
-		this.update = update;
-		this.reason = reason;
-	}
-
+	@OneToOne (cascade=CascadeType.ALL)
+	@JoinColumn(name="item_stock", insertable=false, updatable=false)
+	private ItemStcok itemModel;
+	
 	public Stock() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Stock(int stockId, int addedEmployee, int addedItem, int addedQty, double addedPrice, Date addedDate,
+			int supplier, String updated, String reason,ItemStcok itemModel ) {
+		super();
+		this.stockId = stockId;
+		this.addedEmployee = addedEmployee;
+		this.addedItem = addedItem;
+		this.addedQty = addedQty;
+		this.addedPrice = addedPrice;
+		this.addedDate = addedDate;
+		this.supplier = supplier;
+		this.updated = updated;
+		this.reason = reason;
+		this.itemModel = itemModel;
 	}
 
 	public int getStockId() {
@@ -58,36 +66,28 @@ public class Stock {
 		this.stockId = stockId;
 	}
 
-	public int getEmployee() {
-		return employee;
+	public int getAddedEmployee() {
+		return addedEmployee;
 	}
 
-	public void setEmployee(int employee) {
-		this.employee = employee;
+	public void setAddedEmployee(int addedEmployee) {
+		this.addedEmployee = addedEmployee;
 	}
 
-	public int getItem() {
-		return item;
+	public int getAddedItem() {
+		return addedItem;
 	}
 
-	public void setItem(int item) {
-		this.item = item;
+	public void setAddedItem(int addedItem) {
+		this.addedItem = addedItem;
 	}
 
-	public int getAddQty() {
-		return addQty;
+	public int getAddedQty() {
+		return addedQty;
 	}
 
-	public void setAddQty(int addQty) {
-		this.addQty = addQty;
-	}
-
-	public Date getAddDate() {
-		return addDate;
-	}
-
-	public void setAddDate(Date addDate) {
-		this.addDate = addDate;
+	public void setAddedQty(int addedQty) {
+		this.addedQty = addedQty;
 	}
 
 	public double getAddedPrice() {
@@ -98,6 +98,14 @@ public class Stock {
 		this.addedPrice = addedPrice;
 	}
 
+	public Date getAddedDate() {
+		return addedDate;
+	}
+
+	public void setAddedDate(Date addedDate) {
+		this.addedDate = addedDate;
+	}
+
 	public int getSupplier() {
 		return supplier;
 	}
@@ -106,12 +114,12 @@ public class Stock {
 		this.supplier = supplier;
 	}
 
-	public String getUpdate() {
-		return update;
+	public String getUpdated() {
+		return updated;
 	}
 
-	public void setUpdate(String update) {
-		this.update = update;
+	public void setUpdated(String updated) {
+		this.updated = updated;
 	}
 
 	public String getReason() {
@@ -122,14 +130,20 @@ public class Stock {
 		this.reason = reason;
 	}
 
+	public ItemStcok getItemModel() {
+		return itemModel;
+	}
+
+	public void setItemModel(ItemStcok itemModel) {
+		this.itemModel = itemModel;
+	}
+
 	@Override
 	public String toString() {
-		return "Stock [stockId=" + stockId + ", employee=" + employee + ", item=" + item + ", addQty=" + addQty
-				+ ", addDate=" + addDate + ", addedPrice=" + addedPrice + ", supplier=" + supplier + ", update="
-				+ update + ", reason=" + reason + "]";
+		return "Stock [stockId=" + stockId + ", addedEmployee=" + addedEmployee + ", addedItem=" + addedItem
+				+ ", addedQty=" + addedQty + ", addedPrice=" + addedPrice + ", addedDate=" + addedDate + ", supplier="
+				+ supplier + ", updated=" + updated + ", reason=" + reason +"]";
 	}
-	
-	
-	
+
 	
 }

@@ -90,7 +90,7 @@ function removeRow(x)
 
 function fillInput(mySelect,myInput) 
 {
-	var selectVal = document.getElementById(mySelect).options[document.getElementById(mySelect).selectedIndex].text;;	
+	var selectVal = document.getElementById(mySelect).options[document.getElementById(mySelect).selectedIndex].text;	
 	document.getElementById(myInput).value = selectVal;
 }
 

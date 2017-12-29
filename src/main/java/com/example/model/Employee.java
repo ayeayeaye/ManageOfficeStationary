@@ -22,7 +22,7 @@ public class Employee {
 	private int employeeId;
 	@Column(name = "employee_name")
 	private String employeeName;
-	@Column(name = "department")
+	@Column(name = "emp_department")
 	private String department;
 	@Column(name = "designation")
 	private String designation;
