@@ -11,6 +11,9 @@ import com.example.model.Requests;
 import com.example.model.Stock;
 
 public interface StockLogRepository extends JpaRepository<Stock, String> {
+
+	@Query("Select st from Stock st order by st.stockId DESC ")
+	ArrayList<Stock> findAllStockByDesc();
 	
 	
 }

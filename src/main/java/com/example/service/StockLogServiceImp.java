@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,17 +19,24 @@ import com.example.repository.StockLogRepository;
 public class StockLogServiceImp implements StockLogService {
 
 	@Resource
-	private StockLogRepository repository;
+	private StockLogRepository stRepository;
+
 
 	@Override
 	public void saveAStock(Stock addedStock) {
-		repository.saveAndFlush(addedStock);
+		stRepository.saveAndFlush(addedStock);
 		
 	}
 
 	@Override
 	public ArrayList<Stock> getAllStock() {
-		return (ArrayList<Stock>) repository.findAll();
+		return (ArrayList<Stock>) stRepository.findAll();
 	}
+
+	@Override
+	public ArrayList<Stock> findAllStockByDesc() {
+		return stRepository.findAllStockByDesc();
+	}
+
 
 }

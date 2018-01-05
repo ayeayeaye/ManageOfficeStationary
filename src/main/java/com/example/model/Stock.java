@@ -38,13 +38,21 @@ public class Stock {
 	@JoinColumn(name="item_stock", insertable=false, updatable=false)
 	private ItemStcok itemModel;
 	
+	@OneToOne (cascade = CascadeType.ALL)
+	@JoinColumn (name="added_employee", insertable=false, updatable=false)
+	private Employee empModel;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn (name = "supplier", insertable=false, updatable=false)
+	private Supplier supModel;
+	
 	public Stock() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public Stock(int stockId, int addedEmployee, int addedItem, int addedQty, double addedPrice, Date addedDate,
-			int supplier, String updated, String reason,ItemStcok itemModel ) {
+			int supplier, String updated, String reason,ItemStcok itemModel, Employee empModel, Supplier supModel ) {
 		super();
 		this.stockId = stockId;
 		this.addedEmployee = addedEmployee;
@@ -56,6 +64,8 @@ public class Stock {
 		this.updated = updated;
 		this.reason = reason;
 		this.itemModel = itemModel;
+		this.empModel = empModel;
+		this.supModel = supModel;
 	}
 
 	public int getStockId() {
@@ -136,6 +146,25 @@ public class Stock {
 
 	public void setItemModel(ItemStcok itemModel) {
 		this.itemModel = itemModel;
+	}
+	
+	
+	
+	public Employee getEmpModel() {
+		return empModel;
+	}
+
+	public void setEmpModel(Employee empModel) {
+		this.empModel = empModel;
+	}
+
+		
+	public Supplier getSupModel() {
+		return supModel;
+	}
+
+	public void setSupModel(Supplier supModel) {
+		this.supModel = supModel;
 	}
 
 	@Override

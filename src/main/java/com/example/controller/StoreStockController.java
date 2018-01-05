@@ -139,12 +139,51 @@ public class StoreStockController {
 	}
 	
 	/*Stock Log*/
-	@RequestMapping(value="/view/log")
-	public ModelAndView viewStocKLog( )
+	@RequestMapping(value="/view/log/{page}")
+	public ModelAndView viewStocKLog(@PathVariable ("page") Integer page )
 	{
 		ModelAndView moView = new ModelAndView("store-stock-view-stocklog");
-		ArrayList<Stock> stockLogList = stService.getAllStock();
-		moView.addObject("stockLogList", stockLogList);
+		//ArrayList<Stock> stockLogList = stService.getAllStock();
+		ArrayList<Stock> allStockLogList = stService.findAllStockByDesc();
+		ArrayList<Stock> tenStockLogList= new ArrayList<Stock>(); 
+		Integer totalResult = allStockLogList.size();
+
+		//Pagination
+		Integer lastOneDigit = totalResult % 10 ; //got last one digit=3
+		Integer startDigit = totalResult / 10 ; //got last one digit=2
+		System.out.println("@@@"+lastOneDigit+","+startDigit);
+		if(totalResult<10)
+		{
+			for (int i = 0; i < totalResult ; i++) {
+				tenStockLogList.add(allStockLogList.get(i));	
+			}
+		}
+		
+		else if (totalResult >= 10)
+		{			
+				//Pages before last page
+				 if(page <= startDigit )
+				{
+					for (int k = (page-1)*10 ; k <= (page*10)-1 ; k++) {
+						tenStockLogList.add(allStockLogList.get(k));	
+					}
+				
+				}
+				else //last page
+				{
+					for (int j = (page-1)*10 ; j < totalResult  ; j++) {
+						tenStockLogList.add(allStockLogList.get(j));							
+					}
+				}				
+		}
+		
+		//Calculate number of page for JSP
+		Integer pageNo =  startDigit+1;
+		moView.addObject("pageNo", pageNo);
+		moView.addObject("allStockLogList", allStockLogList);		
+		moView.addObject("tenStockLogList", tenStockLogList);
+		moView.addObject("currentPage", page);
+		
 		return moView;
 	}
 	
