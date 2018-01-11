@@ -27,18 +27,17 @@ public class Employee {
 	@Column(name = "designation")
 	private String designation;
 	
-
-	public Employee(int employeeId, String employeeName, String departmentId, String designation ) {
-		super();
-		this.employeeId = employeeId;
-		this.employeeName = employeeName;
-		this.department = departmentId;
-		this.designation = designation;
-	}
-
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Employee(int employeeId, String employeeName, String department, String designation) {
+		super();
+		this.employeeId = employeeId;
+		this.employeeName = employeeName;
+		this.department = department;
+		this.designation = designation;
 	}
 
 	public int getEmployeeId() {
@@ -57,12 +56,12 @@ public class Employee {
 		this.employeeName = employeeName;
 	}
 
-	public String getDepartmentId() {
+	public String getDepartment() {
 		return department;
 	}
 
-	public void setDepartmentId(String departmentId) {
-		this.department = departmentId;
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
 	public String getDesignation() {
@@ -73,14 +72,13 @@ public class Employee {
 		this.designation = designation;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Employee [employeeId=" + employeeId + ", employeeName=" + employeeName + ", departmentId="
-				+ department + ", designation=" + designation + "]";
+		return "Employee [employeeId=" + employeeId + ", employeeName=" + employeeName + ", department=" + department
+				+ ", designation=" + designation + "]";
 	}
 	
-
+	
 	
 	
 	

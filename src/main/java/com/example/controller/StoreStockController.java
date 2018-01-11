@@ -10,6 +10,7 @@ import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +35,7 @@ import com.example.model.ItemStcok;
 import com.example.model.Stock;
 import com.example.model.Supplier;
 import com.example.service.CategoryService;
+import com.example.service.EmployeeService;
 import com.example.service.ItemStcokService;
 import com.example.service.StockLogService;
 import com.example.service.SupplierService;
@@ -51,6 +54,8 @@ public class StoreStockController {
 	SupplierService supService;
 	@Autowired
 	StockLogService stService;
+	@Autowired
+	EmployeeService empService;
 	
 	/*example*/
 	Integer storeStaff = 10018;
@@ -139,54 +144,34 @@ public class StoreStockController {
 	}
 	
 	/*Stock Log*/
-	@RequestMapping(value="/view/log/{page}")
+	@RequestMapping(value="/view/alllog/{page}")
 	public ModelAndView viewStocKLog(@PathVariable ("page") Integer page )
 	{
 		ModelAndView moView = new ModelAndView("store-stock-view-stocklog");
-		//ArrayList<Stock> stockLogList = stService.getAllStock();
 		ArrayList<Stock> allStockLogList = stService.findAllStockByDesc();
-		ArrayList<Stock> tenStockLogList= new ArrayList<Stock>(); 
-		Integer totalResult = allStockLogList.size();
-
-		//Pagination
-		Integer lastOneDigit = totalResult % 10 ; //got last one digit=3
-		Integer startDigit = totalResult / 10 ; //got last one digit=2
-		System.out.println("@@@"+lastOneDigit+","+startDigit);
-		if(totalResult<10)
-		{
-			for (int i = 0; i < totalResult ; i++) {
-				tenStockLogList.add(allStockLogList.get(i));	
-			}
-		}
-		
-		else if (totalResult >= 10)
-		{			
-				//Pages before last page
-				 if(page <= startDigit )
-				{
-					for (int k = (page-1)*10 ; k <= (page*10)-1 ; k++) {
-						tenStockLogList.add(allStockLogList.get(k));	
-					}
-				
-				}
-				else //last page
-				{
-					for (int j = (page-1)*10 ; j < totalResult  ; j++) {
-						tenStockLogList.add(allStockLogList.get(j));							
-					}
-				}				
-		}
 		
 		//Calculate number of page for JSP
+		Integer startDigit = allStockLogList.size() / 10 ; 
 		Integer pageNo =  startDigit+1;
 		moView.addObject("pageNo", pageNo);
+		
 		moView.addObject("allStockLogList", allStockLogList);		
-		moView.addObject("tenStockLogList", tenStockLogList);
+		moView.addObject("tenStockLogList", createPagination(allStockLogList,page));
 		moView.addObject("currentPage", page);
+		
+		//FILTER FIELD
+		//Item Name
+		ArrayList<ItemStcok> itemLists = itService.findAllItem(); 
+		moView.addObject("fItems", itemLists);
+		//Employee
+		moView.addObject("fEmps",empService.findAllEmp());
+		//Supervisor
+		moView.addObject("fSups",supService.findAllSup());
 		
 		return moView;
 	}
 	
+
 	//Pop-up window
 	@RequestMapping(value="/popup/chooseItem/{rowIndex}")
 	public ModelAndView popUpSearchItemG (@PathVariable Integer rowIndex )
@@ -229,5 +214,40 @@ public class StoreStockController {
 		return moView;
 	}
 	
+	
+	/*Method*/
+	public List<Stock> createPagination(List<Stock> list, Integer page)
+	{
+		//PAGINATION
+		ArrayList<Stock> tenStockLogList= new ArrayList<Stock>(); 
+		Integer totalResult = list.size();
+		
+		Integer lastOneDigit = totalResult % 10 ; //got last one digit=3(23), 5(145)
+		Integer startDigit = totalResult / 10 ; //got digit(s) b4 last one digit=2(23), 14(145)
+		System.out.println("@@@"+lastOneDigit+","+startDigit);
+		if(totalResult<10)
+		{
+			for (int i = 0; i < totalResult ; i++) {
+				tenStockLogList.add(list.get(i));	
+			}
+		}	
+		else if (totalResult >= 10)
+		{			
+				//Pages before last page
+				 if(page <= startDigit )
+				{
+					for (int k = (page-1)*10 ; k <= (page*10)-1 ; k++){
+						tenStockLogList.add(list.get(k));	
+					}			
+				}
+				else //last page
+				{
+					for (int j = (page-1)*10 ; j < totalResult  ; j++){
+						tenStockLogList.add(list.get(j));							
+					}
+				}				
+		}
+		return tenStockLogList;	
+	}
 	
 }

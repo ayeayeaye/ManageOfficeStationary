@@ -1,12 +1,21 @@
+<meta charset="utf-8">
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<link rel="STYLESHEET" type="text/css" href="${pageContext.request.contextPath}/css/style.css" rel="STYLESHEET" type="text/css">
-<link rel="STYLESHEET" type="text/css" href="${pageContext.request.contextPath}/css/simple.css" rel="STYLESHEET" type="text/css">
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">
+<link  href="${pageContext.request.contextPath}/css/simple.css" rel="stylesheet" type="text/css">
+
+<!--  jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
 
 <script>
-/* Define serial no */
+/*  Define serialno */
 window.onload = function(){
 	
 	var table = document.getElementById("myTable");
@@ -29,12 +38,39 @@ window.onload = function(){
 	    }
 }
 
-
+/* function selectFunction(mySelect)
+{
+	var select = document.getElementById(mySelect);
+	var selectVal = select.options[select.selectedIndex].value;
+	var selectValUp = selectVal.toUpperCase();
+	
+	var table, row, rowCount, itemColCell;
+	table = document.getElementById("myTable");
+	row = table.getElementsByTagName("tr");
+	rowCount = row.length ;
+	
+	for (i = 1; i < rowCount ; i++) 
+	{
+		itemColCell = row[i].getElementsByTagName("td")[2];
+		
+		if(itemColCell)
+		{
+			if(itemColCell.innerHTML.toUpperCase().indexOf(selectValUp) > -1)
+			{
+				row[i].style.display = " ";
+			}
+		    else
+		    {
+		    	row[i].style.display = "none";
+		    }
+			
+		}
+	}
+} */
 </script>
 
 <label id="lbCurPage" hidden="">${currentPage}</label>
 <label id="lbLPages" hidden="">${pageNo}</label>
-
 
 
 <div >
@@ -46,24 +82,51 @@ window.onload = function(){
 
 	<!-- 1.1 -->
 	<div class="col-lg-5">
-		Search
+				<input type="text" name="userSearch"  placeholder="Enter Item">
+				<button >Search</button>							
 	</div>
-
-		<!-- 1.2 -->	
-	<div class="link-menu navbar-text navbar-right">			
+	<!-- 1.2 -->
+	<div class="link-menu navbar-text navbar-right col-lg-3">			
 		<a href="${pageContext.request.contextPath}/store/stock/view">Stock</a>
-		<a href="${pageContext.request.contextPath}/all/view/catalogue">Item Catalogue</a>
 		<a href="${pageContext.request.contextPath}/store/stock/supplier" >Supplier</a>	
-		<span><a href="${pageContext.request.contextPath}/store/stock/view/log/1" >Stock Log</a></span>								
+		<span><a href="${pageContext.request.contextPath}/store/stock/view/alllog/1" >Stock Log</a></span>								
 	</div>
 </div>
 
 <!-- 2 Row -->
+
+<div class="row" >
+		<form>
+			<div class="form-group col-sm-2 col-xs-6">
+
+			</div>
+			<div class="form-group col-sm-2 col-xs-6">
+	
+			</div>
+			<div class="form-group col-sm-2 col-xs-6">
+
+			</div>
+			<div class="form-group col-sm-2 col-xs-6">
+
+			</div>
+			<div class="form-group col-sm-2 col-xs-6">
+
+			</div>				
+		</form>
+</div>
+
+<script>
+$(function () {
+    $('#datetimepicker1').datetimepicker();
+    dateFormat : "dd-mm-yyyy"
+});
+</script>
+
+
+<!-- 3.1 -->
 <div>
-<!-- 2.1 -->
-<div class="col-lg-9">
-			<div class="table-responsive">	
-			<table id="myTable" class="table">
+			
+			<table id="myTable" class="table table-striped">
 				<thead>
 					<tr>
 						<th class="col-xs-1">#</th>
@@ -84,7 +147,7 @@ window.onload = function(){
 							<td class="col-xs-1">${stLg.stockId}</td>
 							<td class="col-xs-2">${stLg.itemModel.itemName}</td>
 							<td class="col-xs-1">${stLg.addedQty}</td>
-							<td class="col-xs-1">${stLg.addedPrice}</td>
+							<td class="col-xs-1">$${stLg.addedPrice}</td>
 							<td class="col-xs-2">${stLg.empModel.employeeName}</td>
 							<td class="col-xs-2">${stLg.addedDate}</td>
 							<td class="col-xs-2">${stLg.supModel.supName}</td>
@@ -94,12 +157,11 @@ window.onload = function(){
 			</table>
 			
 			<c:forEach begin="1" end="${pageNo}" var="number" >
-				<a href="${pageContext.request.contextPath}/store/stock/view/log/${number}">${number}</a>
+				<a href="${pageContext.request.contextPath}/store/stock/view/alllog/${number}">${number}</a>
 			</c:forEach>
-			</div>
-</div>
+		
 <!-- 2.2 -->
-<div class="col-lg-3" >
+<!-- <div class="col-lg-3" >
    <br><br>
 	<div class="panel panel-default">
 		<div  class="panel panel-heading">
@@ -110,6 +172,6 @@ window.onload = function(){
 		</div>
 	</div>
 
-</div>
+</div> -->
 
 </div>

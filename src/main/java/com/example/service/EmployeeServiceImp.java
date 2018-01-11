@@ -27,5 +27,10 @@ public class EmployeeServiceImp implements EmployeeService {
 		return empList;
 	}
 
+	@Override
+	public ArrayList<Employee> findAllEmp() {
+		return (ArrayList<Employee>) repository.findAll();
+	}
+
 
 }

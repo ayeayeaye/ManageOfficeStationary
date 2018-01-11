@@ -1,3 +1,4 @@
+@CHARSET "UTF-8";
 /* /* make table scrollable */ */
 .table-scroll thead {
   width: 100%;
@@ -105,4 +106,4 @@ td
     text-decoration: none;
     cursor: pointer;
 }
-	
+/* filter */

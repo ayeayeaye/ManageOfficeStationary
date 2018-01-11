@@ -38,6 +38,13 @@
 	margin-top: 50px;
 	padding-left: 3px;	
 }
+#footer{
+	  position: absolute;
+	  right: 0;
+	  bottom: 0;
+	  left: 0;
+	  padding: 1rem;
+}
 </style>
 
 </head>
@@ -45,12 +52,12 @@
 
 <div class="container-fluid">
 
-<!-- Header -->
+<div>
+<!-- ======== Header ======== -->
 <div class="row">
 	<%@include file="Header.jsp"%>
 </div>
-<!-- Body -->
-		
+<!-- ======== Body ======== -->	
 		<div class="row">
 			
 			<div>
@@ -62,8 +69,7 @@
 				<dec:body />
 			</div>
 		</div>
-		
-
+</div>		
 	<!-- ======== Footer ======== -->
 	<div id="footer" align="center">
 		<hr>

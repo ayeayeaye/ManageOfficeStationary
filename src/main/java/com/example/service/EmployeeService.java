@@ -10,4 +10,6 @@ public interface EmployeeService {
 
 	ArrayList<Employee> findEmpsByDept(String dept);
 
+	ArrayList<Employee> findAllEmp();
+
 }

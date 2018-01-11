@@ -24,8 +24,4 @@
 }
 
 
-/* datalist */
-datalist > option > value
-{
-	background-color: red;
-}
+

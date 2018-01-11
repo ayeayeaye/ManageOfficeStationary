@@ -11,16 +11,16 @@
     position: fixed;
     z-index: 1;
     left: 0;
-    background-color: #35302E;
+    background-color: #2d2c2c;
     overflow-x: hidden;
-  	margin-top: 50px;
+    padding-top: 100px;
 }
 
 .sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 16px;
-    color: white;
+    color: gray;
     display: block;
     margin-bottom: 20px;
 }
@@ -28,52 +28,43 @@
 .glyphicon-menu {
     font-size: 25px;
 }
- */
+
 
 </style>
-<!-- example -->
-<%-- <c:set value="deptH" var="loginUser"></c:set>
-<c:set value="deptS" var="loginUser"></c:set> --%>
-<c:set value="store" var="loginUser"></c:set>
+
+ <c:if test="${sessionScope.USERSESSION.getSessionId() ne null}"> 
 
 	<div class="sidenav">
-	  <a href="${pageContext.request.contextPath}/home">
-	  <span class="glyphicon glyphicon-home glyphicon-menu"></span><br><h5>Home</h5></a>
 	  
-<%-- 	  <!-- Department head -->
-	  <c:if test="${loginUser == 'deptH'}">
-	  	<a href="${pageContext.request.contextPath}/manager/dashboard">APprove Request</a>
-	  </c:if>
-	  
-	  <!-- Department Staff -->
-	  <c:if test="${loginUser == 'deptS'}">
-	  	<a href="${pageContext.request.contextPath}/staff/dashboard">Make Request</a>
-	  </c:if>
-	  
-	  <!-- Store -->
-	  <c:if test="${loginUser == 'store'}">
-	  	<a href="${pageContext.request.contextPath}/store/dashboard">Disburse Request</a>
-	  </c:if> --%>
-	  
+ 	  <c:choose>
+	  	<c:when test="${sessionScope.USERSESSION.user.uEmpModel.department == 'STOR'}">
+	  		<a href="${pageContext.request.contextPath}/store/dashboard">
+	  		<span class="glyphicon glyphicon-plus glyphicon-menu"></span><br>Disburse Request</a> 
+	  		<a href="${pageContext.request.contextPath}/store/stock/view">
+	  		<span class="glyphicon glyphicon-shopping-cart glyphicon-menu"></span><br>Stock</a> 
+- 	  	</c:when>
+	  	<c:otherwise>
+	  		<c:if test="${sessionScope.USERSESSION.user.uEmpModel.designation == 'manager'}">
+			  	<a href="${pageContext.request.contextPath}/manager/dashboard">
+			  	<span class="glyphicon glyphicon-plus glyphicon-menu"></span><br>Approve Request</a>		  		
+	  		</c:if>
+	  		<c:if test="${sessionScope.USERSESSION.user.uEmpModel.designation == 'staff'}">
+				 <a href="${pageContext.request.contextPath}/staff/dashboard">
+			 	 <span class="glyphicon glyphicon-plus glyphicon-menu"></span><br>Make Request</a>		  		
+	  		</c:if>	
+ 	  	</c:otherwise>
+	  </c:choose> 
 	  <!-- example -->
-	  <a href="${pageContext.request.contextPath}/manager/dashboard">
-	  <span class="glyphicon glyphicon-plus glyphicon-menu"></span><br><h5>Approve Request</h5></a>
+
 	  
-	  <a href="${pageContext.request.contextPath}/staff/dashboard">
-	  <span class="glyphicon glyphicon-plus glyphicon-menu"></span><br><h5>Make Request</h5></a>
-	  
-	  <a href="${pageContext.request.contextPath}/store/dashboard">
-	  <span class="glyphicon glyphicon-plus glyphicon-menu"></span><br><h5>Disburse Request</h5></a> 
-	  
-	  <a href="${pageContext.request.contextPath}/store/stock/view">
-	  <span class="glyphicon glyphicon-shopping-cart glyphicon-menu" style="background-color: y"></span><br><h5>Stock</h5></a>
 	  <a href="${pageContext.request.contextPath}/all/view/catalogue">
-	  <span class="glyphicon glyphicon-book glyphicon-menu"></span><br><h5>Catalogue</h5></a>
+	  <span class="glyphicon glyphicon-book glyphicon-menu"></span><br>Catalogue</a>
 	  
-<!-- 	  <a href="#">
-	  <span class="glyphicon glyphicon-user glyphicon-menu"></span><br><h5>Employee</h5></a> -->
-	</div>
+	  <a href="#">
+	  <span class="glyphicon glyphicon-user glyphicon-menu"></span><br>Employee</a> 
+</div>
 
 
+ </c:if> 
 </html>
 	

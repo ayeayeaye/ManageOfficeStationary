@@ -25,7 +25,7 @@ import com.example.service.SupplierService;
 
 @Controller
 public class CommonController {
-	
+/*	
 	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
 	
 
@@ -41,6 +41,6 @@ public class CommonController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "index";
-	}
+	}*/
 
 }

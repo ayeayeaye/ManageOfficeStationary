@@ -61,9 +61,9 @@ var count=0;
  		//For Add Modal
 		document.getElementById("inputItemVal").value = dataTable.rows[rowIndex].cells[1].innerHTML;
 		document.getElementById("inputItemTxt").value = dataTable.rows[rowIndex].cells[2].innerHTML;		
-		document.getElementById("inputQty").value = dataTable.rows[rowIndex].cells[3].innerHTML;		
+		//document.getElementById("inputQty").value = dataTable.rows[rowIndex].cells[3].innerHTML;		
 		document.getElementById("inputUnit").value = dataTable.rows[rowIndex].cells[4].innerHTML
-		document.getElementById("inputPrice").value = dataTable.rows[rowIndex].cells[5].innerHTML;
+		//document.getElementById("inputPrice").value = dataTable.rows[rowIndex].cells[5].innerHTML;
 		
 		//For Update Modal
 		document.getElementById("upInputItemVal").value = dataTable.rows[rowIndex].cells[1].innerHTML;
@@ -94,9 +94,8 @@ var count=0;
 		<!-- 1.2 -->	
 			<div class="link-menu navbar-text navbar-right">			
 				   <span><a href="${pageContext.request.contextPath}/store/stock/view">Stock</a></span>
-						<a href="${pageContext.request.contextPath}/all/view/catalogue">Item Catalogue</a>
 						<a href="${pageContext.request.contextPath}/store/stock/supplier" >Supplier</a>	
-						<a href="${pageContext.request.contextPath}/store/stock/view/log/1" >Stock Log</a>								
+						<a href="${pageContext.request.contextPath}/store/stock/view/alllog/1" >Stock Log</a>								
 			</div>
 			
 	  </div>

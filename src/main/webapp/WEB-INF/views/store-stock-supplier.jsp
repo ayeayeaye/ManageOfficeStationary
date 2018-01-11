@@ -35,9 +35,7 @@ function myFunction() {
 	        tr[row].style.display = "none";
 	      }
 	    }
-      
-	
-  }
+    }
 }
 
 
@@ -68,9 +66,8 @@ function checkCategoryExist() {
 	<div class="link-menu">
 		<p class="navbar-text navbar-right">
 			<a href="${pageContext.request.contextPath}/store/stock/view">Stock</a>
-			<a href="${pageContext.request.contextPath}/all/view/catalogue">Item Catalogue</a>
 			<span><a href="${pageContext.request.contextPath}/store/stock/supplier" >Supplier</a></span>						
-			<a href="${pageContext.request.contextPath}/store/stock/view/log/1" >Stock Log</a>	
+			<a href="${pageContext.request.contextPath}/store/stock/view/alllog/1" >Stock Log</a>	
 		</p>
 	</div>
 </div>

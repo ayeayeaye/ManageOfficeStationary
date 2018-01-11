@@ -17,5 +17,11 @@
 ${newAddStock}
 itemId = ${itemId} --%>
 <%-- item = ${stock} . --%>
-- ${updItem}
+<%-- - ${updItem} --%>
 
+User
+${user}
+Message
+${message}
+Emp
+-${a.uEmpModel.designation}-
