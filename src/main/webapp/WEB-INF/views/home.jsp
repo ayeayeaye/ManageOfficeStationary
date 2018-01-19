@@ -18,7 +18,7 @@
 
 <div class="container">
 
-	<form:form action="${pageContext.request.contextPath}/login" commandName="user" method="POST" cssClass="form">
+	<form:form action="${pageContext.request.contextPath}/login/authentiate" commandName="user" method="POST" cssClass="form">
 		<div class="form-group">
 			<table>
 				<tr>
@@ -29,6 +29,7 @@
 					<div class="input-group">
 						<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
 						<form:input path="userName" cssClass="form-control" size="60" />
+						<form:errors path="userName" cssClass="error"></form:errors>
 					</div>
 					</td>				
 				</tr>

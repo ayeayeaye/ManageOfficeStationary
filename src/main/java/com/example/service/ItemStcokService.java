@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.example.model.Category;
 import com.example.model.ItemStcok;
@@ -16,5 +17,7 @@ public interface ItemStcokService {
 	void saveItem(ItemStcok newItem);
 
 	ItemStcok findItemById(Integer itemId);
+
+	List<ItemStcok> findLowStockItem();
 
 }

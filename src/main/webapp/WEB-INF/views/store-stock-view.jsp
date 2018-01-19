@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<link rel="STYLESHEET" type="text/css" href="${pageContext.request.contextPath}/css/style.css" rel="STYLESHEET" type="text/css">
-<link rel="STYLESHEET" type="text/css" href="${pageContext.request.contextPath}/css/simple.css" rel="STYLESHEET" type="text/css">
+<link rel="STYLESHEET" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="STYLESHEET" type="text/css" href="${pageContext.request.contextPath}/css/simple.css" >
 
 <script>
 function myMainSearchFunction() {
@@ -77,14 +77,10 @@ var count=0;
 </script>
 
 <!-- 1 -->	
-		<div >
-			<h3>Item Stock</h3>
-		</div>	
-	 
-	
+<br/>
 		<div class="row" >
 		<!-- 1.1 -->
-			<div class="col-lg-5">
+			<div class="col-lg-4">
 				<div class="input-group mb-2 mr-sm-2 mb-sm-0"> <!-- to combine search & input box -->
 					<div class="input-group-addon">Search</div>
 					<input type="text"  class="form-control" id="inputSearch" onkeyup="myMainSearchFunction()" placeholder="Enter item">

@@ -159,14 +159,14 @@ public class StoreStockController {
 		moView.addObject("tenStockLogList", createPagination(allStockLogList,page));
 		moView.addObject("currentPage", page);
 		
-		//FILTER FIELD
+/*		//FILTER FIELD
 		//Item Name
 		ArrayList<ItemStcok> itemLists = itService.findAllItem(); 
 		moView.addObject("fItems", itemLists);
 		//Employee
 		moView.addObject("fEmps",empService.findAllEmp());
 		//Supervisor
-		moView.addObject("fSups",supService.findAllSup());
+		moView.addObject("fSups",supService.findAllSup());*/
 		
 		return moView;
 	}

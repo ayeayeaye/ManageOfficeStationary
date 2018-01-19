@@ -23,14 +23,15 @@ public class HomeController {
 	@Autowired
 	UserService uService;
 
-	@RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/","/home","/login"}, method = RequestMethod.GET)
 	public ModelAndView home( )
 	{		
 		return new ModelAndView("home", "user", new User());
+		
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute("user") User user, BindingResult result, HttpSession session )
+	@RequestMapping(value = "/login/authentiate", method = RequestMethod.POST)
+	public ModelAndView login(@ModelAttribute("user") User user, BindingResult result, HttpSession session )
 	{		
 		List<User> userList = uService.findAllUser();
 		User validLoginUser =  new User();
@@ -46,6 +47,7 @@ public class HomeController {
 					if( user.getUserName().equals(auser.getUserName()) && user.getPassword().equals(auser.getPassword()) )
 					{
 						validLoginUser = auser;
+						break;
 					}
 				}	
 						
@@ -66,23 +68,28 @@ public class HomeController {
 					}	
 			}
 			catch (NullPointerException e) {
-				msg = "redirect:/home";
+				return new ModelAndView("login-invalid", "message","User Name and/or Password is wrong!" );
 			}
 		}
 		else
 		{
-			msg = "redirect:/home";
+			return new ModelAndView("login-invalid", "message","User Name and/or Password is wrong!" );
 		}
-					
-
-			
-			UserSession userSession = new UserSession();
+		UserSession userSession = new UserSession();
 			userSession.setSessionId(session.getId());
 			userSession.setUser(validLoginUser);
 			
 			session.setAttribute("USERSESSION", userSession);
 			
-			return msg;
+			return new ModelAndView(msg);
+	}
+	
+	
+	@RequestMapping(value="/login/invalid")
+	public ModelAndView invalidLogin( )
+	{
+		return new ModelAndView("login-invalid", "message","User Name and/or Password is wrong!" );
+		
 	}
 	
 	@RequestMapping(value="/logout")

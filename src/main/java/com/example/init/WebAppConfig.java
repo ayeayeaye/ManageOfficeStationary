@@ -34,7 +34,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableTransactionManagement
 @ComponentScan(basePackages="com.example")
 @PropertySource({ "classpath:application.properties",
-		"classpath:/i18n/messages-zh.properties" })
+		"classpath:/i18n/messages.properties" })
 @EnableJpaRepositories("com.example.repository")
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 

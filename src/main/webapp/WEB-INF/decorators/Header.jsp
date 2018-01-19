@@ -13,7 +13,8 @@
 }
 h3
 {
-	color: gray;
+	color: white;
+	font:bolder;
 	margin-left: 100px;
 }
 
@@ -22,6 +23,7 @@ h3
 
 		
 <div class="head">	
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -29,8 +31,8 @@ h3
     </div>
     <ul class="nav navbar-nav navbar-right">
     	 <c:if test="${sessionScope.USERSESSION.getSessionId() ne null}"> 
-    	 	<li><a href="#"><span class="glyphicon glyphicon-user"></span> ${sessionScope.USERSESSION.user.userName}</a></li>
-    	 	<li><a href="${pageContext.request.contextPath}/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+    	 	<li><a href="#"  style="color: white;"><span class="glyphicon glyphicon-user"></span> ${sessionScope.USERSESSION.user.userName}</a></li>
+    	 	<li><a href="${pageContext.request.contextPath}/logout" ><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
     	 </c:if>		
     </ul>
   </div>

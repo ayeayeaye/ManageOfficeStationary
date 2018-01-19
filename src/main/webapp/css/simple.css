@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 /* /* make table scrollable */ */
 .table-scroll thead {
-  width: 100%;
+  width: 97%;
 }
 .table-scroll tbody {
   height: 300px;

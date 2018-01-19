@@ -2,6 +2,8 @@ package com.example.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.model.Category;
 import com.example.model.Department;
+import com.example.model.ItemStcok;
 import com.example.model.RequestDetail;
 import com.example.model.Requests;
 import com.example.service.CategoryService;
@@ -56,6 +59,9 @@ public class StoreRequestController {
 		
 		ArrayList<Department> deptList = dService.getAllDept();
 		moView.addObject("deptList", deptList);
+		
+		List<ItemStcok> lowStitemList = iService.findLowStockItem();		
+		moView.addObject("lowStitemList", lowStitemList);
 		
 		return moView;	
 	}

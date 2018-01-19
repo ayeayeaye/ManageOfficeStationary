@@ -72,11 +72,7 @@ window.onload = function(){
 <label id="lbCurPage" hidden="">${currentPage}</label>
 <label id="lbLPages" hidden="">${pageNo}</label>
 
-
-<div >
-	<h3>Item Stock</h3>
-</div>	
-
+<br/>
 <!-- 1 Row -->
 <div class="row" >
 
@@ -95,7 +91,7 @@ window.onload = function(){
 
 <!-- 2 Row -->
 
-<div class="row" >
+<%-- <div class="row" >
 		<form>
 			<div class="form-group col-sm-2 col-xs-6">
 
@@ -113,7 +109,7 @@ window.onload = function(){
 
 			</div>				
 		</form>
-</div>
+</div> --%>
 
 <script>
 $(function () {
@@ -123,9 +119,7 @@ $(function () {
 </script>
 
 
-<!-- 3.1 -->
-<div>
-			
+<!-- 3.1 -->	
 			<table id="myTable" class="table table-striped">
 				<thead>
 					<tr>
@@ -159,19 +153,3 @@ $(function () {
 			<c:forEach begin="1" end="${pageNo}" var="number" >
 				<a href="${pageContext.request.contextPath}/store/stock/view/alllog/${number}">${number}</a>
 			</c:forEach>
-		
-<!-- 2.2 -->
-<!-- <div class="col-lg-3" >
-   <br><br>
-	<div class="panel panel-default">
-		<div  class="panel panel-heading">
-			<h5  class="panel panel-title"> </h5>
-		</div>
-		<div  class="panel panel-body">
-		
-		</div>
-	</div>
-
-</div> -->
-
-</div>

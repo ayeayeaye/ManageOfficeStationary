@@ -49,11 +49,7 @@ function checkCategoryExist() {
 }
 	
 </script>
-
-<div>
-	<h3>Stock</h3>
-</div>
-	
+<br/>	
 <div class="row">
 <!-- 1.1 -->	
 	<div class="col-lg-7">

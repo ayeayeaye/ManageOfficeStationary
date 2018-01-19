@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -46,6 +47,12 @@ public class ItemStcokServiceImp implements ItemStcokService {
 	public ItemStcok findItemById(Integer itemId) {
 		ItemStcok a = repository.findItemById(itemId);
 		return a;
+	}
+
+	@Override
+	public List<ItemStcok> findLowStockItem() {
+		List<ItemStcok> lowStItems = repository.findLowStockItem();
+		return lowStItems;
 	}
 
 

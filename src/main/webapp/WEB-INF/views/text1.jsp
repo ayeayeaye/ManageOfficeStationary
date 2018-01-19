@@ -19,9 +19,13 @@ itemId = ${itemId} --%>
 <%-- item = ${stock} . --%>
 <%-- - ${updItem} --%>
 
-User
+<%-- User
 ${user}
 Message
 ${message}
 Emp
 -${a.uEmpModel.designation}-
+ --%>
+ 
+ LS
+ ${lowStitemList}
