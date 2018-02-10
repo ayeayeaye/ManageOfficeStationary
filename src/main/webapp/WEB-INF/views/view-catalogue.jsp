@@ -147,11 +147,11 @@ function checkCategoryExist() {
 						 <tr>
 						    <td>Category</td>
 						    <td>:
-						    	<form:select path="category">
-									<c:forEach items="${catList}" var="cat" >
+						  <form:select path="category">
+								<c:forEach items="${catList}" var="cat" >
 						    		<form:option value="${cat.categoryId}" label="${cat.categoryName}"></form:option>
-						    		</c:forEach>
-						    	</form:select>
+						    	</c:forEach>
+						   </form:select>
 						    	</td>	
 						    					     							     
 						 </tr>	

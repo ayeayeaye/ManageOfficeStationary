@@ -52,7 +52,7 @@ window.onload = function() {
 
  <c:if test="${sessionScope.USERSESSION.getSessionId() ne null}"> 
 
- <c:set value="${pageContext.request.requestURL}" var="currentPageUrl"></c:set>
+<c:set value="${pageContext.request.requestURL}" var="currentPageUrl"></c:set>
 <label id="mycurrentUrl" hidden="">${currentPageUrl}</label>
  
 	<div class="sidenav">	
